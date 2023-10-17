@@ -1,0 +1,25 @@
+$black: #231f20;
+$white: #fff;
+$gray1: #414042;
+$gray2: #58595b;
+$gray3: #6d6e71;
+$gray4: #808285;
+$gray5: #939598;
+$background-gradient: linear-gradient(90deg, #414042 0%, #030303 99.99%, #231f20 100%);
+$background-gradient-mobile: linear-gradient(90deg, #414042 0%, #2d2d2d 99.99%, #231f20 100%);
+
+$default-transition: .3s ease-out;
+
+//Fonts
+$ff-regular: RobotoMono-Regular, sans-serif;
+$ff-additional: RussoOne-Regular, sans-serif;
+
+$padding: 2rem;
+$container-width: 1200px;
+
+//Breakpoints
+$breakpoints: (
+    mobile: 0,
+    tablet: 768px,
+    desktop: 1280px,
+);

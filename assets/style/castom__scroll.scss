@@ -1,0 +1,38 @@
+.custom-scroll {
+    overflow-y: auto;
+    scrollbar-color: $gray1;
+    scrollbar-width: thin;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    /* 1 - скроллбар */
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 1rem;
+    border-radius: 1rem;
+    background: $gray1;
+}
+
+.custom-scroll::-webkit-scrollbar-button {
+    /* 2 - кнопка */
+    height: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    /* 3 - трек */
+    border: .6rem solid $gray1;
+}
+
+.custom-scroll::-webkit-scrollbar-track-piece {
+    /* 4 - видимая часть трека */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    /* 5 - ползунок */
+    width: 1rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background: $gray1;
+}

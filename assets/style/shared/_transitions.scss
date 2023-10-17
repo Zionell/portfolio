@@ -1,0 +1,43 @@
+.page-enter-active,
+.page-leave-active {
+  transition: opacity .5s;
+}
+
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.dropdown-enter-active {
+  transition: opacity .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.dropdown-leave-active {
+  transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+}
+
+.dropdown-enter,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .2s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.swipe-right-enter-active,
+.swipe-right-leave-active {
+  transition: transform .4s;
+}
+
+.swipe-right-enter,
+.swipe-right-leave-active {
+  transform: translateX(-100%);
+}
