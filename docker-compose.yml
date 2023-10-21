@@ -23,8 +23,8 @@ services:
     build:
       context: .
     command: npm run start
-    env_file:
-      - .env
+    environment:
+      - SERVER_API
     volumes:
       - nuxt:/app/nuxt_volume:delegated
 
