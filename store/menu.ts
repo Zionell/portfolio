@@ -9,6 +9,10 @@ export const useMenuStore = defineStore('menu', {
                 value: 'about',
             },
             {
+                label: 'Experience',
+                value: 'experience',
+            },
+            {
                 label: 'Skills & Tools',
                 value: 'skills',
             },

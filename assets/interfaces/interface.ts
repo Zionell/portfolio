@@ -60,3 +60,12 @@ export interface IWorkCard {
     imageSrc: string
     stack: string[]
 }
+
+export interface IExperience {
+    company: string
+    position: string
+    period: string
+    tasks: string
+    achievements: string
+    stack: string
+}

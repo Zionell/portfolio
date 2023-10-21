@@ -8,7 +8,7 @@ import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
 
-const myProfession = 'Frontend-разработчик'.split('');
+const myProfession = 'Frontend-developer'.split('');
 const handleClick = (): void => {
 	gsap.to(window, {duration: 1, scrollTo: '#about'});
 };
@@ -29,15 +29,6 @@ const initialAnimation = () => {
 		stagger: 0.1,
 	});
 };
-// gsap.to("#image", {
-//     scrollTrigger: {
-//         trigger: "#main",
-//         start: "20% top",
-//         markers: true
-//     },
-//     x: -600,
-//     duration: 1,
-// },);
 
 onMounted((): void => {
 	initialAnimation();
@@ -141,6 +132,7 @@ onMounted((): void => {
 		}
 
 		@include respond-to(mobile) {
+			align-self: flex-start;
 			font-size: 3.2rem;
 		}
 	}

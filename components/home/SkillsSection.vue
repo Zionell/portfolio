@@ -2,11 +2,14 @@
 	setup
 	lang="ts"
 >
-import {useNuxtApp} from "nuxt/app";
 import {onMounted, ref} from "vue";
-import {HtmlType, SwiperType} from "~/assets/types";
+import {HtmlType} from "~/assets/types";
 import {PropType} from "@vue/runtime-core";
-import {ISkill} from "assets/interfaces/interface";
+import {ISkill} from "~/assets/interfaces/interface";
+import {gsap} from "gsap";
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger)
 
 const props = defineProps({
 	title: {
@@ -19,17 +22,40 @@ const props = defineProps({
 		default: () => []
 	}
 });
+
+const sectionRef = ref<HtmlType>(null)
+
+function scrollAnimation(): void {
+	gsap.from('.skillRefs', {
+		scrollTrigger: {
+			trigger: sectionRef.value,
+			start: 'top 50%',
+			toggleActions: 'play none play reverse',
+		},
+		x: '100vw',
+		duration: .2,
+		delay: 0.2,
+		stagger: 0.1,
+	})
+}
+
+onMounted((): void => {
+	scrollAnimation()
+})
 </script>
 
 <template>
 	<div :class="$style.HomeSkillsSection">
 		<h2 :class="$style.title">{{ title }}</h2>
 
-		<div :class="$style.wrapper">
+		<div
+			ref="sectionRef"
+			:class="$style.wrapper"
+		>
 			<div
 				v-for="(slide, ind) in slides"
 				:key="ind"
-				:class="$style.card"
+				:class="[$style.card, 'skillRefs']"
 			>
 				<UiVIcon
 					:name="slide.icon"

@@ -6,8 +6,8 @@ import {onMounted, ref} from 'vue'
 import {gsap} from "gsap";
 import {HtmlType} from "~/assets/types";
 import {useContactsStore} from "~/store/contacts";
-import { TextPlugin } from 'gsap/TextPlugin';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {TextPlugin} from 'gsap/TextPlugin';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
@@ -61,7 +61,13 @@ onMounted((): void => {
 					/>
 				</a>
 				<span ref="socialLineRef" />
-				<p ref="socialItemRef" />
+				<a
+					ref="socialItemRef"
+					:class="$style.socialLink"
+					:href="s.link"
+					target="_blank"
+					rel="noreferrer"
+				/>
 			</div>
 		</div>
 		<UiVIcon
@@ -111,10 +117,6 @@ onMounted((): void => {
 	.social {
 		display: flex;
 		align-items: center;
-		color: $gray5;
-		font-size: 2rem;
-		line-height: 140%;
-		user-select: none;
 
 		span {
 			display: inline-flex;
@@ -126,6 +128,13 @@ onMounted((): void => {
 		@include respond-to(mobile) {
 			font-size: 1.4rem;
 		}
+	}
+
+	.socialLink {
+		color: $gray5;
+		font-size: 2rem;
+		line-height: 140%;
+		user-select: none;
 	}
 
 	.socialLinks {

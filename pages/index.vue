@@ -5,6 +5,7 @@
     <main :class="$style.index">
 		<HomeHero />
 		<HomeAboutMe />
+		<HomeExperience />
 		<HomeSkills />
 		<HomeWorks />
 		<CommonContacts />

@@ -6,7 +6,7 @@ import {onMounted, ref} from 'vue'
 import {gsap} from 'gsap'
 import {HtmlType} from "~/assets/types";
 import {useAboutStore} from "~/store/about";
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -39,9 +39,10 @@ onMounted((): void => {
 		:class="[$style.HomeAboutMe, 'section']"
 	>
 		<h2 :class="[$style.title, 'title']">About me</h2>
-		<p v-for="(text, ind) in $state"
+		<p
+			v-for="(text, ind) in $state"
 			ref="paragraphRefs"
-		   :key="ind"
+			:key="ind"
 			:class="$style.paragraph"
 			v-html="text.value"
 		/>
@@ -63,6 +64,10 @@ onMounted((): void => {
 
 	.title {
 		padding-bottom: 5.6rem;
+
+		@include respond-to(mobile) {
+			padding-bottom: 3.2rem;
+		}
 	}
 
 	.paragraph {

@@ -38,6 +38,10 @@ const {$state} = useWorksStore()
 	.title {
 		flex: 1 1 100%;
 		padding-bottom: 5.6rem;
+
+		@include respond-to(mobile) {
+			padding-bottom: 3.2rem;
+		}
 	}
 
 	.card {
