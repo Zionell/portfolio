@@ -152,6 +152,11 @@ onMounted((): void => {
 		border-radius: 1rem 10rem;
 		filter: drop-shadow(10px 4px 6px black);
 
+		@include respond-to(tablet) {
+			max-width: 70rem;
+			max-height: 50rem;
+		}
+
 		@include respond-to(mobile) {
 			height: 28rem;
 			border-radius: 1rem 5rem;
@@ -162,11 +167,6 @@ onMounted((): void => {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-
-		@include respond-to(tablet) {
-			max-width: 70rem;
-			max-height: 50rem;
-		}
 	}
 
 	.label {

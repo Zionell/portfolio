@@ -47,7 +47,9 @@ export default defineNuxtConfig(<NuxtOptionsHead>{
     // Nuxt images module
     image: {
         inject: true,
-        domains: [env.SERVER_API],
+        provider: 'customProvider',
+
+        // domains: [env.SERVER_API],
         screens: { ...breakpoints, desktop: 1920 },
 
         intersectOptions: {
@@ -65,10 +67,11 @@ export default defineNuxtConfig(<NuxtOptionsHead>{
 
         providers: {
             customProvider: {
-                name: 'customProvider',
                 provider: '~/config/imageProvider',
                 options: {
                     baseURL: env.SERVER_API,
+                    staticFolder: '/images', // redirect to internal url, if url from static folder
+                    quality: 80, // Default quality
                 },
             },
         },
