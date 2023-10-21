@@ -3,8 +3,8 @@
 	lang="ts"
 >
 import {onMounted} from 'vue'
-import gsap from "gsap";
-import {ScrollToPlugin} from 'gsap/dist/ScrollToPlugin';
+import {gsap} from "gsap";
+import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
 
