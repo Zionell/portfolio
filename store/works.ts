@@ -20,7 +20,7 @@ export const useWorksStore = defineStore('works', {
                 name: 'AV-Dachboard',
                 imageSrc: '/images/projects/dachboard.jpg',
                 stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
-                link: 'https://dachboard.askarov.dev/',
+                link: 'https://dashboard.askarov.dev/',
             },
             {
                 name: 'Topogeo',
