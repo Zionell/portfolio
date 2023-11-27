@@ -13,8 +13,8 @@ services:
     build:
       context: ./nginx
     ports:
-      - 82:80
-      - 445:443
+      - 8082:80
+      - 40445:443
     env_file:
       - .env
 
