@@ -11,7 +11,7 @@ const {$state} = useWorksStore()
 	<section id="works" :class="[$style.HomeWorks, 'section']">
 		<h2 :class="[$style.title, 'title']">Projects</h2>
 		<HomeWorksCard
-			v-for="(card, ind) in $state"
+			v-for="(card, ind) in $state.works"
 			:key="ind"
 			:card="card"
 			:class="$style.card"

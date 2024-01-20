@@ -3,9 +3,9 @@
 	lang="ts"
 >
 import {onMounted, ref} from "vue";
-import {HtmlType} from "~/assets/types";
-import {PropType} from "@vue/runtime-core";
-import {ISkill} from "~/assets/interfaces/interface";
+import type {HtmlType} from "~/assets/types";
+import type {PropType} from "@vue/runtime-core";
+import type {ISkill} from "~/assets/interfaces/interface";
 import {gsap} from "gsap";
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
@@ -107,6 +107,7 @@ onMounted((): void => {
 	}
 
 	.label {
+        text-align: center;
 		font-size: 1.8rem;
 	}
 </style>

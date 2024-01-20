@@ -6,7 +6,6 @@ import {NuxtOptionsHead} from "@nuxt/types/config/head";
 const headConfig: NuxtOptionsHead = {
     htmlAttrs: {lang: 'ru'},
 
-    // TODO: Set site title
     title: 'Сайт-портфолио Аскаров Адилхан',
 
     // Head meta
@@ -18,7 +17,6 @@ const headConfig: NuxtOptionsHead = {
             content: 'width=device-width, initial-scale=1'
         },
 
-        // TODO: Set site description
         {
             hid: 'description',
             name: 'description',

@@ -4,7 +4,7 @@
 >
 import {onMounted, ref} from 'vue'
 import {gsap} from "gsap";
-import {HtmlType} from "~/assets/types";
+import type {HtmlType} from "~/assets/types";
 import {useContactsStore} from "~/store/contacts";
 import {TextPlugin} from 'gsap/TextPlugin';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';

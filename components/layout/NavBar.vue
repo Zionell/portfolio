@@ -3,11 +3,11 @@
 	lang="ts"
 >
 import {gsap} from "gsap";
-import {HtmlType} from "~/assets/types";
+import type {HtmlType} from "~/assets/types";
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import {useMenuStore} from "~/store/menu";
 import {useDevice} from "#imports";
-import {Device} from "@nuxtjs/device/dist/runtime/types";
+import type {Device} from "@nuxtjs/device/dist/runtime/types";
 
 gsap.registerPlugin(ScrollToPlugin);
 

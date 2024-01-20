@@ -4,7 +4,7 @@
 >
 import {onMounted, ref} from "vue";
 import {useExperienceStore} from "~/store/experience"
-import {HtmlType} from "~/assets/types";
+import type {HtmlType} from "~/assets/types";
 import {gsap} from "gsap";
 
 const sectionRef = ref<HtmlType>(null)

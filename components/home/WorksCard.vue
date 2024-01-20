@@ -3,10 +3,10 @@
 	lang="ts"
 >
 
-import {PropType} from "@vue/runtime-core";
-import {IWorkCard} from "assets/interfaces/interface";
+import type {PropType} from "@vue/runtime-core";
+import type {IWorkCard} from "assets/interfaces/interface";
 import {useDevice} from "#imports";
-import {Device} from "@nuxtjs/device/dist/runtime/types";
+import type {Device} from "@nuxtjs/device/dist/runtime/types";
 
 const {isMobile} = <Device>useDevice()
 
@@ -17,7 +17,11 @@ const props = defineProps({
 	}
 })
 
-function toProject(): void {
+const imageSrc = computed(() => {
+    return `/images/projects/${props.card.slug}.jpg`
+})
+
+const toProject = (): void => {
 	if (isMobile) {
 		window.open(props.card.link);
 	}
@@ -31,14 +35,19 @@ function toProject(): void {
 	>
 		<div :class="$style.cardImageWrap">
 			<NuxtImg
+                v-if="imageSrc"
 				:class="$style.cardImage"
 				:alt="card.name"
-				:src="card.imageSrc"
+				:src="imageSrc"
+                loading="lazy"
 				:modifiers="{
 					format: 'webp'
 				}"
 				placeholder
 			/>
+            <div v-else :class="$style.empty">
+                &#8826; NOT FOUND &#8827;
+            </div>
 		</div>
 		<h5 :class="$style.cardProjectName">{{ card.name }}</h5>
 		<div :class="$style.cardStackWrap">
@@ -101,6 +110,7 @@ function toProject(): void {
 		bottom: 0;
 		left: 0;
 		z-index: 0;
+        background: $gray3;
 		transition: $default-transition;
 	}
 
@@ -108,6 +118,16 @@ function toProject(): void {
 		width: 100%;
 		height: 100%;
 	}
+
+    .empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
 
 	.cardProjectName {
 		position: relative;

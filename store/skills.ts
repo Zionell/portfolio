@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {ISkills} from "~/assets/interfaces/interface";
+import type {ISkills} from "~/assets/interfaces/interface";
 
 export const useSkillsStore = defineStore('skills', {
     state: (): ISkills[] => {
@@ -25,7 +25,10 @@ export const useSkillsStore = defineStore('skills', {
                 label: 'Vue'
             }, {
                 icon: 'nuxt',
-                label: 'Nuxt'
+                label: 'Nuxt.js'
+            }, {
+                icon: 'nextjs',
+                label: 'Next.js'
             }, {
                 icon: 'ts',
                 label: 'TypeScript'
@@ -38,6 +41,9 @@ export const useSkillsStore = defineStore('skills', {
             }, {
                 icon: 'redux',
                 label: 'Redux'
+            }, {
+                icon: 'tailwindcss',
+                label: 'Tailwind CSS'
             }, {
                 icon: 'axios',
                 label: 'Axios'

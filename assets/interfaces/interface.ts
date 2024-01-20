@@ -57,8 +57,8 @@ export interface ITag {
 export interface IWorkCard {
     link: string
     name: string
-    imageSrc: string
     stack: string[]
+    slug: string
 }
 
 export interface IExperience {

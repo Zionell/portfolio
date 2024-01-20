@@ -1,51 +1,61 @@
 import {defineStore} from "pinia";
 import {IWorkCard} from "~/assets/interfaces/interface";
 
+type WorksType = {
+    works: IWorkCard[]
+}
+
 export const useWorksStore = defineStore('works', {
-    state: (): IWorkCard[] => {
-        return [
+    state: ():WorksType  => ({
+        works: [
             {
                 name: 'Sarawan',
-                imageSrc: '/images/projects/sarawan.jpg',
+                slug: 'sarawan',
                 stack: ['react', 'redux', 'sass'],
                 link: 'https://sarawan.ru/',
             },
             {
                 name: 'Portfolio',
-                imageSrc: '/images/projects/lyaman-portfolio.png',
+                slug: 'lyaman',
                 stack: ['nuxt', 'vue', 'sass', 'axios'],
                 link: 'https://lyaman-askerova.kz/',
             },
             {
                 name: 'AV-Dachboard',
-                imageSrc: '/images/projects/dachboard.jpg',
+                slug: 'dachboard',
                 stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
                 link: 'https://dashboard.askarov.dev/',
             },
             {
                 name: 'Topogeo',
-                imageSrc: '/images/projects/topogeo.jpg',
+                slug: 'topogeo',
                 stack: ['html', 'css', 'js'],
                 link: 'https://zionell.github.io/Topogeo/',
             },
             {
                 name: 'Online-shop The Brand',
-                imageSrc: '/images/projects/theBrand.jpg',
+                slug: 'the-brand',
                 stack: ['html', 'css', 'js'],
                 link: 'https://zionell.github.io/The-brand/',
             },
             {
                 name: 'Rendered',
-                imageSrc: '/images/projects/rendered.png',
+                slug: 'rendered',
                 stack: ['html', 'css'],
                 link: 'https://zionell.github.io/rendered/',
             },
             {
                 name: 'MoGo',
-                imageSrc: '/images/projects/mogo.png',
+                slug: 'mogo',
                 stack: ['html', 'css', 'js'],
                 link: 'https://zionell.github.io/mogo/',
             },
+            {
+                name: 'LiveSimply',
+                slug: 'livesimply',
+                stack: ['nextjs', 'ts', 'tailwindcss'],
+                link: 'https://live-simply.vercel.app/',
+            },
         ]
-    },
+    }),
 })

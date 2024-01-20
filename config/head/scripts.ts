@@ -20,7 +20,6 @@ const headScripts: IYMetrika[] = [
             async: true,
         }
         : {},
-
 ];
 
 const headNoScripts: IYMetrika[] = [

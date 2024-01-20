@@ -1,6 +1,6 @@
-import { defineNuxtConfig } from 'nuxt/config';
+import {defineNuxtConfig} from 'nuxt/config';
 import headConfig from './config/head.config';
-import { IEnv } from 'assets/interfaces/interface';
+import {IEnv} from 'assets/interfaces/interface';
 import {NuxtOptionsHead} from "@nuxt/types/config/head";
 
 const env: IEnv = {
@@ -50,7 +50,7 @@ export default defineNuxtConfig(<NuxtOptionsHead>{
         provider: 'customProvider',
 
         // domains: [env.SERVER_API],
-        screens: { ...breakpoints, desktop: 1920 },
+        screens: {...breakpoints, desktop: 1920},
 
         intersectOptions: {
             rootMargin: '50px',
