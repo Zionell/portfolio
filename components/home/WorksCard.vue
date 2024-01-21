@@ -50,6 +50,9 @@ const toProject = (): void => {
             </div>
 		</div>
 		<h5 :class="$style.cardProjectName">{{ card.name }}</h5>
+        <div v-if="card.isDeveloping" :class="$style.tag">
+            В разработке
+        </div>
 		<div :class="$style.cardStackWrap">
 			<p :class="$style.cardStackTitle">Stack:</p>
 			<div :class="$style.cardStackItems">
@@ -89,11 +92,9 @@ const toProject = (): void => {
 			}
 
 			.cardProjectName,
-			.cardStackWrap {
-				opacity: 1;
-			}
-
-			.cardLink {
+			.cardStackWrap,
+			.cardLink,
+            .tag {
 				opacity: 1;
 			}
 		}
@@ -179,4 +180,17 @@ const toProject = (): void => {
 			color: $black;
 		}
 	}
+
+    .tag {
+        position: relative;
+        z-index: 2;
+        margin-bottom: .8rem;
+        padding: 0.8rem 1.6rem;
+        width: fit-content;
+        border-radius: 0.8rem;
+        background: red;
+        color: white;
+        font-size: 1.4rem;
+        opacity: 0;
+    }
 </style>

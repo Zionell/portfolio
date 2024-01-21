@@ -59,6 +59,7 @@ export interface IWorkCard {
     name: string
     stack: string[]
     slug: string
+    isDeveloping?: boolean
 }
 
 export interface IExperience {

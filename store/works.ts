@@ -55,6 +55,7 @@ export const useWorksStore = defineStore('works', {
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss'],
                 link: 'https://live-simply.vercel.app/',
+                isDeveloping: true
             },
         ]
     }),
