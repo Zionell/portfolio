@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {IWorkCard} from "~/assets/interfaces/interface";
+import type {IWorkCard} from "~/assets/interfaces/interface";
 
 type WorksType = {
     works: IWorkCard[]

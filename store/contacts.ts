@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {IContact} from "~/assets/interfaces/interface";
+import type {IContact} from "~/assets/interfaces/interface";
 
 export const useContactsStore = defineStore('contacts', {
     state: (): IContact[] => {
@@ -10,6 +10,11 @@ export const useContactsStore = defineStore('contacts', {
                 link: 'https://github.com/Zionell',
             },
             {
+                name: 'LinkedIn',
+                icon: 'linkedin',
+                link: 'https://www.linkedin.com/in/adilkhan-askarov-frontend/',
+            },
+            {
                 name: 'Instagram',
                 icon: 'instagram',
                 link: 'https://www.instagram.com/adilhan96/',
@@ -18,11 +23,6 @@ export const useContactsStore = defineStore('contacts', {
                 name: 'Telegram',
                 icon: 'telegram',
                 link: 'https://t.me/Adilhan96',
-            },
-            {
-                name: 'VKontakte',
-                icon: 'vk',
-                link: 'https://vk.com/id142718327',
             },
             {
                 name: 'WhatsApp',
