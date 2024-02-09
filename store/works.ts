@@ -57,6 +57,13 @@ export const useWorksStore = defineStore('works', {
                 link: 'https://live-simply.vercel.app/',
                 isDeveloping: true
             },
+            {
+                name: 'Tourmetria',
+                slug: 'tourmetria',
+                stack: ['nuxt', 'vue', 'sass'],
+                link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
+                isDeveloping: true
+            },
         ]
     }),
 })

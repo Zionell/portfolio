@@ -51,7 +51,7 @@ const toProject = (): void => {
 		</div>
 		<h5 :class="$style.cardProjectName">{{ card.name }}</h5>
         <div v-if="card.isDeveloping" :class="$style.tag">
-            В разработке
+            Developing
         </div>
 		<div :class="$style.cardStackWrap">
 			<p :class="$style.cardStackTitle">Stack:</p>

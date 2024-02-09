@@ -1,7 +1,7 @@
 import {defineNuxtConfig} from 'nuxt/config';
 import headConfig from './config/head.config';
-import {IEnv} from 'assets/interfaces/interface';
-import {NuxtOptionsHead} from "@nuxt/types/config/head";
+import type {IEnv} from 'assets/interfaces/interface';
+import type {NuxtOptionsHead} from "@nuxt/types/config/head";
 
 const env: IEnv = {
     SERVER_API: process.env.SERVER_API || '',
