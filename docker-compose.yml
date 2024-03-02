@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   nginx:
+    restart: always
     volumes:
       - nginx_cache:/var/lib/nginx/proxy_cache
       - static:/app/www/static/

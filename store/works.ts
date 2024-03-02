@@ -19,12 +19,28 @@ export const useWorksStore = defineStore('works', {
                 slug: 'lyaman',
                 stack: ['nuxt', 'vue', 'sass', 'axios'],
                 link: 'https://lyaman-askerova.kz/',
+                isDeveloping: true
+            },
+            {
+                name: 'LiveSimply',
+                slug: 'livesimply',
+                stack: ['nextjs', 'ts', 'tailwindcss'],
+                link: 'https://live-simply.askarov.dev/',
+                isDeveloping: true
+            },
+            {
+                name: 'Tourmetria',
+                slug: 'tourmetria',
+                stack: ['nuxt', 'vue', 'sass'],
+                link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
+                isDeveloping: true
             },
             {
                 name: 'AV-Dachboard',
                 slug: 'dachboard',
                 stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
                 link: 'https://dashboard.askarov.dev/',
+                isDeveloping: true
             },
             {
                 name: 'Topogeo',
@@ -49,20 +65,6 @@ export const useWorksStore = defineStore('works', {
                 slug: 'mogo',
                 stack: ['html', 'css', 'js'],
                 link: 'https://zionell.github.io/mogo/',
-            },
-            {
-                name: 'LiveSimply',
-                slug: 'livesimply',
-                stack: ['nextjs', 'ts', 'tailwindcss'],
-                link: 'https://live-simply.vercel.app/',
-                isDeveloping: true
-            },
-            {
-                name: 'Tourmetria',
-                slug: 'tourmetria',
-                stack: ['nuxt', 'vue', 'sass'],
-                link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
-                isDeveloping: true
             },
         ]
     }),

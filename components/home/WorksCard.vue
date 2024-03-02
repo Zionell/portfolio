@@ -5,10 +5,6 @@
 
 import type {PropType} from "@vue/runtime-core";
 import type {IWorkCard} from "assets/interfaces/interface";
-import {useDevice} from "#imports";
-import type {Device} from "@nuxtjs/device/dist/runtime/types";
-
-const {isMobile} = <Device>useDevice()
 
 const props = defineProps({
 	card: {
@@ -22,9 +18,7 @@ const imageSrc = computed(() => {
 })
 
 const toProject = (): void => {
-	if (isMobile) {
-		window.open(props.card.link);
-	}
+    window.open(props.card.link, '_blanket');
 };
 </script>
 
@@ -68,9 +62,7 @@ const toProject = (): void => {
 			:class="$style.cardLink"
 			:href="card.link"
 			target="_blank"
-		>
-			go
-		</a>
+		/>
 	</div>
 </template>
 
@@ -85,6 +77,7 @@ const toProject = (): void => {
 		height: 36rem;
 		padding: 2.4rem;
 		border-radius: 1rem;
+        cursor: pointer;
 
 		@include hover {
 			.cardImageWrap {
@@ -93,7 +86,6 @@ const toProject = (): void => {
 
 			.cardProjectName,
 			.cardStackWrap,
-			.cardLink,
             .tag {
 				opacity: 1;
 			}
@@ -157,28 +149,6 @@ const toProject = (): void => {
 	.cardStackItems {
 		display: flex;
 		gap: .8rem;
-	}
-
-	.cardLink {
-		position: absolute;
-		right: 1rem;
-		bottom: 1rem;
-		z-index: 2;
-		opacity: 0;
-		padding: .6rem 2rem;
-		border-radius: 50px;
-		background: rgba(0, 0, 0, .7);
-		text-transform: uppercase;
-		font-size: 1.8rem;
-		color: $gray5;
-		transition: $default-transition;
-		box-shadow: 0 0 3px $white;
-		user-select: none;
-
-		@include hover {
-			background: $white;
-			color: $black;
-		}
 	}
 
     .tag {

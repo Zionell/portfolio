@@ -18,14 +18,14 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'js',
                 label: 'JavaScript'
             }, {
-                icon: 'nodejs',
-                label: 'Node.js'
-            }, {
                 icon: 'vue',
                 label: 'Vue'
             }, {
                 icon: 'nuxt',
                 label: 'Nuxt.js'
+            }, {
+                icon: 'react',
+                label: 'React'
             }, {
                 icon: 'nextjs',
                 label: 'Next.js'
@@ -33,11 +33,11 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'ts',
                 label: 'TypeScript'
             }, {
+                icon: 'nodejs',
+                label: 'Node.js'
+            }, {
                 icon: 'express',
                 label: 'Express'
-            }, {
-                icon: 'react',
-                label: 'React'
             }, {
                 icon: 'redux',
                 label: 'Redux'
@@ -52,7 +52,10 @@ export const useSkillsStore = defineStore('skills', {
                 label: 'Figma'
             }, {
                 icon: 'git',
-                label: 'Gir'
+                label: 'Git'
+            }, {
+                icon: 'githubIcon',
+                label: 'GitHub'
             }, {
                 icon: 'mapbox',
                 label: 'Mapbox'
@@ -69,11 +72,20 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'sequelize',
                 label: 'Sequalize'
             }, {
+                icon: 'strapi',
+                label: 'Strapi'
+            }, {
                 icon: 'mongo',
                 label: 'MongoDB'
             }, {
                 icon: 'mysql',
                 label: 'MySQL'
+            }, {
+                icon: 'postgresql',
+                label: 'Postgresql'
+            }, {
+                icon: 'docker',
+                label: 'Docker'
             }]
         }]
     },
