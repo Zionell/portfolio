@@ -5,7 +5,7 @@ const getImage = async (url, name) => {
         const browser = await puppeteer.launch({headless: 'new'});
         const page = await browser.newPage();
         await page.goto(url);
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(10000);
         await page.setViewport({width: 1440, height: 900});
         await page.screenshot({path: `public/images/projects/${name}.jpg`})
 
@@ -18,18 +18,18 @@ const getImage = async (url, name) => {
 
 const generate = () => {
     const works = [
-        {
-            slug: 'sarawan',
-            link: 'https://sarawan.ru/',
-        },
+        // {
+        //     slug: 'sarawan',
+        //     link: 'https://sarawan.ru/',
+        // },
         {
             slug: 'lyaman',
             link: 'https://lyaman-askerova.kz/',
         },
-        {
-            slug: 'livesimply',
-            link: 'https://live-simply.askarov.dev/',
-        },
+        // {
+        //     slug: 'livesimply',
+        //     link: 'https://live-simply.askarov.dev/',
+        // },
         // {
         //     slug: 'tourmetria',
         //     link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
@@ -38,22 +38,22 @@ const generate = () => {
         //     slug: 'dachboard',
         //     link: 'https://dashboard.askarov.dev/',
         // },
-        {
-            slug: 'topogeo',
-            link: 'https://zionell.github.io/Topogeo/',
-        },
-        {
-            slug: 'the-brand',
-            link: 'https://zionell.github.io/The-brand/',
-        },
-        {
-            slug: 'rendered',
-            link: 'https://zionell.github.io/rendered/',
-        },
-        {
-            slug: 'mogo',
-            link: 'https://zionell.github.io/mogo/',
-        },
+        // {
+        //     slug: 'topogeo',
+        //     link: 'https://zionell.github.io/Topogeo/',
+        // },
+        // {
+        //     slug: 'the-brand',
+        //     link: 'https://zionell.github.io/The-brand/',
+        // },
+        // {
+        //     slug: 'rendered',
+        //     link: 'https://zionell.github.io/rendered/',
+        // },
+        // {
+        //     slug: 'mogo',
+        //     link: 'https://zionell.github.io/mogo/',
+        // },
     ]
 
     works.forEach(w => getImage(w.link, w.slug))
