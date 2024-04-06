@@ -28,7 +28,7 @@ const generate = () => {
         },
         // {
         //     slug: 'livesimply',
-        //     link: 'https://live-simply.askarov.dev/',
+        //     link: 'https://livesimply.site/',
         // },
         // {
         //     slug: 'tourmetria',

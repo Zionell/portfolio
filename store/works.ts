@@ -17,15 +17,15 @@ export const useWorksStore = defineStore('works', {
             {
                 name: 'Portfolio',
                 slug: 'lyaman',
-                stack: ['nuxt', 'vue', 'sass', 'axios'],
+                stack: ['nuxt', 'vue', 'sass', 'axios', 'strapi'],
                 link: 'https://lyaman-askerova.kz/',
                 isDeveloping: true
             },
             {
                 name: 'LiveSimply',
                 slug: 'livesimply',
-                stack: ['nextjs', 'ts', 'tailwindcss'],
-                link: 'https://live-simply.askarov.dev/',
+                stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
+                link: 'https://livesimply.site/',
                 isDeveloping: true
             },
             {

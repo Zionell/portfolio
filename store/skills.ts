@@ -84,6 +84,9 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'postgresql',
                 label: 'Postgresql'
             }, {
+                icon: 'prisma',
+                label: 'Prisma'
+            },{
                 icon: 'docker',
                 label: 'Docker'
             }]
