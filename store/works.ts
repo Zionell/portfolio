@@ -25,7 +25,7 @@ export const useWorksStore = defineStore('works', {
                 name: 'LiveSimply',
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
-                link: 'https://livesimply.site/',
+                link: 'https://livesimply.site/auth/login?mode=preview',
                 isDeveloping: true
             },
             {
