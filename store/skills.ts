@@ -29,6 +29,9 @@ export const useSkillsStore = defineStore('skills', {
             }, {
                 icon: 'nextjs',
                 label: 'Next.js'
+            },{
+                icon: 'nestjs',
+                label: 'NestJS'
             }, {
                 icon: 'ts',
                 label: 'TypeScript'
@@ -39,12 +42,21 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'express',
                 label: 'Express'
             }, {
+                icon: 'pinia',
+                label: 'Pinia'
+            },{
                 icon: 'redux',
                 label: 'Redux'
             }, {
                 icon: 'tailwindcss',
                 label: 'Tailwind CSS'
             }, {
+                icon: 'vuetifyjs',
+                label: 'Vuetify'
+            },{
+                icon: 'zod',
+                label: 'Zod'
+            },{
                 icon: 'axios',
                 label: 'Axios'
             }, {
@@ -89,6 +101,30 @@ export const useSkillsStore = defineStore('skills', {
             },{
                 icon: 'docker',
                 label: 'Docker'
+            },{
+                icon: 'chartjs',
+                label: 'Chart.js'
+            },{
+                icon: 'eslint',
+                label: 'Eslint'
+            },{
+                icon: 'greensock',
+                label: 'GSAP'
+            },{
+                icon: 'jest',
+                label: 'Jest'
+            },{
+                icon: 'leaflet',
+                label: 'Leaflet'
+            },{
+                icon: 'supabase',
+                label: 'Supabase'
+            },{
+                icon: 'swagger',
+                label: 'Swagger'
+            },{
+                icon: 'firebase',
+                label: 'Firebase'
             }]
         }]
     },

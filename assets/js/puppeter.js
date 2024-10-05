@@ -22,9 +22,13 @@ const generate = () => {
         //     slug: 'sarawan',
         //     link: 'https://sarawan.ru/',
         // },
+        // {
+        //     slug: 'lyaman',
+        //     link: 'https://lyaman-askerova.kz/',
+        // },
         {
-            slug: 'lyaman',
-            link: 'https://lyaman-askerova.kz/',
+            slug: 'skshag',
+            link: 'https://skshag.ru/',
         },
         // {
         //     slug: 'livesimply',

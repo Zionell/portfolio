@@ -6,7 +6,7 @@ export const useExperienceStore = defineStore('experience', {
         return [
             {
                 company: "IdaProject",
-                position: "frontend-developer",
+                position: "middle frontend-developer",
                 period: "january 2022 — currently",
                 tasks: "Frontend development with Vue, refactoring, development of personal accounts",
                 achievements: "Gained experience in developing an application from scratch, team development, development of large projects, personal accounts, interaction with a team of designers, backend developers",

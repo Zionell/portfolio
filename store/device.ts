@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
-import {NullOrBool} from "~/assets/types";
-import {IObject} from "~/assets/interfaces/interface";
+import type {NullOrBool} from "~/assets/types";
+import type {IObject} from "~/assets/interfaces/interface";
 
 export const useDeviceStore = defineStore('device', {
     state: () => {

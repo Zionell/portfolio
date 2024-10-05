@@ -3,14 +3,14 @@
 	lang="ts"
 >
 import {onMounted, ref} from 'vue'
-import {gsap} from 'gsap'
+import gsap from 'gsap'
 import type {HtmlType} from "~/assets/types";
 import {useAboutStore} from "~/store/about";
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger)
 
-const {$state} = useAboutStore()
+const {state} = useAboutStore()
 const sectionRef = ref<HtmlType>(null)
 const paragraphRefs = ref<HtmlType[]>([])
 
@@ -40,7 +40,7 @@ onMounted((): void => {
 	>
 		<h2 :class="[$style.title, 'title']">About me</h2>
 		<p
-			v-for="(text, ind) in $state"
+			v-for="(text, ind) in state"
 			ref="paragraphRefs"
 			:key="ind"
 			:class="$style.paragraph"

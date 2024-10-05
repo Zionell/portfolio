@@ -15,13 +15,6 @@ export const useWorksStore = defineStore('works', {
                 link: 'https://sarawan.ru/',
             },
             {
-                name: 'Portfolio',
-                slug: 'lyaman',
-                stack: ['nuxt', 'vue', 'sass', 'axios', 'strapi'],
-                link: 'https://lyaman-askerova.kz/',
-                isDeveloping: true
-            },
-            {
                 name: 'LiveSimply',
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
@@ -29,19 +22,33 @@ export const useWorksStore = defineStore('works', {
                 isDeveloping: true
             },
             {
-                name: 'Tourmetria',
-                slug: 'tourmetria',
+                name: 'Спортивный клуб',
+                slug: 'skshag',
                 stack: ['nuxt', 'vue', 'sass'],
-                link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
+                link: 'https://skshag.ru/',
                 isDeveloping: true
             },
-            {
-                name: 'AV-Dachboard',
-                slug: 'dachboard',
-                stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
-                link: 'https://dashboard.askarov.dev/',
-                isDeveloping: true
-            },
+            // {
+            //     name: 'Tourmetria',
+            //     slug: 'tourmetria',
+            //     stack: ['nuxt', 'vue', 'sass'],
+            //     link: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
+            //     isDeveloping: true
+            // },
+            // {
+            //     name: 'Portfolio',
+            //     slug: 'lyaman',
+            //     stack: ['nuxt', 'vue', 'sass', 'axios', 'strapi'],
+            //     link: 'https://lyaman-askerova.kz/',
+            //     isDeveloping: true
+            // },
+            // {
+            //     name: 'AV-Dachboard',
+            //     slug: 'dachboard',
+            //     stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
+            //     link: 'https://dashboard.askarov.dev/',
+            //     isDeveloping: true
+            // },
             {
                 name: 'Topogeo',
                 slug: 'topogeo',

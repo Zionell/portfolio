@@ -1,13 +1,17 @@
 import {defineStore} from "pinia";
 import {IParagraph} from "~/assets/interfaces/interface";
+import {calculateAge} from "~/assets/js/utils";
 
-export const useAboutStore = defineStore('about', {
-    state: (): IParagraph[] => {
-        return [
+export const useAboutStore = defineStore('about', () => {
+    {
+        const age = calculateAge('14.08.1996');
+
+        const state: IParagraph[] = [
             {
-                value: "Hello, my name is Adilkhan and I am 27 years old. I'm a frontend developer. " +
-                    "I graduated from the Frontend Development faculty at <a href='https://gb.ru/'>Geekbrains</a>, " +
-                    "where I also served as a mentor during the training.",
+                value: `Hello, my name is Adilkhan and I am ${age} years old. I'm a frontend developer. 
+                        I graduated from the Frontend Development faculty at <a href='https://gb.ru/'>Geekbrains</a>, 
+                        where I also served as a mentor during the training.
+                        `,
             },
             {
                 value: "My professional journey began with an internship at a young startup called Sarafan. " +
@@ -22,5 +26,9 @@ export const useAboutStore = defineStore('about', {
                     "I am eager to contribute to creative projects within your team."
             },
         ]
-    },
+
+        return {
+            state
+        }
+    }
 })

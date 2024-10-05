@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {IObject} from "~/assets/interfaces/interface";
+import type {IObject} from "~/assets/interfaces/interface";
 
 export const useDomainStore = defineStore('domain', {
     state: () => {
