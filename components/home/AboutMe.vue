@@ -3,7 +3,7 @@
 	lang="ts"
 >
 import {onMounted, ref} from 'vue'
-import gsap from 'gsap'
+import {gsap} from "gsap";
 import type {HtmlType} from "~/assets/types";
 import {useAboutStore} from "~/store/about";
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
