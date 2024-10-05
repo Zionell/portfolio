@@ -2,16 +2,21 @@ import {faviconsLinks, faviconsMeta} from "./head/favicons";
 import {headNoScripts, headScripts} from "./head/scripts";
 import {NuxtOptionsHead} from "@nuxt/types/config/head";
 
+const title = 'Portfolio Website of Adilkhan Askarov'
+const description = 'Portfolio Website of Adilkhan Askarov. Frontend Developer. Creating responsive and cross-browser websites using Vue, React, Nuxt, Next.'
+const link = 'https://askarov.dev/'
+const image = '/images/seo.png'
 
 const headConfig: NuxtOptionsHead = {
-    htmlAttrs: {lang: 'ru'},
+    htmlAttrs: {lang: 'en'},
 
-    title: 'Сайт-портфолио Аскаров Адилхан',
+    title: title,
 
     // Head meta
     meta: [
         {
-            charset: 'utf-8'},
+            charset: 'utf-8'
+        },
         {
             name: 'viewport',
             content: 'width=device-width, initial-scale=1'
@@ -20,7 +25,8 @@ const headConfig: NuxtOptionsHead = {
         {
             hid: 'description',
             name: 'description',
-            content: 'Сайт-портфолио Аскаров Адилхан. Фронтенд-разработчик. Создание адаптивных и кроссбраузерных веб-сайтов на Vue, React.'},
+            content: description
+        },
         {
             name: 'theme-color',
             content: '#111'
@@ -43,43 +49,43 @@ const headConfig: NuxtOptionsHead = {
         {
             hid: 'og:url',
             name: 'og:url',
-            content: 'https://askarov.dev/',
+            content: link,
         },
         {
             hid: 'og:title',
             name: 'og:title',
-            content: 'Сайт-портфолио Аскаров Адилхан',
+            content: title,
         },
         {
             hid: 'og:description',
             name: 'og:description',
-            content: 'Сайт-портфолио Аскаров Адилхан. Фронтенд-разработчик. Создание адаптивных и кроссбраузерных веб-сайтов на Vue, React.',
+            content: description,
         },
         {
             hid: 'og:image',
             name: 'og:image',
-            content: '/images/seo.png',
+            content: image,
         },
 
         {
             hid: 'twitter:url',
             name: 'twitter:url',
-            content: 'https://askarov.dev/',
+            content: link,
         },
         {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: 'Сайт-портфолио Аскаров Адилхан',
+            content: title,
         },
         {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: 'Сайт-портфолио Аскаров Адилхан. Фронтенд-разработчик. Создание адаптивных и кроссбраузерных веб-сайтов на Vue, React.',
+            content: description,
         },
         {
             hid: 'twitter:image',
             name: 'twitter:image',
-            content: '/images/seo.png',
+            content: image,
         },
         {
             hid: 'twitter:card',
