@@ -28,6 +28,11 @@ const headConfig: NuxtOptionsHead = {
             content: description
         },
         {
+            hid: "yandex-verification",
+            name: "yandex-verification",
+            content: "bece835da23b4c90",
+        },
+        {
             name: 'theme-color',
             content: '#111'
         },
