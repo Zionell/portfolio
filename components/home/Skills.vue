@@ -20,6 +20,10 @@ const {$state} = useSkillsStore()
 			:title="skill.title"
 			:slides="skill.items"
 		/>
+
+        <a :class="$style.usedLanguages" target="_blank" href="https://github.com/Zionell">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Zionell&theme=merko&layout=compact" alt="Zionell's github top languages" />
+        </a>
 	</div>
 </template>
 
@@ -51,4 +55,18 @@ const {$state} = useSkillsStore()
 			padding-bottom: 5.6rem;
 		}
 	}
+
+    .usedLanguages {
+        display: flex;
+        width: 40vw;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        @include respond-to(mobile) {
+            width: 100%;
+        }
+    }
 </style>

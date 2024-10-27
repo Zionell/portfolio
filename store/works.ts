@@ -6,19 +6,26 @@ type WorksType = {
 }
 
 export const useWorksStore = defineStore('works', {
-    state: ():WorksType  => ({
+    state: (): WorksType => ({
         works: [
             {
                 name: 'Sarawan',
                 slug: 'sarawan',
                 stack: ['react', 'redux', 'sass'],
-                link: 'https://sarawan.ru/',
+                isArchived: true
             },
             {
                 name: 'LiveSimply',
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
                 link: 'https://livesimply.site/auth/login?mode=preview',
+                isDeveloping: true
+            },
+            {
+                name: 'Nomad backpacker',
+                slug: 'nomad',
+                stack: ['nuxt', 'nestjs', 'ts', 'tailwindcss', 'prisma'],
+                link: 'https://nomad-backpacker.com/',
                 isDeveloping: true
             },
             {

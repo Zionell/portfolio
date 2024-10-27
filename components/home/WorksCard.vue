@@ -18,13 +18,16 @@ const imageSrc = computed(() => {
 })
 
 const toProject = (): void => {
+    if (props.card.isArchived) {
+        return
+    }
     window.open(props.card.link, '_blanket');
 };
 </script>
 
 <template>
 	<div
-		:class="$style.HomeWorksCard"
+		:class="[$style.HomeWorksCard, {[$style._isArchived]: card.isArchived}]"
 		@click="toProject"
 	>
 		<div :class="$style.cardImageWrap">
@@ -46,6 +49,9 @@ const toProject = (): void => {
 		<h5 :class="$style.cardProjectName">{{ card.name }}</h5>
         <div v-if="card.isDeveloping" :class="$style.tag">
             Developing
+        </div>
+        <div v-if="card.isArchived" :class="$style.tag">
+            Archived
         </div>
 		<div :class="$style.cardStackWrap">
 			<p :class="$style.cardStackTitle">Stack:</p>
@@ -78,6 +84,14 @@ const toProject = (): void => {
 		padding: 2.4rem;
 		border-radius: 1rem;
         cursor: pointer;
+
+        &._isArchived {
+            cursor: not-allowed;
+
+            .tag {
+                background: #ff7300;
+            }
+        }
 
 		@include hover {
 			.cardImageWrap {

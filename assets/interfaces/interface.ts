@@ -60,6 +60,7 @@ export interface IWorkCard {
     stack: string[]
     slug: string
     isDeveloping?: boolean
+    isArchived?: boolean
 }
 
 export interface IExperience {
