@@ -16,6 +16,8 @@ const breakpoints = {
 };
 
 export default defineNuxtConfig(<NuxtOptionsHead>{
+    compatibilityDate: '2024-04-03',
+
     // Modules
     modules: [
         '@pinia/nuxt',
@@ -23,14 +25,6 @@ export default defineNuxtConfig(<NuxtOptionsHead>{
         '@nuxt/image',
         '@nuxtjs/device',
     ],
-
-    devtools: {
-        enabled: true,
-    },
-
-    device: {
-        refreshOnResize: true
-    },
 
     // Store
     pinia: {
