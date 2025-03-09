@@ -28,34 +28,8 @@ export interface ISkills {
     items: ISkill[]
 }
 
-export interface IObject {
-    [key: string]: any
-}
-
-export interface ISliderSwipe {
-    isBeginning: boolean
-    isEnd: boolean
-}
-
-export interface IPreviewImg {
-    width: number | undefined
-    height: number | undefined
-    quality: number | undefined
-    blur: number | undefined
-}
-
-export interface ISlidesImages {
-    images: string[]
-    imagesPreview: string[]
-}
-
-export interface ITag {
-    label: string
-    icon: string
-}
-
 export interface IWorkCard {
-    link: string
+    link?: string
     name: string
     stack: string[]
     slug: string

@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {IMenuItem} from "~/assets/interfaces/interface";
+import type {IMenuItem} from "~/assets/interfaces/interface";
 
 export const useMenuStore = defineStore('menu', {
     state: (): IMenuItem[] => {

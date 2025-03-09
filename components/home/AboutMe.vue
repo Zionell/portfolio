@@ -2,20 +2,17 @@
 	setup
 	lang="ts"
 >
-import {onMounted, ref} from 'vue'
-import {gsap} from "gsap";
-import type {HtmlType} from "~/assets/types";
-import {useAboutStore} from "~/store/about";
+import gsap from "gsap";
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger)
 
 const {state} = useAboutStore()
-const sectionRef = ref<HtmlType>(null)
-const paragraphRefs = ref<HtmlType[]>([])
+const sectionRef = useTemplateRef('section')
+const paragraphRefs = useTemplateRef('paragraphs')
 
 function scrollAnimation(): void {
-	gsap.utils.toArray(paragraphRefs.value).forEach((p: HtmlType, ind: number): void => {
+	gsap.utils.toArray(paragraphRefs.value).forEach((p, ind: number): void => {
 		gsap.from(p, {
 			scrollTrigger: {
 				trigger: sectionRef.value,
@@ -35,13 +32,13 @@ onMounted((): void => {
 <template>
 	<section
 		id="about"
-		ref="sectionRef"
+		ref="section"
 		:class="[$style.HomeAboutMe, 'section']"
 	>
 		<h2 :class="[$style.title, 'title']">About me</h2>
 		<p
 			v-for="(text, ind) in state"
-			ref="paragraphRefs"
+			ref="paragraphs"
 			:key="ind"
 			:class="$style.paragraph"
 			v-html="text.value"

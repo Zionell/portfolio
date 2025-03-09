@@ -26,10 +26,10 @@ const generate = () => {
         //     slug: 'lyaman',
         //     link: 'https://lyaman-askerova.kz/',
         // },
-        {
-            slug: 'skshag',
-            link: 'https://skshag.ru/',
-        },
+        // {
+        //     slug: 'skshag',
+        //     link: 'https://skshag.ru/',
+        // },
         // {
         //     slug: 'livesimply',
         //     link: 'https://livesimply.site/',

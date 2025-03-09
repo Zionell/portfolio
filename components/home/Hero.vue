@@ -2,8 +2,7 @@
 	setup
 	lang="ts"
 >
-import {onMounted} from 'vue'
-import {gsap} from "gsap";
+import gsap from "gsap";
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -44,7 +43,7 @@ onMounted((): void => {
 			:class="$style.scrollBtn"
 			@click="handleClick"
 		>
-			<UiVIcon name="cursor"/>
+			<VIcon name="cursor"/>
 		</button>
 		<div
 			id="image"

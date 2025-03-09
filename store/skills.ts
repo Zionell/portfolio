@@ -32,6 +32,9 @@ export const useSkillsStore = defineStore('skills', {
             },{
                 icon: 'nestjs',
                 label: 'NestJS'
+            },{
+                icon: 'angular',
+                label: 'Angular'
             }, {
                 icon: 'ts',
                 label: 'TypeScript'
@@ -66,7 +69,7 @@ export const useSkillsStore = defineStore('skills', {
                 icon: 'git',
                 label: 'Git'
             }, {
-                icon: 'githubIcon',
+                icon: 'github',
                 label: 'GitHub'
             }, {
                 icon: 'mapbox',

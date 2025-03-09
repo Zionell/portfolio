@@ -19,7 +19,6 @@ export const useWorksStore = defineStore('works', {
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
                 link: 'https://livesimply.site/auth/login?mode=preview',
-                isDeveloping: true
             },
             {
                 name: 'Nomad backpacker',
@@ -33,7 +32,6 @@ export const useWorksStore = defineStore('works', {
                 slug: 'skshag',
                 stack: ['nuxt', 'vue', 'sass'],
                 link: 'https://skshag.ru/',
-                isDeveloping: true
             },
             // {
             //     name: 'Tourmetria',
@@ -77,8 +75,8 @@ export const useWorksStore = defineStore('works', {
             {
                 name: 'MoGo',
                 slug: 'mogo',
-                stack: ['html', 'css', 'js'],
-                link: 'https://zionell.github.io/mogo/',
+                stack: ['angular'],
+                link: 'https://mogo-lyart.vercel.app/',
             },
         ]
     }),

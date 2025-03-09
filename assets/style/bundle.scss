@@ -1,6 +1,6 @@
-@import "shared/function";
-@import "shared/mixins";
-@import "shared/fonts";
-@import "shared/vars";
-@import "shared/text";
-@import "shared/transitions";
+@use "./shared/function" as *;
+@use "./shared/mixins" as *;
+@use "./shared/fonts" as *;
+@use "./shared/vars" as *;
+@use "./shared/text" as *;
+@use "./shared/transitions" as *;

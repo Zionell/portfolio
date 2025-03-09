@@ -3,12 +3,12 @@
 
 <template>
     <main :class="$style.index">
-		<HomeHero />
-		<HomeAboutMe />
-		<HomeExperience />
-		<HomeSkills />
-		<HomeWorks />
-		<CommonContacts />
+		<Hero />
+		<AboutMe />
+		<Experience />
+		<Skills />
+		<Works />
+		<Contacts />
     </main>
 </template>
 

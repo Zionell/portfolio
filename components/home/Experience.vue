@@ -2,17 +2,13 @@
 	setup
 	lang="ts"
 >
-import {onMounted, ref} from "vue";
-import {useExperienceStore} from "~/store/experience"
-import type {HtmlType} from "~/assets/types";
-import {gsap} from "gsap";
+import gsap from "gsap";
 
-const sectionRef = ref<HtmlType>(null)
+const sectionRef = useTemplateRef('section')
 const {$state} = useExperienceStore()
-const cardRefs = ref<HtmlType[]>([])
 
 function scrollAnimation(): void {
-	gsap.utils.toArray('.experience_card').forEach((p: HtmlType, ind: number): void => {
+	gsap.utils.toArray('.experience_card').forEach((p, ind: number): void => {
 		gsap.from(p, {
 			scrollTrigger: {
 				trigger: sectionRef.value,
@@ -32,11 +28,11 @@ onMounted((): void => {
 <template>
 	<section
 		id="experience"
-		ref="sectionRef"
+		ref="section"
 		:class="[$style.HomeExperience, 'section']"
 	>
 		<h2 :class="[$style.title, 'title']">Experience</h2>
-		<HomeExperienceCard
+		<ExperienceCard
 			v-for="(card, ind) in $state"
 			:key="ind"
 			class="experience_card"

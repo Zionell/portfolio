@@ -1,5 +1,5 @@
 import { joinURL } from 'ufo';
-import {IContext, IUrl, IOptions, IModifiers} from "~/assets/interfaces/imageInterface";
+import type {IContext, IUrl, IOptions, IModifiers} from "~/assets/interfaces/imageInterface";
 
 export function getImage(src: string, { modifiers, baseURL }: IOptions = {}, { options, nuxtContext, $img }: IContext = {}): IUrl {
     const { width, height, format, fit, ...providerModifiers }: IModifiers = modifiers || {};

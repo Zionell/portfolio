@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {IParagraph} from "~/assets/interfaces/interface";
+import type {IParagraph} from "~/assets/interfaces/interface";
 import {calculateAge} from "~/assets/js/utils";
 
 export const useAboutStore = defineStore('about', () => {

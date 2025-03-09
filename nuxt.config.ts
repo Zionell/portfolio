@@ -1,95 +1,104 @@
-import {defineNuxtConfig} from 'nuxt/config';
-import headConfig from './config/head.config';
-import type {IEnv} from 'assets/interfaces/interface';
-import type {NuxtOptionsHead} from "@nuxt/types/config/head";
+import { defineNuxtConfig } from "nuxt/config";
+import headConfig from "./config/head.config";
+import type { IEnv } from "assets/interfaces/interface";
+import upath from "upath";
+import path from "path";
 
+const pathAssets = upath.toUnix(path.resolve(__dirname, "./assets"));
 const env: IEnv = {
-    SERVER_API: process.env.SERVER_API || '',
-    DEVELOPMENT: process.env.NODE_ENV === 'development',
+	SERVER_API: process.env.SERVER_API || "",
+	DEVELOPMENT: process.env.NODE_ENV === "development",
 };
 
 const breakpoints = {
-    mobile: 767,
-    tablet: 1279,
-    laptop: 1439,
-    desktop: 999999,
+	mobile: 767,
+	tablet: 1279,
+	laptop: 1439,
+	desktop: 999999,
 };
 
-export default defineNuxtConfig(<NuxtOptionsHead>{
-    compatibilityDate: '2024-04-03',
+export default defineNuxtConfig({
+	compatibilityDate: "2024-04-03",
 
-    // Modules
-    modules: [
-        '@pinia/nuxt',
-        'nuxt-svgo',
-        '@nuxt/image',
-        '@nuxtjs/device',
-    ],
+	// Modules
+	modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/icon", "@nuxtjs/device"],
 
-    // Store
-    pinia: {
-        autoImports: [
-            'defineStore',
-        ],
-    },
+	// Icons
+	icon: {
+		localApiEndpoint: "/icons/_nuxt_icon",
+		mode: "svg",
+		customCollections: [
+			{
+				prefix: "icons",
+				dir: "./assets/icons",
+			},
+		],
+	},
 
-    // Svg
-    svgo: {
-        autoImportPath: './assets/svg/',
-    },
+	// Auto import UI components
+	components: [
+		{
+			path: "~/components",
+			extensions: [".vue"],
+			pathPrefix: false,
+		},
+	],
 
-    // Nuxt images module
-    image: {
-        inject: true,
-        provider: 'customProvider',
+	// Store
+	pinia: {
+		storesDirs: ["./store/**"],
+	},
 
-        // domains: [env.SERVER_API],
-        screens: {...breakpoints, desktop: 1920},
+	// Nuxt images module
+	image: {
+		inject: true,
+		provider: "customProvider",
 
-        intersectOptions: {
-            rootMargin: '50px',
-        },
+		screens: { ...breakpoints, desktop: 1920 },
 
-        presets: {
-            preview: {
-                modifiers: {
-                    quality: 30,
-                    blur: 60,
-                },
-            },
-        },
+		intersectOptions: {
+			rootMargin: "50px",
+		},
 
-        providers: {
-            customProvider: {
-                provider: '~/config/imageProvider',
-                options: {
-                    baseURL: env.SERVER_API,
-                    staticFolder: '/images', // redirect to internal url, if url from static folder
-                    quality: 80, // Default quality
-                },
-            },
-        },
-    }, // Image end
+		presets: {
+			preview: {
+				modifiers: {
+					quality: 30,
+					blur: 60,
+				},
+			},
+		},
 
-    imports: {
-        dirs: [
-            'store',
-        ],
-    },
+		providers: {
+			customProvider: {
+				provider: "~/config/imageProvider",
+				options: {
+					baseURL: env.SERVER_API,
+					staticFolder: "/images", // redirect to internal url, if url from static folder
+					quality: 80, // Default quality
+				},
+			},
+		},
+	}, // Image end
 
-    vite: {
-        css: {
-            preprocessorOptions: {
-                scss: {
-                    additionalData: '@use "assets/style/bundle.scss" as *;',
-                },
-            },
-        },
-    },
+	css: ["assets/style/style.scss", "assets/style/bundle.scss"],
 
-    css: ['assets/style/style.scss'],
+	app: {
+		head: headConfig,
+	},
 
-    app: {
-        head: headConfig,
-    },
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: "modern-compiler",
+					additionalData: `
+                        @use "${pathAssets}/style/shared/vars" as *;
+                        @use "${pathAssets}/style/shared/function" as *;
+                        @use "${pathAssets}/style/shared/mixins" as *;
+                    `,
+				},
+			},
+		},
+	},
 });

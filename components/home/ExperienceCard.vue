@@ -2,16 +2,11 @@
     setup
     lang="ts"
 >
-
-import type {PropType} from "@vue/runtime-core";
 import type {IExperience} from "~/assets/interfaces/interface";
 
-const props = defineProps({
-    card: {
-        type: Object as PropType<IExperience>,
-        default: () => ({})
-    }
-})
+defineProps<{
+    card: IExperience
+}>()
 </script>
 
 <template>

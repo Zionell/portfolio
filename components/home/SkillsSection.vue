@@ -2,28 +2,18 @@
 	setup
 	lang="ts"
 >
-import {onMounted, ref} from "vue";
-import type {HtmlType} from "~/assets/types";
-import type {PropType} from "@vue/runtime-core";
 import type {ISkill} from "~/assets/interfaces/interface";
-import {gsap} from "gsap";
+import gsap from "gsap";
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger)
 
-const props = defineProps({
-	title: {
-		type: String,
-		default: ''
-	},
+defineProps<{
+    title: string,
+    slides: ISkill[]
+}>()
 
-	slides: {
-		type: Array as PropType<ISkill[]>,
-		default: () => []
-	}
-});
-
-const sectionRef = ref<HtmlType>(null)
+const sectionRef = useTemplateRef('section');
 
 function scrollAnimation(): void {
 	gsap.from('.skillRefs', {
@@ -49,7 +39,7 @@ onMounted((): void => {
 		<h2 :class="$style.title">{{ title }}</h2>
 
 		<div
-			ref="sectionRef"
+			ref="section"
 			:class="$style.wrapper"
 		>
 			<div
@@ -57,7 +47,7 @@ onMounted((): void => {
 				:key="ind"
 				:class="[$style.card, 'skillRefs']"
 			>
-				<UiVIcon
+				<VIcon
 					:name="slide.icon"
 					size="large"
 				/>

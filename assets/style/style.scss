@@ -1,5 +1,6 @@
-//@import "~swiper/swiper.scss";
-@import "nullstyle";
+@use "nullstyle" as *;
+@use "./shared/mixins" as *;
+@use "./shared/vars" as *;
 
 html {
     font-size: 10px;

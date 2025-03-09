@@ -2,8 +2,6 @@
 	setup
 	lang="ts"
 >
-import {useSkillsStore} from "~/store/skills";
-
 const {$state} = useSkillsStore()
 </script>
 
@@ -13,7 +11,7 @@ const {$state} = useSkillsStore()
 		:class="[$style.HomeSkills, 'section']"
 	>
 		<h2 :class="[$style.title, 'title']">Skills&Tools</h2>
-		<HomeSkillsSection
+		<SkillsSection
 			v-for="(skill, ind) in $state"
 			:key="ind"
 			:class="$style.skillItem"

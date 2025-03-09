@@ -2,15 +2,13 @@
 	setup
 	lang="ts"
 >
-import {useContactsStore} from "~/store/contacts";
-
 const {$state} = useContactsStore()
 </script>
 
 <template>
 	<aside :class="$style.SideBar">
 		<div :class="$style.logo">
-			<UiVIcon
+			<VIcon
 				name="logo"
 				size="large"
 			/>
@@ -24,7 +22,7 @@ const {$state} = useContactsStore()
 				rel="noreferrer"
 				:class="$style.socialLink"
 			>
-				<UiVIcon
+				<VIcon
 					:name="item.icon"
 					size="big"
 				/>

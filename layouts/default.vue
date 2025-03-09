@@ -6,8 +6,8 @@
 
 <template>
 	<div :class="$style.default">
-		<LayoutSideBar />
-		<LayoutNavBar />
+		<SideBar />
+		<NavBar />
 
 		<slot />
 	</div>

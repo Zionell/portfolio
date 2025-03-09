@@ -1,13 +1,12 @@
 import {faviconsLinks, faviconsMeta} from "./head/favicons";
 import {headNoScripts, headScripts} from "./head/scripts";
-import {NuxtOptionsHead} from "@nuxt/types/config/head";
 
 const title = 'Portfolio Website of Adilkhan Askarov'
 const description = 'Portfolio Website of Adilkhan Askarov. Frontend Developer. Creating responsive and cross-browser websites using Vue, React, Nuxt, Next.'
 const link = 'https://askarov.dev/'
-const image = '/images/seo.png'
+const image = '/images/seo.jpg'
 
-const headConfig: NuxtOptionsHead = {
+const headConfig = {
     htmlAttrs: {lang: 'en'},
 
     title: title,
@@ -19,7 +18,7 @@ const headConfig: NuxtOptionsHead = {
         },
         {
             name: 'viewport',
-            content: 'width=device-width, initial-scale=1'
+            content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
         },
 
         {
@@ -32,19 +31,9 @@ const headConfig: NuxtOptionsHead = {
             name: "yandex-verification",
             content: "bece835da23b4c90",
         },
-        {
-            name: 'theme-color',
-            content: '#111'
-        },
-        {
-            name: 'apple-mobile-web-app-capable',
-            content: 'yes'
-        },
-        {
-            name: 'apple-mobile-web-app-status-bar-style',
-            content: 'black-translucent'
-        },
-
+        { name: 'theme-color', content: '#111' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
 
         {
             hid: 'og:type',

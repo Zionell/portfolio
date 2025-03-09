@@ -5,41 +5,30 @@ const faviconsLinks = [
     },
     {
         rel: 'apple-touch-icon',
-        sizes: '180x180',
         href: '/favicons/apple-touch-icon.png',
+        sizes: '180x180',
     },
     {
         rel: 'icon',
+        href: '/favicons/favicon-96x96.png',
+        sizes: '96x96',
         type: 'image/png',
-        sizes: '32x32',
-        href: '/favicons/favicon-32x32.png',
     },
     {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: '/favicons/favicon-16x16.png',
-    },
-    // {
-    //     rel: 'manifest',
-    //     href: '/favicons/site.webmanifest',
-    //     crossorigin: 'use-credentials',
-    // },
-    {
-        rel: 'mask-icon',
-        href: '/favicons/safari-pinned-tab.svg',
-        color: '#f2aaaa',
+        rel: 'manifest',
+        href: '/favicons/site.webmanifest',
+        crossorigin: 'use-credentials',
     },
 ];
 
 const faviconsMeta = [
     {
         name: 'msapplication-TileColor',
-        content: '#282828',
+        content: '#fff',
     },
     {
         name: 'theme-color',
-        content: '#ffffff',
+        content: '#fff',
     },
 ];
 
