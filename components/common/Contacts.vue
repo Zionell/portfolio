@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(TextPlugin);
-gsap.registerPlugin(ScrollTrigger);
-
+const { $gsap: gsap } = useNuxtApp();
 const { $state } = useContactsStore();
 const sectionRef = useTemplateRef("section");
 const socialLineRef = useTemplateRef("socialLine");

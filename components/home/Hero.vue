@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import gsap from "gsap";
 import { scrollToBlock } from "~/assets/js/utils";
 
+const { $gsap: gsap } = useNuxtApp();
 const myProfession = "Frontend-developer".split("");
 const handleClick = (): void => {
 	scrollToBlock("about");

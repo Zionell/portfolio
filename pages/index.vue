@@ -1,20 +1,19 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <main :class="$style.index">
+	<main :class="$style.index">
 		<Hero />
 		<AboutMe />
 		<Experience />
 		<Skills />
 		<Works />
 		<Contacts />
-    </main>
+	</main>
 </template>
 
 <style lang="scss" module>
-    .index {
-        display: flex;
-        flex-direction: column;
-    }
+.index {
+	display: flex;
+	flex-direction: column;
+}
 </style>
