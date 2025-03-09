@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import gsap from "gsap";
+import { scrollToBlock } from "~/assets/js/utils";
 
-gsap.registerPlugin(ScrollToPlugin);
 const myProfession = "Frontend-developer".split("");
 const handleClick = (): void => {
-	gsap.to(window, { duration: 1, scrollTo: "#about" });
+	scrollToBlock("about");
 };
 
 const initialAnimation = () => {

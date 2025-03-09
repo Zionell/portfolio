@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
-gsap.registerPlugin(ScrollToPlugin);
+import gsap from "gsap";
+import { scrollToBlock } from "~/assets/js/utils";
 
 const { isMobile } = useDevice();
 const { $state } = useMenuStore();
@@ -45,7 +43,7 @@ const openMenu = (): void => {
 };
 
 const scrollTo = (path: string): void => {
-	gsap.to(window, { duration: 1, scrollTo: `#${path}` });
+	scrollToBlock(path);
 };
 </script>
 
