@@ -5,7 +5,7 @@ const getImage = async (url, name) => {
         const browser = await puppeteer.launch({headless: 'new'});
         const page = await browser.newPage();
         await page.goto(url);
-        await page.waitForTimeout(10000);
+        // await page.waitForTimeout(1000);
         await page.setViewport({width: 1440, height: 900});
         await page.screenshot({path: `public/images/projects/${name}.jpg`})
 

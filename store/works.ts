@@ -19,6 +19,7 @@ export const useWorksStore = defineStore('works', {
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
                 link: 'https://livesimply.site/auth/login?mode=preview',
+				isDeveloping: true
             },
             {
                 name: 'Nomad backpacker',
@@ -47,13 +48,19 @@ export const useWorksStore = defineStore('works', {
             //     link: 'https://lyaman-askerova.kz/',
             //     isDeveloping: true
             // },
-            // {
-            //     name: 'AV-Dachboard',
-            //     slug: 'dachboard',
-            //     stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
-            //     link: 'https://dashboard.askarov.dev/',
-            //     isDeveloping: true
-            // },
+            {
+                name: 'AV-Dachboard',
+                slug: 'dachboard',
+                stack: ['nuxt', 'vue', 'sass', 'nodejs', 'sequelize', 'mysql'],
+                link: 'https://dashboard.askarov.dev/',
+                isDeveloping: true
+            },
+			{
+				name: 'MoGo',
+				slug: 'mogo',
+				stack: ['angular'],
+				link: 'https://mogo-lyart.vercel.app/',
+			},
             {
                 name: 'Topogeo',
                 slug: 'topogeo',
@@ -71,12 +78,6 @@ export const useWorksStore = defineStore('works', {
                 slug: 'rendered',
                 stack: ['html', 'css'],
                 link: 'https://zionell.github.io/rendered/',
-            },
-            {
-                name: 'MoGo',
-                slug: 'mogo',
-                stack: ['angular'],
-                link: 'https://mogo-lyart.vercel.app/',
             },
         ]
     }),
