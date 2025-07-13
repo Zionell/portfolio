@@ -18,14 +18,15 @@ export const useWorksStore = defineStore('works', {
                 name: 'LiveSimply',
                 slug: 'livesimply',
                 stack: ['nextjs', 'ts', 'tailwindcss', 'prisma'],
-                link: 'https://livesimply.site/auth/login?mode=preview',
+                link: 'https://live-simply.ru',
 				isDeveloping: true
             },
             {
                 name: 'Nomad backpacker',
                 slug: 'nomad',
                 stack: ['nuxt', 'nestjs', 'ts', 'tailwindcss', 'prisma'],
-                link: 'https://nomad-backpacker.com/',
+                // link: 'https://nomad-backpacker.com/',
+				link: 'https://nomad-backpacker.vercel.app/',
                 isDeveloping: true
             },
             {
