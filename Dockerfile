@@ -1,11 +1,12 @@
-FROM node:22.18
+FROM node:22.18-alpine
 
 WORKDIR /app
 
 ARG SERVER_API
 ENV SERVER_API=$SERVER_API
 
-RUN apt-get update && apt-get upgrade -y
+RUN apk update && apk upgrade
+RUN apk add git
 
 COPY ./package*.json /app/
 
