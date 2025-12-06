@@ -1,10 +1,7 @@
 import { defineNuxtConfig } from "nuxt/config";
 import headConfig from "./config/head.config";
 import type { IEnv } from "assets/interfaces/interface";
-import upath from "upath";
-import path from "path";
 
-const pathAssets = upath.toUnix(path.resolve(__dirname, "./assets"));
 const env: IEnv = {
 	SERVER_API: process.env.SERVER_API || "",
 	DEVELOPMENT: process.env.NODE_ENV === "development",
@@ -86,11 +83,10 @@ export default defineNuxtConfig({
 		css: {
 			preprocessorOptions: {
 				scss: {
-					api: "modern-compiler",
 					additionalData: `
-                        @use "${pathAssets}/style/shared/vars" as *;
-                        @use "${pathAssets}/style/shared/function" as *;
-                        @use "${pathAssets}/style/shared/mixins" as *;
+                        @use "assets/style/shared/vars" as *;
+                        @use "assets/style/shared/function" as *;
+                        @use "assets/style/shared/mixins" as *;
                     `,
 				},
 			},
