@@ -5,8 +5,7 @@ WORKDIR /app
 ARG SERVER_API
 ENV SERVER_API=$SERVER_API
 
-RUN apk update && apk upgrade
-RUN apk add git
+RUN apt-get update && apt-get upgrade -y
 
 COPY ./package*.json /app/
 
