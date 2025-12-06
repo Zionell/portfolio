@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IWorkCard } from "assets/interfaces/interface";
+import type { IWorkCard } from "~/assets/types/types";
 
 const props = defineProps<{
 	card: IWorkCard;
@@ -32,16 +32,16 @@ const toProject = (): void => {
 				:alt="card.name"
 				:src="imageSrc"
 				loading="lazy"
-				:modifiers="{
-					format: 'webp',
-				}"
 				placeholder
 			/>
 			<div v-else :class="$style.empty">&#8826; NOT FOUND &#8827;</div>
 		</div>
+
 		<h5 :class="$style.cardProjectName">{{ card.name }}</h5>
+
 		<div v-if="card.isDeveloping" :class="$style.tag">Developing</div>
 		<div v-if="card.isArchived" :class="$style.tag">Archived</div>
+
 		<div :class="$style.cardStackWrap">
 			<p :class="$style.cardStackTitle">Stack:</p>
 			<div :class="$style.cardStackItems">
@@ -53,6 +53,7 @@ const toProject = (): void => {
 				/>
 			</div>
 		</div>
+
 		<a :class="$style.cardLink" :href="card.link" target="_blank" />
 	</div>
 </template>

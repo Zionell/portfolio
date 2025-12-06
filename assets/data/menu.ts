@@ -1,6 +1,6 @@
-import type { IMenuItem } from "~/assets/interfaces/interface";
+import type { ISpec } from "~/assets/types/types";
 
-export const menu: IMenuItem[] = [
+export const menu: ISpec[] = [
 	{
 		label: "About",
 		value: "about",

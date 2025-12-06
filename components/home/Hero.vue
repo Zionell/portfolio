@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { scrollToBlock } from "~/assets/js/utils";
 
-const { $gsap: gsap } = useNuxtApp();
+const { $gsap } = useNuxtApp();
 const myProfession = "Frontend-developer".split("");
+
 const handleClick = (): void => {
 	scrollToBlock("about");
 };
 
 const initialAnimation = () => {
-	gsap.from("#image", {
+	$gsap.from("#image", {
 		x: -600,
 		duration: 1,
 	});
-	gsap.from("#title", {
+	$gsap.from("#title", {
 		x: 800,
 		duration: 1,
 	});
-	gsap.from(`.heroChar`, {
+	$gsap.from(`.heroChar`, {
 		y: 800,
 		duration: 0.2,
 		delay: 0.6,
@@ -34,22 +35,22 @@ onMounted((): void => {
 		<button :class="$style.scrollBtn" @click="handleClick">
 			<VIcon name="cursor" />
 		</button>
+
 		<div id="image" :class="$style.imgWrap">
 			<NuxtImg
 				:class="$style.img"
 				alt="This is me"
 				src="/images/my-photo.jpg"
-				:modifiers="{
-					format: 'webp',
-				}"
 				placeholder
 			/>
 		</div>
+
 		<h1 id="title" :class="$style.title">
 			Askarov
 			<br />
 			Adilkhan
 		</h1>
+
 		<div :class="$style.label">
 			<p
 				v-for="(p, ind) in myProfession"

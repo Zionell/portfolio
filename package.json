@@ -6,7 +6,7 @@
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"postinstall": "nuxt prepare",
-		"generate-image": "node ./assets/js/puppeter.js",
+		"generate-image": "node assets/js/puppeteer.js",
 		"clean": "npx nuxi cleanup",
 		"deps:update": "npx npm-check-updates -u"
 	},
@@ -16,7 +16,7 @@
 		"@nuxt/image": "^2.0.0",
 		"@nuxtjs/device": "^3.2.4",
 		"gsap": "^3.13.0",
-		"nuxt": "^3.20.1",
+		"nuxt": "^4.2.1",
 		"puppeteer": "^24.32.0",
 		"vanilla-lazyload": "^19.1.3"
 	},

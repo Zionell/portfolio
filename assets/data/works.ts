@@ -1,4 +1,4 @@
-import type { IWorkCard } from "~/assets/interfaces/interface";
+import type { IWorkCard } from "~/assets/types/types";
 
 export const works: IWorkCard[] = [
 	{

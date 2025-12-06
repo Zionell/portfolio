@@ -1,6 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config";
 import headConfig from "./config/head.config";
-import type { IEnv } from "assets/interfaces/interface";
+import type { IEnv } from "~/assets/types/types";
 
 const env: IEnv = {
 	SERVER_API: process.env.SERVER_API || "",
@@ -43,31 +43,13 @@ export default defineNuxtConfig({
 
 	// Nuxt images module
 	image: {
-		inject: true,
-		provider: "customProvider",
-
 		screens: { ...breakpoints, desktop: 1920 },
-
-		intersectOptions: {
-			rootMargin: "50px",
-		},
 
 		presets: {
 			preview: {
 				modifiers: {
 					quality: 30,
 					blur: 60,
-				},
-			},
-		},
-
-		providers: {
-			customProvider: {
-				provider: "~/config/imageProvider",
-				options: {
-					baseURL: env.SERVER_API,
-					staticFolder: "/images", // redirect to internal url, if url from static folder
-					quality: 80, // Default quality
 				},
 			},
 		},

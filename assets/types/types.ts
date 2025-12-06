@@ -3,7 +3,7 @@ export interface IEnv {
 	DEVELOPMENT: boolean;
 }
 
-export interface IMenuItem {
+export interface ISpec {
 	value: string;
 	label: string;
 }

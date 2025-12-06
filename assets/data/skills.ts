@@ -1,4 +1,4 @@
-import type { ISkills } from "~/assets/interfaces/interface";
+import type { ISkills } from "~/assets/types/types";
 
 export const skills: ISkills[] = [
 	{

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ISkill } from "~/assets/interfaces/interface";
+import type { ISkill } from "~/assets/types/types";
 
 defineProps<{
 	title: string;

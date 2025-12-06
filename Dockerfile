@@ -10,7 +10,7 @@ RUN apk add git
 
 COPY ./package*.json /app/
 
-RUN npm i && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 COPY .. .
 

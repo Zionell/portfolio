@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IExperience } from "~/assets/interfaces/interface";
+import type { IExperience } from "~/assets/types/types";
 
 defineProps<{
 	card: IExperience;
