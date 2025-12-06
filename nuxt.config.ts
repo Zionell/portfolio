@@ -62,6 +62,9 @@ export default defineNuxtConfig({
 	},
 
 	vite: {
+		build: {
+			minify: "esbuild",
+		},
 		css: {
 			preprocessorOptions: {
 				scss: {

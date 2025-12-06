@@ -33,7 +33,6 @@ volumes:
   nginx_cache:
   local_static:
   static:
-  postgresdata:
   nuxt:
   acme.sh:
   certs:
