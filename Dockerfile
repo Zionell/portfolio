@@ -6,7 +6,6 @@ ARG SERVER_API
 ENV SERVER_API=$SERVER_API
 
 RUN apk update && apk upgrade
-RUN apk add git
 
 COPY ./package*.json /app/
 
