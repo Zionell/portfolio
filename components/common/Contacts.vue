@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const { $gsap: gsap } = useNuxtApp();
-const { $state } = useContactsStore();
+import { contacts } from "~/assets/data/contacts";
+
+const { $gsap } = useNuxtApp();
 const sectionRef = useTemplateRef("section");
 const socialLineRef = useTemplateRef("socialLine");
 const socialItemRef = useTemplateRef("socialItem");
 
 function initialAnimation(): void {
-	const tl = gsap.timeline({
+	const tl = $gsap.timeline({
 		scrollTrigger: {
 			trigger: sectionRef.value,
 			start: "top 15%",
@@ -14,7 +15,7 @@ function initialAnimation(): void {
 		},
 	});
 
-	$state.forEach((s, ind) => {
+	contacts.forEach((s, ind) => {
 		tl.to(socialLineRef.value[ind], { duration: 0.2, width: "5rem" });
 		tl.to(socialItemRef.value[ind], { duration: 0.5, text: s.name });
 	});
@@ -32,8 +33,9 @@ onMounted((): void => {
 		ref="section"
 	>
 		<h2 :class="[$style.title, 'title']">Contacts</h2>
+
 		<div :class="$style.socials">
-			<div v-for="(s, ind) in $state" :class="$style.social" :key="ind">
+			<div v-for="(s, ind) in contacts" :class="$style.social" :key="ind">
 				<a
 					:class="$style.socialLinks"
 					:href="s.link"
@@ -52,6 +54,7 @@ onMounted((): void => {
 				/>
 			</div>
 		</div>
+
 		<a
 			href="https://beget.com/p2090273"
 			target="_blank"

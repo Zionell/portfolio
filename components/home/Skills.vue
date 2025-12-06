@@ -1,28 +1,18 @@
 <script setup lang="ts">
-const { $state } = useSkillsStore();
+import { skills } from "~/assets/data/skills";
 </script>
 
 <template>
 	<div id="skills" :class="[$style.HomeSkills, 'section']">
 		<h2 :class="[$style.title, 'title']">Skills&Tools</h2>
+
 		<SkillsSection
-			v-for="(skill, ind) in $state"
+			v-for="(skill, ind) in skills"
 			:key="ind"
 			:class="$style.skillItem"
 			:title="skill.title"
 			:slides="skill.items"
 		/>
-
-		<a
-			:class="$style.usedLanguages"
-			target="_blank"
-			href="https://github.com/Zionell"
-		>
-			<img
-				src="https://github-readme-stats.vercel.app/api/top-langs/?username=Zionell&theme=merko&layout=compact"
-				alt="Zionell's github top languages"
-			/>
-		</a>
 	</div>
 </template>
 

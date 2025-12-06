@@ -21,7 +21,7 @@ export default defineNuxtConfig({
 	compatibilityDate: "2024-04-03",
 
 	// Modules
-	modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/icon", "@nuxtjs/device"],
+	modules: ["@nuxt/image", "@nuxt/icon", "@nuxtjs/device"],
 
 	// Icons
 	icon: {
@@ -43,11 +43,6 @@ export default defineNuxtConfig({
 			pathPrefix: false,
 		},
 	],
-
-	// Store
-	pinia: {
-		storesDirs: ["./store/**"],
-	},
 
 	// Nuxt images module
 	image: {

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-const { $gsap: gsap } = useNuxtApp();
+import { experience } from "~/assets/data/experience";
+
+const { $gsap } = useNuxtApp();
 const sectionRef = useTemplateRef("section");
-const { $state } = useExperienceStore();
 
 function scrollAnimation(): void {
-	gsap.utils.toArray(".experience_card").forEach((p, ind: number): void => {
-		gsap.from(p, {
+	$gsap.utils.toArray(".experience_card").forEach((p, ind: number): void => {
+		$gsap.from(p, {
 			scrollTrigger: {
 				trigger: sectionRef.value,
 				start: "top 50%",
@@ -28,8 +29,9 @@ onMounted((): void => {
 		:class="[$style.HomeExperience, 'section']"
 	>
 		<h2 :class="[$style.title, 'title']">Experience</h2>
+
 		<ExperienceCard
-			v-for="(card, ind) in $state"
+			v-for="(card, ind) in experience"
 			:key="ind"
 			class="experience_card"
 			:card="card"

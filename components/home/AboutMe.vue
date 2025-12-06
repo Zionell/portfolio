@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const { $gsap: gsap } = useNuxtApp();
-const { state } = useAboutStore();
+import { about } from "~/assets/data/about";
+
+const { $gsap } = useNuxtApp();
 const sectionRef = useTemplateRef("section");
 const paragraphRefs = useTemplateRef("paragraphs");
 
 function scrollAnimation(): void {
-	gsap.utils.toArray(paragraphRefs.value).forEach((p, ind: number): void => {
-		gsap.from(p, {
+	$gsap.utils.toArray(paragraphRefs.value).forEach((p, ind: number): void => {
+		$gsap.from(p, {
 			scrollTrigger: {
 				trigger: sectionRef.value,
 				start: "top 50%",
@@ -25,12 +26,13 @@ onMounted((): void => {
 <template>
 	<section id="about" ref="section" :class="[$style.HomeAboutMe, 'section']">
 		<h2 :class="[$style.title, 'title']">About me</h2>
+
 		<p
-			v-for="(text, ind) in state"
+			v-for="(text, ind) in about"
 			ref="paragraphs"
 			:key="ind"
 			:class="$style.paragraph"
-			v-html="text.value"
+			v-html="text"
 		/>
 	</section>
 </template>

@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import gsap from "gsap";
 import { scrollToBlock } from "~/assets/js/utils";
+import { menu } from "~/assets/data/menu";
 
 const { isMobile } = useDevice();
-const { $state } = useMenuStore();
 const isOpen = ref<boolean>(true);
+const { $gsap } = useNuxtApp();
 
 const openMenu = (): void => {
 	if (isMobile) {
 		if (isOpen.value) {
-			gsap.to("#burgerBottom", {
+			$gsap.to("#burgerBottom", {
 				duration: 0.3,
 				width: "30px",
 				rotate: 30,
 			});
-			gsap.to("#burgerTop", {
+			$gsap.to("#burgerTop", {
 				duration: 0.3,
 				rotate: -30,
 			});
-			gsap.to("#menuList", {
+			$gsap.to("#menuList", {
 				duration: 0.3,
 				translateX: 0,
 			});
 		} else {
-			gsap.to("#burgerBottom", {
+			$gsap.to("#burgerBottom", {
 				duration: 0.3,
 				width: "15px",
 				rotate: 0,
 			});
-			gsap.to("#burgerTop", {
+			$gsap.to("#burgerTop", {
 				duration: 0.3,
 				rotate: 0,
 			});
-			gsap.to("#menuList", {
+			$gsap.to("#menuList", {
 				duration: 0.3,
 				translateX: "100%",
 			});
@@ -50,12 +50,14 @@ const scrollTo = (path: string): void => {
 <template>
 	<nav :class="$style.NavBar">
 		<div :class="$style.cursor" />
+
 		<button :class="$style.burgerWrap" @click="openMenu">
 			<span id="burgerTop" :class="$style.burgerTop" />
 			<span id="burgerBottom" :class="$style.burgerBottom" />
 		</button>
+
 		<ul id="menuList" :class="$style.navList">
-			<li v-for="(link, ind) in $state" :key="ind" @click="openMenu">
+			<li v-for="(link, ind) in menu" :key="ind" @click="openMenu">
 				<button :class="$style.navLink" @click="scrollTo(link.value)">
 					{{ link.label }}
 				</button>

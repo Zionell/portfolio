@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { $state } = useWorksStore();
+import { works } from "~/assets/data/works";
 </script>
 
 <template>
@@ -8,7 +8,7 @@ const { $state } = useWorksStore();
 
 		<div :class="$style.list">
 			<WorksCard
-				v-for="(card, ind) in $state.works"
+				v-for="(card, ind) in works"
 				:key="ind"
 				:card="card"
 				:class="$style.card"
