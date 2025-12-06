@@ -5,7 +5,9 @@ async function getImage(url, name) {
 		const browser = await puppeteer.launch();
 		const page = await browser.newPage();
 		await page.goto(url);
-		// await page.waitForTimeout(1000);
+		await page.waitForNetworkIdle({
+			idleTime: 1000,
+		});
 
 		await page.setViewport({ width: 1440, height: 900 });
 		await page.screenshot({ path: `public/images/projects/${name}.jpg` });
@@ -35,10 +37,10 @@ function generate() {
 		//     label: 'tourmetria',
 		//     value: 'https://tourmetria:tourmetria_secret_1@tourmetria.tsacloud.com/',
 		// },
-		// {
-		//     label: 'dachboard',
-		//     value: 'https://dashboard.askarov.dev/',
-		// },
+		{
+			label: "dachboard",
+			value: "http://localhost:3000/",
+		},
 		// {
 		//     label: 'topogeo',
 		//     value: 'https://zionell.github.io/Topogeo/',
@@ -56,7 +58,6 @@ function generate() {
 		// 	value: "https://mogo-lyart.vercel.app/",
 		// },
 	];
-	console.log("works", works);
 
 	works.forEach((w) => getImage(w.value, w.label));
 }
