@@ -1,0 +1,14 @@
+{
+	"common": {
+		"getCv": "Download CV",
+		"readTime": "min",
+		"viewAll": "View all"
+	},
+	"sections": {
+		"about": "About",
+		"skills": "Skills & Tools",
+		"experience": "Experience",
+		"projects": "Projects",
+		"blog": "Blog"
+	}
+}

@@ -1,0 +1,51 @@
+@use "nullstyle" as *;
+@use "transitions" as *;
+
+html {
+    font-size: 12px;
+    scroll-behavior: smooth;
+
+    @include media($desktop) {
+        font-size: .694444vw;
+    }
+
+    @include media($tablet) {
+		font-size: .9765625vw;
+    }
+
+    @include media($mobile) {
+		font-size: 10px;
+    }
+}
+
+body {
+    font-family: $ff-regular;
+    color: $white;
+    background: $black;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $gray1;
+    border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $gray3;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	gap: 2rem;
+}

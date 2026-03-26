@@ -1,0 +1,26 @@
+@use "vars" as *;
+
+@mixin font($alias, $name, $weight) {
+	@font-face {
+		font-family: $alias;
+		src: local($name),
+		url("/fonts/" + $name + ".woff") format("woff");
+		font-weight: $weight;
+		font-style: normal;
+		font-display: swap;
+	}
+}
+
+@mixin hover {
+	@media (hover), (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+@mixin media($bp) {
+	@media (max-width: $bp) {
+		@content;
+	}
+}

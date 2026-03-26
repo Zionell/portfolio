@@ -1,0 +1,14 @@
+{
+	"common": {
+		"getCv": "Скачать CV",
+		"readTime": "мин",
+		"viewAll": "Смотреть все"
+	},
+	"sections": {
+		"about": "Обо мне",
+		"skills": "Скилы",
+		"experience": "Опыт работы",
+		"projects": "Проекты",
+		"blog": "Блог"
+	}
+}

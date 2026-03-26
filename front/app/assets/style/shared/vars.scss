@@ -1,0 +1,28 @@
+@use 'sass:map';
+
+$white: #fff;
+$black: #000;
+$gray1: #414042;
+$gray2: #58595b;
+$gray3: #6d6e71;
+$gray4: #808285;
+$gray5: #939598;
+$error: #fc4747;
+
+//Breakpoints
+$breakpoints: (
+	mobile: 0,
+	tablet: 768px,
+	desktop: 1280px,
+	wide: 1600px
+);
+
+$mobile: map.get($breakpoints, tablet) - 1px;
+$tablet: map.get($breakpoints, desktop) - 1px;
+$desktop: map.get($breakpoints, wide) - 1px;
+
+$default-transition: .3s ease-out;
+
+//Fonts
+$ff-regular: 'RobotoMono-Regular', sans-serif;
+$ff-title: 'RussoOne-Regular', sans-serif;
