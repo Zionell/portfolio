@@ -1,24 +1,18 @@
-import type {Script, Noscript, Meta, Link} from 'unhead/types'
+import type { Script, Noscript, Meta, Link } from "unhead/types";
+import type {
+	SettingsContacts,
+	SettingsSeo,
+	SettingsSeoContent,
+} from "~~/generated/prisma/client";
 
-export interface ISocial {
-	name: string;
-	icon: string;
-	link: string;
+export interface ISettingsSeo extends SettingsSeo {
+	content: SettingsSeoContent[];
 }
 
 export interface ISettings {
-	contacts: {
-		email?: string;
-		phone?: string;
-		social?: ISocial[];
-	};
-	seo?: {
-		title: string;
-		description: string;
-		link: string;
-		image: string;
-		author: string;
-	};
+	contacts: SettingsContacts[];
+	seo: ISettingsSeo;
+
 	meta?: Meta[];
 	links?: Link[];
 	scripts: Script[];

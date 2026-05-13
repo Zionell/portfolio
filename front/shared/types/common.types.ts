@@ -1,5 +1,5 @@
 export interface ISpec {
-	label: string;
+	key: string;
 	value: string;
 }
 

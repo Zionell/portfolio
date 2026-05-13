@@ -58,7 +58,22 @@ export type HomeExperience = Prisma.HomeExperienceModel
  */
 export type HomeSkill = Prisma.HomeSkillModel
 /**
- * Model Settings
+ * Model SettingsSeo
  * 
  */
-export type Settings = Prisma.SettingsModel
+export type SettingsSeo = Prisma.SettingsSeoModel
+/**
+ * Model SettingsSeoContent
+ * 
+ */
+export type SettingsSeoContent = Prisma.SettingsSeoContentModel
+/**
+ * Model SettingsContacts
+ * 
+ */
+export type SettingsContacts = Prisma.SettingsContactsModel
+/**
+ * Model SettingsScripts
+ * 
+ */
+export type SettingsScripts = Prisma.SettingsScriptsModel

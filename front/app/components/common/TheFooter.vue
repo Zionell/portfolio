@@ -6,8 +6,6 @@ const props = defineProps<{
 	settings: ISettings | undefined;
 }>();
 
-const isRouteLink = (value: string) => value.startsWith("/");
-
 const currentYear = new Date().getFullYear();
 </script>
 
@@ -23,46 +21,22 @@ const currentYear = new Date().getFullYear();
 					v-for="item in menu"
 					:key="item.value"
 					:class="$style.navLink"
-					:to="isRouteLink(item.value) ? item.value : undefined"
-					:href="
-						isRouteLink(item.value) ? undefined : `#${item.value}`
-					"
+					:to="item.value"
 				>
-					{{ item.label }}
+					{{ $t(`sections.${item.key}`) }}
 				</NuxtLink>
 			</nav>
 
-			<div :class="$style.contacts">
-				<a
-					v-if="props.settings?.contacts?.email"
-					:class="$style.contactLink"
-					:href="`mailto:${props.settings.contacts.email}`"
-				>
-					{{ props.settings.contacts.email }}
-				</a>
-				<a
-					v-if="props.settings?.contacts?.phone"
-					:class="$style.contactLink"
-					:href="`tel:${props.settings.contacts.phone}`"
-				>
-					{{ props.settings.contacts.phone }}
-				</a>
-			</div>
-
-			<div
-				v-if="props.settings?.contacts?.social"
-				:class="$style.socials"
-			>
-				<a
-					v-for="item in props.settings.contacts.social"
-					:key="item.name"
-					:href="item.link"
+			<div v-if="props.settings?.contacts" :class="$style.contacts">
+				<NuxtLink
+					v-for="item in props.settings.contacts"
+					:key="item.id"
+					:class="$style.navLink"
+					:to="item.link"
 					target="_blank"
-					rel="noreferrer"
-					:class="$style.social"
 				>
-					<div :class="$style.socialIcon" v-html="item.icon" />
-				</a>
+					{{ item.name }}
+				</NuxtLink>
 			</div>
 		</div>
 
@@ -80,10 +54,6 @@ const currentYear = new Date().getFullYear();
 	gap: 3.2rem;
 	color: $white;
 	align-items: center;
-
-	//@media #{$mobile} {
-	//	padding: 4rem 2.4rem;
-	//}
 }
 
 .line {
@@ -98,10 +68,6 @@ const currentYear = new Date().getFullYear();
 	align-items: center;
 	gap: 3.2rem;
 	text-align: center;
-
-	//@media #{$tablet} {
-	//	gap: 2.4rem;
-	//}
 }
 
 .nav {
@@ -151,27 +117,6 @@ const currentYear = new Date().getFullYear();
 	@include hover {
 		color: $white;
 	}
-}
-
-.socials {
-	display: flex;
-	justify-content: center;
-	gap: 1.6rem;
-	flex-wrap: wrap;
-}
-
-.social {
-	color: $gray4;
-	transition: $default-transition;
-
-	@include hover {
-		color: $white;
-	}
-}
-
-.socialIcon {
-	width: 4rem;
-	height: 4rem;
 }
 
 .copy {

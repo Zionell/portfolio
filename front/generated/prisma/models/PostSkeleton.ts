@@ -30,6 +30,7 @@ export type PostSkeletonMinAggregateOutputType = {
   title: string | null
   body: string | null
   commits: string | null
+  isUsed: boolean | null
 }
 
 export type PostSkeletonMaxAggregateOutputType = {
@@ -38,6 +39,7 @@ export type PostSkeletonMaxAggregateOutputType = {
   title: string | null
   body: string | null
   commits: string | null
+  isUsed: boolean | null
 }
 
 export type PostSkeletonCountAggregateOutputType = {
@@ -46,6 +48,7 @@ export type PostSkeletonCountAggregateOutputType = {
   title: number
   body: number
   commits: number
+  isUsed: number
   _all: number
 }
 
@@ -56,6 +59,7 @@ export type PostSkeletonMinAggregateInputType = {
   title?: true
   body?: true
   commits?: true
+  isUsed?: true
 }
 
 export type PostSkeletonMaxAggregateInputType = {
@@ -64,6 +68,7 @@ export type PostSkeletonMaxAggregateInputType = {
   title?: true
   body?: true
   commits?: true
+  isUsed?: true
 }
 
 export type PostSkeletonCountAggregateInputType = {
@@ -72,6 +77,7 @@ export type PostSkeletonCountAggregateInputType = {
   title?: true
   body?: true
   commits?: true
+  isUsed?: true
   _all?: true
 }
 
@@ -153,6 +159,7 @@ export type PostSkeletonGroupByOutputType = {
   title: string
   body: string
   commits: string
+  isUsed: boolean
   _count: PostSkeletonCountAggregateOutputType | null
   _min: PostSkeletonMinAggregateOutputType | null
   _max: PostSkeletonMaxAggregateOutputType | null
@@ -182,6 +189,7 @@ export type PostSkeletonWhereInput = {
   title?: Prisma.StringFilter<"PostSkeleton"> | string
   body?: Prisma.StringFilter<"PostSkeleton"> | string
   commits?: Prisma.StringFilter<"PostSkeleton"> | string
+  isUsed?: Prisma.BoolFilter<"PostSkeleton"> | boolean
 }
 
 export type PostSkeletonOrderByWithRelationInput = {
@@ -190,6 +198,7 @@ export type PostSkeletonOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   commits?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
 }
 
 export type PostSkeletonWhereUniqueInput = Prisma.AtLeast<{
@@ -201,6 +210,7 @@ export type PostSkeletonWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"PostSkeleton"> | string
   body?: Prisma.StringFilter<"PostSkeleton"> | string
   commits?: Prisma.StringFilter<"PostSkeleton"> | string
+  isUsed?: Prisma.BoolFilter<"PostSkeleton"> | boolean
 }, "id">
 
 export type PostSkeletonOrderByWithAggregationInput = {
@@ -209,6 +219,7 @@ export type PostSkeletonOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   commits?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
   _count?: Prisma.PostSkeletonCountOrderByAggregateInput
   _max?: Prisma.PostSkeletonMaxOrderByAggregateInput
   _min?: Prisma.PostSkeletonMinOrderByAggregateInput
@@ -223,6 +234,7 @@ export type PostSkeletonScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"PostSkeleton"> | string
   body?: Prisma.StringWithAggregatesFilter<"PostSkeleton"> | string
   commits?: Prisma.StringWithAggregatesFilter<"PostSkeleton"> | string
+  isUsed?: Prisma.BoolWithAggregatesFilter<"PostSkeleton"> | boolean
 }
 
 export type PostSkeletonCreateInput = {
@@ -231,6 +243,7 @@ export type PostSkeletonCreateInput = {
   title: string
   body: string
   commits: string
+  isUsed?: boolean
 }
 
 export type PostSkeletonUncheckedCreateInput = {
@@ -239,6 +252,7 @@ export type PostSkeletonUncheckedCreateInput = {
   title: string
   body: string
   commits: string
+  isUsed?: boolean
 }
 
 export type PostSkeletonUpdateInput = {
@@ -246,6 +260,7 @@ export type PostSkeletonUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   commits?: Prisma.StringFieldUpdateOperationsInput | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PostSkeletonUncheckedUpdateInput = {
@@ -253,6 +268,7 @@ export type PostSkeletonUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   commits?: Prisma.StringFieldUpdateOperationsInput | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PostSkeletonCreateManyInput = {
@@ -261,6 +277,7 @@ export type PostSkeletonCreateManyInput = {
   title: string
   body: string
   commits: string
+  isUsed?: boolean
 }
 
 export type PostSkeletonUpdateManyMutationInput = {
@@ -268,6 +285,7 @@ export type PostSkeletonUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   commits?: Prisma.StringFieldUpdateOperationsInput | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PostSkeletonUncheckedUpdateManyInput = {
@@ -275,6 +293,7 @@ export type PostSkeletonUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   commits?: Prisma.StringFieldUpdateOperationsInput | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PostSkeletonCountOrderByAggregateInput = {
@@ -283,6 +302,7 @@ export type PostSkeletonCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   commits?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
 }
 
 export type PostSkeletonMaxOrderByAggregateInput = {
@@ -291,6 +311,7 @@ export type PostSkeletonMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   commits?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
 }
 
 export type PostSkeletonMinOrderByAggregateInput = {
@@ -299,10 +320,15 @@ export type PostSkeletonMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   commits?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 
@@ -313,6 +339,7 @@ export type PostSkeletonSelect<ExtArgs extends runtime.Types.Extensions.Internal
   title?: boolean
   body?: boolean
   commits?: boolean
+  isUsed?: boolean
 }, ExtArgs["result"]["postSkeleton"]>
 
 
@@ -323,9 +350,10 @@ export type PostSkeletonSelectScalar = {
   title?: boolean
   body?: boolean
   commits?: boolean
+  isUsed?: boolean
 }
 
-export type PostSkeletonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repo_name" | "title" | "body" | "commits", ExtArgs["result"]["postSkeleton"]>
+export type PostSkeletonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repo_name" | "title" | "body" | "commits" | "isUsed", ExtArgs["result"]["postSkeleton"]>
 
 export type $PostSkeletonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PostSkeleton"
@@ -336,6 +364,7 @@ export type $PostSkeletonPayload<ExtArgs extends runtime.Types.Extensions.Intern
     title: string
     body: string
     commits: string
+    isUsed: boolean
   }, ExtArgs["result"]["postSkeleton"]>
   composites: {}
 }
@@ -733,6 +762,7 @@ export interface PostSkeletonFieldRefs {
   readonly title: Prisma.FieldRef<"PostSkeleton", 'String'>
   readonly body: Prisma.FieldRef<"PostSkeleton", 'String'>
   readonly commits: Prisma.FieldRef<"PostSkeleton", 'String'>
+  readonly isUsed: Prisma.FieldRef<"PostSkeleton", 'Boolean'>
 }
     
 

@@ -398,7 +398,10 @@ export const ModelName = {
   HomeAboutText: 'HomeAboutText',
   HomeExperience: 'HomeExperience',
   HomeSkill: 'HomeSkill',
-  Settings: 'Settings'
+  SettingsSeo: 'SettingsSeo',
+  SettingsSeoContent: 'SettingsSeoContent',
+  SettingsContacts: 'SettingsContacts',
+  SettingsScripts: 'SettingsScripts'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "postSkeleton" | "blogPost" | "project" | "homeHero" | "homeAbout" | "homeAboutText" | "homeExperience" | "homeSkill" | "settings"
+    modelProps: "postSkeleton" | "blogPost" | "project" | "homeHero" | "homeAbout" | "homeAboutText" | "homeExperience" | "homeSkill" | "settingsSeo" | "settingsSeoContent" | "settingsContacts" | "settingsScripts"
     txIsolationLevel: never
   }
   model: {
@@ -1010,77 +1013,299 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Settings: {
-      payload: Prisma.$SettingsPayload<ExtArgs>
-      fields: Prisma.SettingsFieldRefs
+    SettingsSeo: {
+      payload: Prisma.$SettingsSeoPayload<ExtArgs>
+      fields: Prisma.SettingsSeoFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.SettingsFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload> | null
+          args: Prisma.SettingsSeoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.SettingsFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         findFirst: {
-          args: Prisma.SettingsFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload> | null
+          args: Prisma.SettingsSeoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.SettingsFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         findMany: {
-          args: Prisma.SettingsFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>[]
+          args: Prisma.SettingsSeoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>[]
         }
         create: {
-          args: Prisma.SettingsCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         createMany: {
-          args: Prisma.SettingsCreateManyArgs<ExtArgs>
+          args: Prisma.SettingsSeoCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         delete: {
-          args: Prisma.SettingsDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         update: {
-          args: Prisma.SettingsUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         deleteMany: {
-          args: Prisma.SettingsDeleteManyArgs<ExtArgs>
+          args: Prisma.SettingsSeoDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.SettingsUpdateManyArgs<ExtArgs>
+          args: Prisma.SettingsSeoUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         upsert: {
-          args: Prisma.SettingsUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsPayload>
+          args: Prisma.SettingsSeoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoPayload>
         }
         aggregate: {
-          args: Prisma.SettingsAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateSettings>
+          args: Prisma.SettingsSeoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettingsSeo>
         }
         groupBy: {
-          args: Prisma.SettingsGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.SettingsGroupByOutputType>[]
+          args: Prisma.SettingsSeoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsSeoGroupByOutputType>[]
         }
         findRaw: {
-          args: Prisma.SettingsFindRawArgs<ExtArgs>
+          args: Prisma.SettingsSeoFindRawArgs<ExtArgs>
           result: Prisma.JsonObject
         }
         aggregateRaw: {
-          args: Prisma.SettingsAggregateRawArgs<ExtArgs>
+          args: Prisma.SettingsSeoAggregateRawArgs<ExtArgs>
           result: Prisma.JsonObject
         }
         count: {
-          args: Prisma.SettingsCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.SettingsCountAggregateOutputType> | number
+          args: Prisma.SettingsSeoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsSeoCountAggregateOutputType> | number
+        }
+      }
+    }
+    SettingsSeoContent: {
+      payload: Prisma.$SettingsSeoContentPayload<ExtArgs>
+      fields: Prisma.SettingsSeoContentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingsSeoContentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingsSeoContentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingsSeoContentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingsSeoContentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        findMany: {
+          args: Prisma.SettingsSeoContentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>[]
+        }
+        create: {
+          args: Prisma.SettingsSeoContentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        createMany: {
+          args: Prisma.SettingsSeoContentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.SettingsSeoContentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        update: {
+          args: Prisma.SettingsSeoContentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingsSeoContentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingsSeoContentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.SettingsSeoContentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsSeoContentPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingsSeoContentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettingsSeoContent>
+        }
+        groupBy: {
+          args: Prisma.SettingsSeoContentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsSeoContentGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.SettingsSeoContentFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.SettingsSeoContentAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.SettingsSeoContentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsSeoContentCountAggregateOutputType> | number
+        }
+      }
+    }
+    SettingsContacts: {
+      payload: Prisma.$SettingsContactsPayload<ExtArgs>
+      fields: Prisma.SettingsContactsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingsContactsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingsContactsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingsContactsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingsContactsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        findMany: {
+          args: Prisma.SettingsContactsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>[]
+        }
+        create: {
+          args: Prisma.SettingsContactsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        createMany: {
+          args: Prisma.SettingsContactsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.SettingsContactsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        update: {
+          args: Prisma.SettingsContactsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingsContactsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingsContactsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.SettingsContactsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsContactsPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingsContactsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettingsContacts>
+        }
+        groupBy: {
+          args: Prisma.SettingsContactsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsContactsGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.SettingsContactsFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.SettingsContactsAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.SettingsContactsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsContactsCountAggregateOutputType> | number
+        }
+      }
+    }
+    SettingsScripts: {
+      payload: Prisma.$SettingsScriptsPayload<ExtArgs>
+      fields: Prisma.SettingsScriptsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingsScriptsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingsScriptsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingsScriptsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingsScriptsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        findMany: {
+          args: Prisma.SettingsScriptsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>[]
+        }
+        create: {
+          args: Prisma.SettingsScriptsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        createMany: {
+          args: Prisma.SettingsScriptsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.SettingsScriptsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        update: {
+          args: Prisma.SettingsScriptsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingsScriptsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingsScriptsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.SettingsScriptsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsScriptsPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingsScriptsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettingsScripts>
+        }
+        groupBy: {
+          args: Prisma.SettingsScriptsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsScriptsGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.SettingsScriptsFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.SettingsScriptsAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.SettingsScriptsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsScriptsCountAggregateOutputType> | number
         }
       }
     }
@@ -1106,7 +1331,8 @@ export const PostSkeletonScalarFieldEnum = {
   repo_name: 'repo_name',
   title: 'title',
   body: 'body',
-  commits: 'commits'
+  commits: 'commits',
+  isUsed: 'isUsed'
 } as const
 
 export type PostSkeletonScalarFieldEnum = (typeof PostSkeletonScalarFieldEnum)[keyof typeof PostSkeletonScalarFieldEnum]
@@ -1137,13 +1363,13 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   link: 'link',
-  stack: 'stack',
+  image: 'image',
   order: 'order',
-  lang: 'lang',
   isDeveloping: 'isDeveloping',
   isArchived: 'isArchived',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  stackIDs: 'stackIDs'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -1188,13 +1414,15 @@ export const HomeExperienceScalarFieldEnum = {
   id: 'id',
   company: 'company',
   position: 'position',
-  period: 'period',
-  stack: 'stack',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isPresent: 'isPresent',
   responsibilities: 'responsibilities',
   order: 'order',
   lang: 'lang',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  stackIDs: 'stackIDs'
 } as const
 
 export type HomeExperienceScalarFieldEnum = (typeof HomeExperienceScalarFieldEnum)[keyof typeof HomeExperienceScalarFieldEnum]
@@ -1206,26 +1434,62 @@ export const HomeSkillScalarFieldEnum = {
   label: 'label',
   order: 'order',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  homeExperienceIDs: 'homeExperienceIDs',
+  projectId: 'projectId'
 } as const
 
 export type HomeSkillScalarFieldEnum = (typeof HomeSkillScalarFieldEnum)[keyof typeof HomeSkillScalarFieldEnum]
 
 
-export const SettingsScalarFieldEnum = {
+export const SettingsSeoScalarFieldEnum = {
   id: 'id',
+  image: 'image',
   key: 'key',
-  contacts: 'contacts',
-  seo: 'seo',
-  meta: 'meta',
-  links: 'links',
-  scripts: 'scripts',
-  noScripts: 'noScripts',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+export type SettingsSeoScalarFieldEnum = (typeof SettingsSeoScalarFieldEnum)[keyof typeof SettingsSeoScalarFieldEnum]
+
+
+export const SettingsSeoContentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  link: 'link',
+  author: 'author',
+  lang: 'lang',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  settingsSeoId: 'settingsSeoId'
+} as const
+
+export type SettingsSeoContentScalarFieldEnum = (typeof SettingsSeoContentScalarFieldEnum)[keyof typeof SettingsSeoContentScalarFieldEnum]
+
+
+export const SettingsContactsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  link: 'link',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SettingsContactsScalarFieldEnum = (typeof SettingsContactsScalarFieldEnum)[keyof typeof SettingsContactsScalarFieldEnum]
+
+
+export const SettingsScriptsScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  innerHTML: 'innerHTML',
+  async: 'async',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SettingsScriptsScalarFieldEnum = (typeof SettingsScriptsScalarFieldEnum)[keyof typeof SettingsScriptsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1265,6 +1529,13 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1279,13 +1550,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1296,20 +1560,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'Json[]'
- */
-export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json[]'>
     
 
 
@@ -1420,7 +1670,10 @@ export type GlobalOmitConfig = {
   homeAboutText?: Prisma.HomeAboutTextOmit
   homeExperience?: Prisma.HomeExperienceOmit
   homeSkill?: Prisma.HomeSkillOmit
-  settings?: Prisma.SettingsOmit
+  settingsSeo?: Prisma.SettingsSeoOmit
+  settingsSeoContent?: Prisma.SettingsSeoContentOmit
+  settingsContacts?: Prisma.SettingsContactsOmit
+  settingsScripts?: Prisma.SettingsScriptsOmit
 }
 
 /* Types for Logging */

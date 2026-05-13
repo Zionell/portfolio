@@ -36,33 +36,10 @@ main {
     flex-grow: 1;
 }
 
-input,
 button,
-textarea,
 pre {
     font-family: inherit;
 }
-
-input::-ms-clear {
-    display: none;
-}
-
-// Для iphone
-input:not([type="checkbox"]):not([type="radio"]),
-textarea,
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-// Конец
-// Убрать/невидимка стрелочку у input
-input::-webkit-calendar-picker-indicator {
-    opacity: 0;
-}
-
-// Конец
 
 button {
     background: none;
@@ -87,13 +64,13 @@ ul li {
     list-style: none;
 }
 
-img {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    vertical-align: top;
-}
+//img {
+//    max-width: 100%;
+//    width: 100%;
+//    height: 100%;
+//    object-fit: cover;
+//    vertical-align: top;
+//}
 
 h1,
 h2,
@@ -104,31 +81,3 @@ h6 {
     font-size: inherit;
     font-weight: 400;
 }
-
-// Скрываем стрелки в input[type="number"]
-input[type="number"] {
-    -moz-appearance: textfield;
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-}
-
-/* END */
-// Обводка у обязательных (required) полей ввода
-input,
-textarea {
-    outline: none;
-
-    &:focus:required:invalid {
-        border-color: #fc4747;
-    }
-
-    &:required:valid {
-        border-color: #000;
-    }
-}
-
-/* -------------------- */

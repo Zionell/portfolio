@@ -1,25 +1,59 @@
-export default defineEventHandler(async (event) => {
-	const body = await readBody<{ image?: string; text?: string[] }>(event);
+interface IText {
+	id?: string;
+	lang: string;
+	text: string;
+}
 
-	if (!body?.image || !Array.isArray(body?.text)) {
-		throw createError({
-			statusCode: 400,
-			statusMessage: "Image and text are required",
+interface IBody {
+	id?: string;
+	image: string;
+	text: IText[];
+}
+
+export default defineEventHandler(async (event) => {
+	const body = await readBody<IBody>(event);
+
+	if (body?.id) {
+		for (const item of body.text) {
+			if (item?.id) {
+				await prisma.homeAboutText.update({
+					where: {
+						id: item.id,
+					},
+					data: {
+						lang: item.lang,
+						text: item.text,
+					},
+				});
+			} else if (item.text) {
+				await prisma.homeAboutText.create({
+					data: {
+						lang: item.lang,
+						text: item.text,
+						homeAboutId: body.id,
+					},
+				});
+			}
+		}
+
+		await prisma.homeAbout.update({
+			where: { id: body.id },
+			data: {
+				image: body.image
+			},
+		});
+	} else {
+		await prisma.homeAbout.create({
+			data: {
+				image: body.image,
+				text: {
+					createMany: {
+						data: body.text,
+					},
+				},
+			},
 		});
 	}
 
-	const record = await prisma.homeAbout.upsert({
-		where: { key: "main" },
-		update: {
-			image: body.image,
-			text: body.text,
-		},
-		create: {
-			key: "main",
-			image: body.image,
-			text: body.text,
-		},
-	});
-
-	return { data: record };
+	return true;
 });

@@ -3,12 +3,14 @@ import { api } from "~/assets/data/api";
 import type { HomeAbout, HomeAboutText } from "~~/generated/prisma/client";
 import AdminSectionFooter from "~/components/admin/common/AdminSectionFooter.vue";
 import { useAdminUpload } from "~/composables/useAdminUpload";
+import { resolveFile } from "~/assets/ts/utils";
+import { cleanHtmlText } from "#server/utils/text-utils";
 
 interface IAbout extends HomeAbout {
 	text: HomeAboutText[];
 }
 
-const { locale, locales } = useI18n();
+const { locales } = useI18n();
 
 const imageSrc = ref<string>("");
 const text = ref<Partial<HomeAboutText>[]>([]);
@@ -38,36 +40,24 @@ const handleSave = async () => {
 	try {
 		isLoading.value = true;
 
+		const sanitizedText = text.value.map((item) => ({
+			...item,
+			text: cleanHtmlText(item.text || ""),
+		}));
+
 		await $fetch(api.admin.about, {
 			method: "POST",
-			// body: {
-			// 	image: aboutForm.image,
-			// 	text: aboutForm.text.filter((item) => item.trim().length),
-			// },
+			body: {
+				id: data.value?.id,
+				image: imageSrc.value,
+				text: sanitizedText,
+			},
 		});
 	} catch (error) {
 		console.error(error);
 	} finally {
 		isLoading.value = false;
 	}
-};
-const src = ref(null);
-
-const onFileSelect = (event) => {
-	const file = event.files[0];
-	const reader = new FileReader();
-
-	reader.onload = async (e) => {
-		src.value = e.target.result;
-	};
-
-	reader.readAsDataURL(file);
-};
-
-const resolveFile = (payload: any): File | null => {
-	const files = payload?.files || payload?.target?.files;
-	if (!files) return null;
-	return Array.isArray(files) ? files[0] : files?.[0] || null;
 };
 
 const onAboutImageChange = async (event: any) => {
@@ -84,14 +74,6 @@ const onAboutImageChange = async (event: any) => {
 	} finally {
 		isUploading.value = false;
 	}
-};
-
-const addAboutParagraph = () => {
-	aboutForm.text.push("");
-};
-
-const removeAboutParagraph = (index: number) => {
-	text.value.splice(index, 1);
 };
 </script>
 
@@ -122,11 +104,6 @@ const removeAboutParagraph = (index: number) => {
 				/>
 			</div>
 		</PrimePanel>
-		<PrimeEditor
-			v-model="text[0].text"
-			:class="$style.editor"
-			editorStyle="height: 460px"
-		/>
 		<PrimePanel
 			v-for="(text, ind) in text"
 			:key="`Paragraph_${ind}`"
@@ -134,31 +111,13 @@ const removeAboutParagraph = (index: number) => {
 			toggleable
 		>
 			<div :class="$style.form">
-				<Button
-					:class="$style.removeBtn"
-					label="Удалить"
-					@click="removeAboutParagraph(ind)"
-				/>
 				<PrimeEditor
 					v-model="text.text"
 					:class="$style.editor"
 					editorStyle="height: 460px"
 				/>
-				<!--				<PrimeFloatLabel variant="on">-->
-				<!--					<PrimeEdi id="on_label" v-model="hero.title" />-->
-				<!--					<label for="on_label">Title</label>-->
-				<!--				</PrimeFloatLabel>-->
-				<!--				<PrimeFloatLabel variant="on">-->
-				<!--					<PrimeInputText id="on_label" v-model="hero.subtitle" />-->
-				<!--					<label for="on_label">Subtitle</label>-->
-				<!--				</PrimeFloatLabel>-->
 			</div>
 		</PrimePanel>
-		<Button
-			:class="['admin-button']"
-			label="Добавить абзац"
-			@click="addAboutParagraph"
-		/>
 
 		<AdminSectionFooter :is-saving="isLoading" @save="handleSave" />
 	</div>

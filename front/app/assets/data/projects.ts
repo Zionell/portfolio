@@ -1,6 +1,4 @@
-import type { IProject } from "#shared/types/home.types";
-
-export const projects: IProject[] = [
+export const projects = [
 	{
 		id: 1,
 		link: "",

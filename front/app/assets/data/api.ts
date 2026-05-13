@@ -9,6 +9,13 @@ export const api = {
 		projects: "/api/v1/admin/projects",
 		skills: "/api/v1/admin/skills",
 		blog: "/api/v1/admin/blog",
-		settings: "/api/v1/admin/settings",
-	}
+		skeleton: "/api/v1/admin/skeleton",
+		settings: {
+			contacts: "/api/v1/admin/settings/contacts",
+			seo: "/api/v1/admin/settings/seo",
+			meta: "/api/v1/admin/settings/meta",
+			links: "/api/v1/admin/settings/links",
+			scripts: "/api/v1/admin/settings/scripts",
+		},
+	},
 };

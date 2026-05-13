@@ -1,3 +1,5 @@
+import Nora from "@primeuix/themes/nora";
+import glsl from "vite-plugin-glsl";
 
 const breakpoints = {
 	mobile: 767,
@@ -25,6 +27,11 @@ export default defineNuxtConfig({
 		autoImport: true,
 		components: {
 			prefix: "Prime",
+		},
+		options: {
+			theme: {
+				preset: Nora,
+			},
 		},
 	},
 
@@ -81,8 +88,15 @@ export default defineNuxtConfig({
 	css: ["~/assets/style/style.scss"],
 
 	vite: {
+		plugins: [glsl()],
 		build: {
 			minify: "esbuild",
+			commonjsOptions: {
+				include: [/eventemitter3/, /quill-delta/, /node_modules/],
+			},
+		},
+		optimizeDeps: {
+			include: ["@vueuse/core", "quill-delta", "eventemitter3"],
 		},
 		css: {
 			preprocessorOptions: {

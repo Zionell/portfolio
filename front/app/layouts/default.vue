@@ -2,10 +2,29 @@
 import { api } from "~/assets/data/api";
 import type { ISettings } from "#shared/types/settings.types";
 import TheHeader from "~/components/common/TheHeader.vue";
+import type {
+	SettingsSeo,
+	SettingsSeoContent,
+} from "~~/generated/prisma/client";
+import { faviconsLinks, faviconsMeta } from "~/assets/data/favicons";
+
+type TSettingResponse = SettingsSeo &
+	SettingsSeoContent & {
+		content: SettingsSeoContent[];
+	};
 
 const head = useLocaleHead();
 
-const { data: settings } = await useFetch<ISettings>(api.settings);
+const seo = ref<TSettingResponse | null>(null);
+
+const { data } = await useFetch<ISettings>(api.settings);
+
+if (data.value?.seo?.content?.length) {
+	seo.value = {
+		...data.value.seo,
+		...data.value.seo.content[0],
+	};
+}
 
 useHead({
 	htmlAttrs: head.value.htmlAttrs,
@@ -15,37 +34,43 @@ useHead({
 		},
 		{
 			name: "viewport",
-			content:
-				"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
+			content: "width=device-width, initial-scale=1, user-scalable=yes",
 		},
-		...(settings.value?.meta || []),
+		...(data.value?.meta || []),
+
+		// Favicons
+		...faviconsMeta,
 	],
-	link: settings.value?.links || [],
-	script: settings.value?.scripts || [],
-	noscript: settings.value?.noScripts || [],
+	link: [
+		// Favicons
+		...(Array.isArray(faviconsLinks) ? faviconsLinks : []),
+	],
+	script: data.value?.scripts || [],
+	noscript: data.value?.noScripts || [],
 });
 
 useSeoMeta({
-	title: settings.value?.seo?.title,
-	ogTitle: settings.value?.seo?.title,
-	twitterTitle: settings.value?.seo?.title,
-	description: settings.value?.seo?.description,
-	ogDescription: settings.value?.seo?.description,
-	twitterDescription: settings.value?.seo?.description,
-	ogImage: settings.value?.seo?.image,
-	twitterImage: settings.value?.seo?.image,
-	ogUrl: settings.value?.seo?.link,
+	title: seo.value?.title || "",
+	ogTitle: seo.value?.title || "",
+	twitterTitle: seo.value?.title || "",
+	description: seo.value?.description || "",
+	ogDescription: seo.value?.description || "",
+	twitterDescription: seo.value?.description || "",
+	ogImage: seo.value?.image || "",
+	twitterImage: seo.value?.image || "",
+	ogUrl: seo.value?.link || "",
+	ogType: "website",
 	twitterCard: "summary_large_image",
 });
 </script>
 
 <template>
 	<div :class="$style.layout">
-		<TheHeader :settings="settings" />
+		<TheHeader :settings="data" />
 
 		<slot />
 
-		<TheFooter :settings="settings" />
+		<TheFooter :settings="data" />
 	</div>
 </template>
 

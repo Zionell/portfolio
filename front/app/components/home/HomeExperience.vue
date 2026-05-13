@@ -1,9 +1,24 @@
 <script setup lang="ts">
-import type { HomeExperience } from "~~/generated/prisma/client";
+import type { IHomeExperience } from "#shared/types/home.types";
+import { formatDate } from "~/assets/ts/utils";
 
 const props = defineProps<{
-	content: HomeExperience[];
+	content: IHomeExperience[];
 }>();
+
+const { t, locale } = useI18n();
+
+const period = (item: IHomeExperience): string => {
+	const isPresent = item.isPresent;
+	const start = item?.startDate ? formatDate(item.startDate, locale) : "";
+	const end = isPresent
+		? t("experience.present")
+		: item?.endDate
+			? formatDate(item.endDate, locale)
+			: "";
+
+	return `${start} - ${end}`;
+};
 </script>
 
 <template>
@@ -16,27 +31,36 @@ const props = defineProps<{
 			>
 				<div :class="$style.cardTop">
 					<div>
-						<p v-if="item.company" :class="$style.company">
-							{{ item.company }}
-						</p>
-						<p v-if="item.position" :class="$style.position">
+						<p v-if="item.position" :class="$style.title">
 							{{ item.position }}
 						</p>
+						<p v-if="item.company" :class="$style.subtitle">
+							{{ item.company }}
+						</p>
 					</div>
-					<span v-if="item.period" :class="$style.period">
-						{{ item.period }}
+					<span v-if="period(item)" :class="$style.period">
+						{{ period(item) }}
 					</span>
 				</div>
 
-				<p v-if="item.stack.length" :class="$style.stack">
-					{{ item.stack.join(" · ") }}
-				</p>
-
-				<ul v-if="item.responsibilities.length" :class="$style.points">
-					<li v-for="(point, i) in item.responsibilities" :key="i">
-						{{ point }}
+				<ul v-if="item.stack?.length" :class="$style.stackList">
+					<li
+						v-for="(stack, i) in item.stack"
+						:key="i"
+						:class="$style.stack"
+					>
+						{{ stack.label }}
 					</li>
 				</ul>
+
+				<div :class="$style.pointsTitle">
+					{{ $t("experience.responsibilities") }}
+				</div>
+				<div
+					v-if="item.responsibilities"
+					:class="$style.points"
+					v-html="item.responsibilities"
+				/>
 			</article>
 		</div>
 	</TheSectionWrapper>
@@ -66,12 +90,12 @@ const props = defineProps<{
 	flex-wrap: wrap;
 }
 
-.company {
+.title {
 	font-size: 1.6rem;
 	color: $white;
 }
 
-.position {
+.subtitle {
 	font-size: 1.4rem;
 	color: $gray4;
 }
@@ -83,9 +107,27 @@ const props = defineProps<{
 	color: $gray4;
 }
 
+.stackList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+}
+
 .stack {
 	font-size: 1.3rem;
 	color: $gray4;
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+
+	&:not(:last-child):after {
+		content: "•";
+	}
+}
+
+.pointsTitle {
+	font-size: 1.6rem;
+	color: $gray5;
 }
 
 .points {
@@ -95,5 +137,15 @@ const props = defineProps<{
 	line-height: 1.6;
 	color: $gray5;
 	padding-left: 1.6rem;
+
+	li {
+		display: flex;
+		gap: 0.4rem;
+		align-items: center;
+
+		&:before {
+			content: "-";
+		}
+	}
 }
 </style>

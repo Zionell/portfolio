@@ -1,104 +1,106 @@
 <script setup lang="ts">
-import type { IHomeData } from "#shared/types/home.types";
 import { api } from "~/assets/data/api";
-import Button from "primevue/button";
+import type { IProject } from "#shared/types/project.types";
 
 definePageMeta({
 	layout: "admin",
 });
 
-const { data } = await useFetch<IHomeData>(api.home);
+const { data, refresh } = await useFetch<IProject[]>(
+	api.admin.projects,
+);
 
-const createProject = () => {
-	navigateTo("/admin/projects/new");
+const handleDelete = async (id: string) => {
+	try {
+		await $fetch(`${api.admin.projects}/${id}`, {
+			method: "DELETE",
+		});
+
+		await refresh();
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const handleRedirect = (id: string) => {
+	navigateTo(`/admin/projects/${id}`);
+};
+
+const handleAddNew = () => {
+	navigateTo(`/admin/projects/new?order=${data.value?.length || 0}`);
 };
 </script>
 
 <template>
-	<section class="admin-section">
-		<header class="admin-header">
-			<div>
-				<h1 class="admin-title">Проекты</h1>
-				<p class="admin-subtitle">Список проектов и переход к редактированию.</p>
-			</div>
-			<div class="admin-actions">
-				<Button
-					class="admin-button"
-					label="Добавить проект"
-					type="button"
-					@click="createProject"
-				/>
-			</div>
-		</header>
+	<section :class="$style.AdminSection">
+		<AdminHeader title="Projects">
+			<PrimeButton label="Add project" @click="handleAddNew" />
+		</AdminHeader>
 
-		<div :class="$style.list">
-			<NuxtLink
-				v-for="project in data?.projects || []"
-				:key="project.slug"
-				:to="`/admin/projects/${project.slug}`"
-				:class="$style.row"
+		<div :class="$style.list" v-if="data?.length">
+			<PrimeCard
+				v-for="project in data"
+				:key="project.id"
+				:class="$style.card"
 			>
-				<div>
-					<p :class="$style.name">{{ project.name }}</p>
-					<p :class="$style.meta">{{ project.slug }}</p>
-				</div>
-				<p :class="$style.stack">{{ project.stack.join(" · ") }}</p>
-				<p :class="$style.status">
-					<span v-if="project.isDeveloping">In progress</span>
-					<span v-else-if="project.isArchived">Archived</span>
-					<span v-else>Active</span>
-				</p>
-			</NuxtLink>
+				<template #header>
+					<NuxtImg
+						:class="$style.image"
+						:alt="project.name"
+						:src="project.image || '/images/default.png'"
+					/>
+				</template>
+
+				<template #title>{{ project.name }}</template>
+
+				<template #footer>
+					<div :class="$style.actions">
+						<PrimeButton
+							label="Delete"
+							severity="secondary"
+							variant="outlined"
+							class="w-full"
+							@click="handleDelete(project.id)"
+						/>
+						<PrimeButton
+							label="Edit"
+							@click="handleRedirect(project.id)"
+						/>
+					</div>
+				</template>
+			</PrimeCard>
 		</div>
 	</section>
 </template>
 
 <style lang="scss" module>
+.AdminSection {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
 .list {
 	display: grid;
-	gap: 1.2rem;
-}
-
-.row {
-	display: grid;
-	grid-template-columns: 1.4fr 1.6fr 0.6fr;
+	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
-	align-items: center;
-	padding: 1.6rem;
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	background: rgba(255, 255, 255, 0.02);
-	text-decoration: none;
-	color: inherit;
-	transition: $default-transition;
+	padding: 2rem 0;
 }
 
-.row:hover {
-	border-color: rgba(255, 255, 255, 0.24);
+.card {
+	justify-content: space-between;
 }
 
-.name {
-	font-size: 1.4rem;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+.image {
+	width: 100%;
+	height: 20rem;
+	object-fit: cover;
 }
 
-.meta {
-	color: $gray4;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	font-size: 1rem;
-}
-
-.stack {
-	color: $gray4;
-	font-size: 1.2rem;
-}
-
-.status {
-	font-size: 1.1rem;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: $gray4;
-	text-align: right;
+.actions {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
 }
 </style>

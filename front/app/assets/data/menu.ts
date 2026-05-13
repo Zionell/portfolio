@@ -2,27 +2,27 @@ import type { ISpec } from "#shared/types/common.types";
 
 export const menu: ISpec[] = [
 	{
-		label: "About",
+		key: "about",
 		value: "#about",
 	},
 	{
-		label: "Experience",
+		key: "experience",
 		value: "#experience",
 	},
 	{
-		label: "Skills & Tools",
+		key: "skills",
 		value: "#skills",
 	},
 	{
-		label: "Projects",
-		value: "#works",
+		key: "projects",
+		value: "#projects",
 	},
 	{
-		label: "Blog",
+		key: "blog",
 		value: "/blog",
 	},
 	{
-		label: "Contacts",
+		key: "contacts",
 		value: "#contacts",
 	},
 	// {

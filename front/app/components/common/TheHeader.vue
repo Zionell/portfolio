@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
 					:to="item.value"
 					@click="isMenuOpen = false"
 				>
-					{{ item.label }}
+					{{ $t(`sections.${item.key}`) }}
 				</NuxtLink>
 			</nav>
 		</Transition>

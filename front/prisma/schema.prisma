@@ -9,11 +9,12 @@ datasource db {
 }
 
 model PostSkeleton {
-    id        String @id @default(auto()) @map("_id") @db.ObjectId
+    id        String  @id @default(auto()) @map("_id") @db.ObjectId
     repo_name String
     title     String
     body      String
     commits   String
+    isUsed    Boolean @default(false)
 }
 
 model BlogPost {
@@ -36,15 +37,17 @@ model BlogPost {
 model Project {
     id           String   @id @default(auto()) @map("_id") @db.ObjectId
     name         String
-    slug         String   @unique
+    slug         String
     link         String
-    stack        String[]
+    image        String?
     order        Int?
-    lang         String   @default("en")
     isDeveloping Boolean  @default(false)
     isArchived   Boolean  @default(false)
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
+
+    stackIDs String[]    @db.ObjectId
+    stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
 }
 
 model HomeHero {
@@ -80,33 +83,79 @@ model HomeExperience {
     id               String   @id @default(auto()) @map("_id") @db.ObjectId
     company          String
     position         String
-    period           String
-    stack            String[]
-    responsibilities String[]
+    startDate        DateTime
+    endDate          DateTime
+    isPresent        Boolean  @default(false)
+    responsibilities String
     order            Int?
     lang             String   @default("en")
     createdAt        DateTime @default(now())
     updatedAt        DateTime @updatedAt
+
+    stackIDs String[]    @db.ObjectId
+    stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
 }
 
 model HomeSkill {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     icon      String
     label     String
-    order     Int?
+    order     Int      @default(0)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    homeExperienceIDs String[]         @db.ObjectId
+    homeExperience    HomeExperience[] @relation(fields: [homeExperienceIDs], references: [id])
+
+    projectId String[]  @db.ObjectId
+    project   Project[] @relation(fields: [projectId], references: [id])
+}
+
+model SettingsSeo {
+    id    String @id @default(auto()) @map("_id") @db.ObjectId
+    image String
+    key   String @unique @default("main")
+
+    content SettingsSeoContent[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model Settings {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    key       String   @unique
-    contacts  Json?
-    seo       Json?
-    meta      Json?
-    links     Json?
-    scripts   Json[]
-    noScripts Json[]
+model SettingsSeoContent {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    title       String
+    description String
+    link        String
+    author      String
+    lang        String @unique @default("en")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    settingsSeo   SettingsSeo? @relation(fields: [settingsSeoId], references: [id])
+    settingsSeoId String?      @db.ObjectId
+}
+
+model SettingsContacts {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    name String
+    link String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model SettingsScripts {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    type      String
+    innerHTML String
+    async     Boolean
+    body      Boolean
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

@@ -4,14 +4,57 @@ import type { HomeSkill } from "~~/generated/prisma/client";
 const props = defineProps<{
 	content: HomeSkill[];
 }>();
+
+const { $gsap } = useNuxtApp();
+const wrapperRef = useTemplateRef("wrapperRef");
+const itemRef = useTemplateRef("itemRef");
+
+const animate = () => {
+	$gsap.fromTo(
+		itemRef.value,
+		{
+			scale: 0.1,
+			y: 40,
+			opacity: 0,
+		},
+		{
+			scrollTrigger: {
+				trigger: wrapperRef.value,
+				start: "top 60%",
+				end: "top 90%",
+				toggleActions: "play none resume reverse",
+			},
+			ease: "power1.inOut",
+			stagger: {
+				grid: [7, 15],
+				from: "random",
+				ease: "power2.in",
+				amount: 1.5,
+			},
+			opacity: 1,
+			duration: 1,
+			scale: 1,
+			y: 0,
+		},
+	);
+};
+
+onMounted(() => {
+	nextTick(animate);
+});
 </script>
 
 <template>
 	<TheSectionWrapper :title="$t('sections.skills')">
-		<div v-if="props.content.length" :class="$style.HomeSkills">
+		<div
+			v-if="props.content.length"
+			ref="wrapperRef"
+			:class="$style.HomeSkills"
+		>
 			<div
 				v-for="item in props.content"
 				:key="item.icon"
+				ref="itemRef"
 				:class="$style.card"
 			>
 				<span v-if="item.icon" v-html="item.icon" :class="$style.svg" />
@@ -55,8 +98,13 @@ const props = defineProps<{
 	text-transform: uppercase;
 }
 
-//.svg :global(svg) {
-//	width: 3.2rem;
-//	height: 3.2rem;
-//}
+.svg {
+	width: 4.2rem;
+	height: 4.2rem;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
 </style>

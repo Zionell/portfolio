@@ -13,28 +13,39 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 			}),
 			prisma.homeAbout.findUnique({
 				where: {
-					key: 'main',
+					key: "main",
 				},
-				include:  {
+				include: {
 					text: {
 						where: { lang: curLang },
-					}
-				}
+					},
+				},
 			}),
 			prisma.homeExperience.findMany({
 				where: {
 					lang: curLang,
 				},
 				orderBy: { order: "asc" },
+				include: {
+					stack: {
+						select: {
+							label: true,
+						},
+					},
+				},
 			}),
 			prisma.homeSkill.findMany({
 				orderBy: { order: "asc" },
 			}),
 			prisma.project.findMany({
-				where: {
-					lang: curLang,
-				},
 				orderBy: { order: "asc" },
+				include: {
+					stack: {
+						select: {
+							label: true,
+						},
+					},
+				},
 			}),
 			prisma.blogPost.findMany({
 				orderBy: { updatedAt: "asc" },
@@ -43,7 +54,7 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 					status: "published",
 					mainPage: true,
 				},
-				take: 3
+				take: 3,
 			}),
 		]);
 

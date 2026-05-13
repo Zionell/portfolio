@@ -1,27 +1,66 @@
 <script setup lang="ts">
 import type { HomeHero } from "~~/generated/prisma/client";
+import FluidBg from "~/components/common/FluidBg.vue";
 
 const props = defineProps<{
 	content: HomeHero;
 }>();
+
+const { $gsap, $splitText } = useNuxtApp();
+const titleRef = useTemplateRef("titleRef");
+const textRef = useTemplateRef("textRef");
+
+const animate = () => {
+	$splitText.create(titleRef.value, {
+		type: "chars",
+		onSplit: (self) => {
+			$gsap.from(self.chars, {
+				rotateX: 360,
+				autoAlpha: 0,
+				stagger: {
+					from: "random",
+					amount: 0.5,
+				},
+			});
+		},
+	});
+	$splitText.create(textRef.value, {
+		type: "chars",
+		onSplit: (self) => {
+			$gsap.from(self.chars, {
+				y: 100,
+				autoAlpha: 0,
+				stagger: {
+					from: "random",
+					amount: 0.5,
+				},
+			});
+		},
+	});
+};
+
+onMounted(() => {
+	nextTick(animate);
+});
 </script>
 
 <template>
 	<section :class="$style.HomeHero">
+		<FluidBg />
+
 		<div :class="$style.content">
 			<h1
 				v-if="props.content.title"
+				ref="titleRef"
 				:class="$style.title"
 				v-html="props.content.title"
 			/>
 			<div
 				v-if="props.content.subtitle"
+				ref="textRef"
 				:class="$style.subtitle"
 				v-html="props.content.subtitle"
 			/>
-		</div>
-		<div :class="$style.background">
-			<NuxtImg src="/images/hero.png" fit="cover" preload />
 		</div>
 	</section>
 </template>
@@ -29,7 +68,6 @@ const props = defineProps<{
 <style lang="scss" module>
 .HomeHero {
 	min-height: 100vh;
-	padding: 4rem 6rem 6rem;
 	color: $white;
 	background: #000;
 	display: flex;
@@ -37,29 +75,12 @@ const props = defineProps<{
 	overflow: hidden;
 }
 
-.background {
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-
-	&:after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 0.35),
-			rgba(0, 0, 0, 0.6) 80%
-		);
-		z-index: 1;
-	}
-}
-
 .content {
 	display: flex;
 	flex-direction: column;
 	position: relative;
 	z-index: 2;
+	padding: 4rem 6rem 6rem;
 	flex: 1;
 	justify-content: center;
 }
@@ -73,7 +94,7 @@ const props = defineProps<{
 }
 
 .subtitle {
-	font-size: 1.8rem;
+	font-size: 2rem;
 	line-height: 1.6;
 	color: $gray5;
 }

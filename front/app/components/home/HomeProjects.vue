@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Project } from "~~/generated/prisma/client";
+import type { IHomeProject } from "#shared/types/home.types";
 
 const props = defineProps<{
-	content: Project[];
+	content: IHomeProject[];
 }>();
 </script>
 
@@ -17,16 +17,22 @@ const props = defineProps<{
 			>
 				<NuxtImg
 					:class="$style.cardImg"
-					:src="`/images/projects/${project.slug}.jpg`"
+					:src="project.image"
 					:alt="project.name"
 					placeholder
 				/>
 
 				<div :class="$style.cardBody">
 					<p :class="$style.cardTitle">{{ project.name }}</p>
-					<p v-if="project.stack.length" :class="$style.cardMeta">
-						{{ project.stack.slice(0, 4).join(" · ") }}
-					</p>
+					<ul v-if="project.stack?.length" :class="$style.stackList">
+						<li
+							v-for="(stack, i) in project.stack"
+							:key="i"
+							:class="$style.stack"
+						>
+							{{ stack.label }}
+						</li>
+					</ul>
 				</div>
 			</NuxtLink>
 		</div>
@@ -75,6 +81,10 @@ const props = defineProps<{
 			transform: scale(1.08);
 			filter: brightness(0.9) saturate(1.1) contrast(1.05);
 		}
+
+		.stackList {
+			animation: showStack 3s ease-out forwards;
+		}
 	}
 }
 
@@ -107,5 +117,44 @@ const props = defineProps<{
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	color: rgba(255, 255, 255, 0.6);
+}
+
+.stackList {
+	padding-top: 1.2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+	height: 0;
+	transform: translateY(100%);
+	transform-origin: bottom;
+}
+
+.stack {
+	font-size: 1.3rem;
+	color: $gray4;
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+
+	&:not(:last-child):after {
+		content: "•";
+	}
+}
+
+@keyframes showStack {
+	0% {
+		height: 0;
+		transform: translateY(100%);
+	}
+
+	1% {
+		height: auto;
+		transform: translateY(99%);
+	}
+
+	100% {
+		height: auto;
+		transform: translateY(0);
+	}
 }
 </style>

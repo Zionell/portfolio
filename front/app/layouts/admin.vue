@@ -4,7 +4,7 @@ const route = useRoute();
 const menu = [
 	{ label: "Home page", to: "/admin" },
 	{ label: "Projects", to: "/admin/projects" },
-	{ label: "Blog", to: "/admin/posts" },
+	{ label: "Blog", to: "/admin/blog" },
 	{ label: "Settings", to: "/admin/settings" },
 ];
 </script>

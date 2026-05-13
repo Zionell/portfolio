@@ -48,7 +48,7 @@ const handleSave = async () => {
 </script>
 
 <template>
-	<div :class="$style.AdminHero">
+	<div :class="$style.AdminSection">
 		<PrimePanel
 			v-for="hero in formData"
 			:key="hero.lang"
@@ -57,12 +57,12 @@ const handleSave = async () => {
 		>
 			<div :class="$style.form">
 				<PrimeFloatLabel variant="on">
-					<PrimeInputText id="on_label" v-model="hero.title" />
-					<label for="on_label">Title</label>
+					<PrimeInputText id="on_title" v-model="hero.title" />
+					<label for="on_title">Title</label>
 				</PrimeFloatLabel>
 				<PrimeFloatLabel variant="on">
-					<PrimeInputText id="on_label" v-model="hero.subtitle" />
-					<label for="on_label">Subtitle</label>
+					<PrimeInputText id="on_subTitle" v-model="hero.subtitle" />
+					<label for="on_subTitle">Subtitle</label>
 				</PrimeFloatLabel>
 			</div>
 		</PrimePanel>
@@ -72,7 +72,7 @@ const handleSave = async () => {
 </template>
 
 <style module lang="scss">
-.AdminHero,
+.AdminSection,
 .form {
 	display: grid;
 	gap: 2.4rem;

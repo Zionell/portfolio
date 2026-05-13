@@ -57,7 +57,10 @@ export const ModelName = {
   HomeAboutText: 'HomeAboutText',
   HomeExperience: 'HomeExperience',
   HomeSkill: 'HomeSkill',
-  Settings: 'Settings'
+  SettingsSeo: 'SettingsSeo',
+  SettingsSeoContent: 'SettingsSeoContent',
+  SettingsContacts: 'SettingsContacts',
+  SettingsScripts: 'SettingsScripts'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -71,7 +74,8 @@ export const PostSkeletonScalarFieldEnum = {
   repo_name: 'repo_name',
   title: 'title',
   body: 'body',
-  commits: 'commits'
+  commits: 'commits',
+  isUsed: 'isUsed'
 } as const
 
 export type PostSkeletonScalarFieldEnum = (typeof PostSkeletonScalarFieldEnum)[keyof typeof PostSkeletonScalarFieldEnum]
@@ -102,13 +106,13 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   link: 'link',
-  stack: 'stack',
+  image: 'image',
   order: 'order',
-  lang: 'lang',
   isDeveloping: 'isDeveloping',
   isArchived: 'isArchived',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  stackIDs: 'stackIDs'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -153,13 +157,15 @@ export const HomeExperienceScalarFieldEnum = {
   id: 'id',
   company: 'company',
   position: 'position',
-  period: 'period',
-  stack: 'stack',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isPresent: 'isPresent',
   responsibilities: 'responsibilities',
   order: 'order',
   lang: 'lang',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  stackIDs: 'stackIDs'
 } as const
 
 export type HomeExperienceScalarFieldEnum = (typeof HomeExperienceScalarFieldEnum)[keyof typeof HomeExperienceScalarFieldEnum]
@@ -171,26 +177,62 @@ export const HomeSkillScalarFieldEnum = {
   label: 'label',
   order: 'order',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  homeExperienceIDs: 'homeExperienceIDs',
+  projectId: 'projectId'
 } as const
 
 export type HomeSkillScalarFieldEnum = (typeof HomeSkillScalarFieldEnum)[keyof typeof HomeSkillScalarFieldEnum]
 
 
-export const SettingsScalarFieldEnum = {
+export const SettingsSeoScalarFieldEnum = {
   id: 'id',
+  image: 'image',
   key: 'key',
-  contacts: 'contacts',
-  seo: 'seo',
-  meta: 'meta',
-  links: 'links',
-  scripts: 'scripts',
-  noScripts: 'noScripts',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+export type SettingsSeoScalarFieldEnum = (typeof SettingsSeoScalarFieldEnum)[keyof typeof SettingsSeoScalarFieldEnum]
+
+
+export const SettingsSeoContentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  link: 'link',
+  author: 'author',
+  lang: 'lang',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  settingsSeoId: 'settingsSeoId'
+} as const
+
+export type SettingsSeoContentScalarFieldEnum = (typeof SettingsSeoContentScalarFieldEnum)[keyof typeof SettingsSeoContentScalarFieldEnum]
+
+
+export const SettingsContactsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  link: 'link',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SettingsContactsScalarFieldEnum = (typeof SettingsContactsScalarFieldEnum)[keyof typeof SettingsContactsScalarFieldEnum]
+
+
+export const SettingsScriptsScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  innerHTML: 'innerHTML',
+  async: 'async',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SettingsScriptsScalarFieldEnum = (typeof SettingsScriptsScalarFieldEnum)[keyof typeof SettingsScriptsScalarFieldEnum]
 
 
 export const SortOrder = {

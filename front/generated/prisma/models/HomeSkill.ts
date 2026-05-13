@@ -59,6 +59,8 @@ export type HomeSkillCountAggregateOutputType = {
   order: number
   createdAt: number
   updatedAt: number
+  homeExperienceIDs: number
+  projectId: number
   _all: number
 }
 
@@ -96,6 +98,8 @@ export type HomeSkillCountAggregateInputType = {
   order?: true
   createdAt?: true
   updatedAt?: true
+  homeExperienceIDs?: true
+  projectId?: true
   _all?: true
 }
 
@@ -189,9 +193,11 @@ export type HomeSkillGroupByOutputType = {
   id: string
   icon: string
   label: string
-  order: number | null
+  order: number
   createdAt: Date
   updatedAt: Date
+  homeExperienceIDs: string[]
+  projectId: string[]
   _count: HomeSkillCountAggregateOutputType | null
   _avg: HomeSkillAvgAggregateOutputType | null
   _sum: HomeSkillSumAggregateOutputType | null
@@ -221,9 +227,13 @@ export type HomeSkillWhereInput = {
   id?: Prisma.StringFilter<"HomeSkill"> | string
   icon?: Prisma.StringFilter<"HomeSkill"> | string
   label?: Prisma.StringFilter<"HomeSkill"> | string
-  order?: Prisma.IntNullableFilter<"HomeSkill"> | number | null
+  order?: Prisma.IntFilter<"HomeSkill"> | number
   createdAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
+  homeExperienceIDs?: Prisma.StringNullableListFilter<"HomeSkill">
+  projectId?: Prisma.StringNullableListFilter<"HomeSkill">
+  homeExperience?: Prisma.HomeExperienceListRelationFilter
+  project?: Prisma.ProjectListRelationFilter
 }
 
 export type HomeSkillOrderByWithRelationInput = {
@@ -233,6 +243,10 @@ export type HomeSkillOrderByWithRelationInput = {
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  homeExperienceIDs?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
+  homeExperience?: Prisma.HomeExperienceOrderByRelationAggregateInput
+  project?: Prisma.ProjectOrderByRelationAggregateInput
 }
 
 export type HomeSkillWhereUniqueInput = Prisma.AtLeast<{
@@ -242,9 +256,13 @@ export type HomeSkillWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HomeSkillWhereInput | Prisma.HomeSkillWhereInput[]
   icon?: Prisma.StringFilter<"HomeSkill"> | string
   label?: Prisma.StringFilter<"HomeSkill"> | string
-  order?: Prisma.IntNullableFilter<"HomeSkill"> | number | null
+  order?: Prisma.IntFilter<"HomeSkill"> | number
   createdAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
+  homeExperienceIDs?: Prisma.StringNullableListFilter<"HomeSkill">
+  projectId?: Prisma.StringNullableListFilter<"HomeSkill">
+  homeExperience?: Prisma.HomeExperienceListRelationFilter
+  project?: Prisma.ProjectListRelationFilter
 }, "id">
 
 export type HomeSkillOrderByWithAggregationInput = {
@@ -254,6 +272,8 @@ export type HomeSkillOrderByWithAggregationInput = {
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  homeExperienceIDs?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
   _count?: Prisma.HomeSkillCountOrderByAggregateInput
   _avg?: Prisma.HomeSkillAvgOrderByAggregateInput
   _max?: Prisma.HomeSkillMaxOrderByAggregateInput
@@ -268,58 +288,74 @@ export type HomeSkillScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"HomeSkill"> | string
   icon?: Prisma.StringWithAggregatesFilter<"HomeSkill"> | string
   label?: Prisma.StringWithAggregatesFilter<"HomeSkill"> | string
-  order?: Prisma.IntNullableWithAggregatesFilter<"HomeSkill"> | number | null
+  order?: Prisma.IntWithAggregatesFilter<"HomeSkill"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"HomeSkill"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"HomeSkill"> | Date | string
+  homeExperienceIDs?: Prisma.StringNullableListFilter<"HomeSkill">
+  projectId?: Prisma.StringNullableListFilter<"HomeSkill">
 }
 
 export type HomeSkillCreateInput = {
   id?: string
   icon: string
   label: string
-  order?: number | null
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  homeExperience?: Prisma.HomeExperienceCreateNestedManyWithoutStackInput
+  project?: Prisma.ProjectCreateNestedManyWithoutStackInput
 }
 
 export type HomeSkillUncheckedCreateInput = {
   id?: string
   icon: string
   label: string
-  order?: number | null
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  homeExperienceIDs?: Prisma.HomeSkillCreatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillCreateprojectIdInput | string[]
+  homeExperience?: Prisma.HomeExperienceUncheckedCreateNestedManyWithoutStackInput
+  project?: Prisma.ProjectUncheckedCreateNestedManyWithoutStackInput
 }
 
 export type HomeSkillUpdateInput = {
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperience?: Prisma.HomeExperienceUpdateManyWithoutStackNestedInput
+  project?: Prisma.ProjectUpdateManyWithoutStackNestedInput
 }
 
 export type HomeSkillUncheckedUpdateInput = {
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+  homeExperience?: Prisma.HomeExperienceUncheckedUpdateManyWithoutStackNestedInput
+  project?: Prisma.ProjectUncheckedUpdateManyWithoutStackNestedInput
 }
 
 export type HomeSkillCreateManyInput = {
   id?: string
   icon: string
   label: string
-  order?: number | null
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  homeExperienceIDs?: Prisma.HomeSkillCreatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillCreateprojectIdInput | string[]
 }
 
 export type HomeSkillUpdateManyMutationInput = {
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -327,9 +363,21 @@ export type HomeSkillUpdateManyMutationInput = {
 export type HomeSkillUncheckedUpdateManyInput = {
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+}
+
+export type HomeSkillListRelationFilter = {
+  every?: Prisma.HomeSkillWhereInput
+  some?: Prisma.HomeSkillWhereInput
+  none?: Prisma.HomeSkillWhereInput
+}
+
+export type HomeSkillOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type HomeSkillCountOrderByAggregateInput = {
@@ -339,6 +387,8 @@ export type HomeSkillCountOrderByAggregateInput = {
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  homeExperienceIDs?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
 }
 
 export type HomeSkillAvgOrderByAggregateInput = {
@@ -367,6 +417,298 @@ export type HomeSkillSumOrderByAggregateInput = {
   order?: Prisma.SortOrder
 }
 
+export type HomeSkillCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput> | Prisma.HomeSkillCreateWithoutProjectInput[] | Prisma.HomeSkillUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutProjectInput | Prisma.HomeSkillCreateOrConnectWithoutProjectInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+}
+
+export type HomeSkillUncheckedCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput> | Prisma.HomeSkillCreateWithoutProjectInput[] | Prisma.HomeSkillUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutProjectInput | Prisma.HomeSkillCreateOrConnectWithoutProjectInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+}
+
+export type HomeSkillUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput> | Prisma.HomeSkillCreateWithoutProjectInput[] | Prisma.HomeSkillUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutProjectInput | Prisma.HomeSkillCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.HomeSkillUpsertWithWhereUniqueWithoutProjectInput | Prisma.HomeSkillUpsertWithWhereUniqueWithoutProjectInput[]
+  set?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  disconnect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  delete?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  update?: Prisma.HomeSkillUpdateWithWhereUniqueWithoutProjectInput | Prisma.HomeSkillUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.HomeSkillUpdateManyWithWhereWithoutProjectInput | Prisma.HomeSkillUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+}
+
+export type HomeSkillUncheckedUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput> | Prisma.HomeSkillCreateWithoutProjectInput[] | Prisma.HomeSkillUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutProjectInput | Prisma.HomeSkillCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.HomeSkillUpsertWithWhereUniqueWithoutProjectInput | Prisma.HomeSkillUpsertWithWhereUniqueWithoutProjectInput[]
+  set?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  disconnect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  delete?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  update?: Prisma.HomeSkillUpdateWithWhereUniqueWithoutProjectInput | Prisma.HomeSkillUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.HomeSkillUpdateManyWithWhereWithoutProjectInput | Prisma.HomeSkillUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+}
+
+export type HomeSkillCreateNestedManyWithoutHomeExperienceInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput> | Prisma.HomeSkillCreateWithoutHomeExperienceInput[] | Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput | Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+}
+
+export type HomeSkillUncheckedCreateNestedManyWithoutHomeExperienceInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput> | Prisma.HomeSkillCreateWithoutHomeExperienceInput[] | Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput | Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+}
+
+export type HomeSkillUpdateManyWithoutHomeExperienceNestedInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput> | Prisma.HomeSkillCreateWithoutHomeExperienceInput[] | Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput | Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput[]
+  upsert?: Prisma.HomeSkillUpsertWithWhereUniqueWithoutHomeExperienceInput | Prisma.HomeSkillUpsertWithWhereUniqueWithoutHomeExperienceInput[]
+  set?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  disconnect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  delete?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  update?: Prisma.HomeSkillUpdateWithWhereUniqueWithoutHomeExperienceInput | Prisma.HomeSkillUpdateWithWhereUniqueWithoutHomeExperienceInput[]
+  updateMany?: Prisma.HomeSkillUpdateManyWithWhereWithoutHomeExperienceInput | Prisma.HomeSkillUpdateManyWithWhereWithoutHomeExperienceInput[]
+  deleteMany?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+}
+
+export type HomeSkillUncheckedUpdateManyWithoutHomeExperienceNestedInput = {
+  create?: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput> | Prisma.HomeSkillCreateWithoutHomeExperienceInput[] | Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput[]
+  connectOrCreate?: Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput | Prisma.HomeSkillCreateOrConnectWithoutHomeExperienceInput[]
+  upsert?: Prisma.HomeSkillUpsertWithWhereUniqueWithoutHomeExperienceInput | Prisma.HomeSkillUpsertWithWhereUniqueWithoutHomeExperienceInput[]
+  set?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  disconnect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  delete?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  connect?: Prisma.HomeSkillWhereUniqueInput | Prisma.HomeSkillWhereUniqueInput[]
+  update?: Prisma.HomeSkillUpdateWithWhereUniqueWithoutHomeExperienceInput | Prisma.HomeSkillUpdateWithWhereUniqueWithoutHomeExperienceInput[]
+  updateMany?: Prisma.HomeSkillUpdateManyWithWhereWithoutHomeExperienceInput | Prisma.HomeSkillUpdateManyWithWhereWithoutHomeExperienceInput[]
+  deleteMany?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+}
+
+export type HomeSkillCreatehomeExperienceIDsInput = {
+  set: string[]
+}
+
+export type HomeSkillCreateprojectIdInput = {
+  set: string[]
+}
+
+export type HomeSkillUpdatehomeExperienceIDsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type HomeSkillUpdateprojectIdInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type HomeSkillCreateWithoutProjectInput = {
+  id?: string
+  icon: string
+  label: string
+  order?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  homeExperience?: Prisma.HomeExperienceCreateNestedManyWithoutStackInput
+}
+
+export type HomeSkillUncheckedCreateWithoutProjectInput = {
+  id?: string
+  icon: string
+  label: string
+  order?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  homeExperienceIDs?: Prisma.HomeSkillCreatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillCreateprojectIdInput | string[]
+  homeExperience?: Prisma.HomeExperienceUncheckedCreateNestedManyWithoutStackInput
+}
+
+export type HomeSkillCreateOrConnectWithoutProjectInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  create: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput>
+}
+
+export type HomeSkillUpsertWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  update: Prisma.XOR<Prisma.HomeSkillUpdateWithoutProjectInput, Prisma.HomeSkillUncheckedUpdateWithoutProjectInput>
+  create: Prisma.XOR<Prisma.HomeSkillCreateWithoutProjectInput, Prisma.HomeSkillUncheckedCreateWithoutProjectInput>
+}
+
+export type HomeSkillUpdateWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  data: Prisma.XOR<Prisma.HomeSkillUpdateWithoutProjectInput, Prisma.HomeSkillUncheckedUpdateWithoutProjectInput>
+}
+
+export type HomeSkillUpdateManyWithWhereWithoutProjectInput = {
+  where: Prisma.HomeSkillScalarWhereInput
+  data: Prisma.XOR<Prisma.HomeSkillUpdateManyMutationInput, Prisma.HomeSkillUncheckedUpdateManyWithoutProjectInput>
+}
+
+export type HomeSkillScalarWhereInput = {
+  AND?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+  OR?: Prisma.HomeSkillScalarWhereInput[]
+  NOT?: Prisma.HomeSkillScalarWhereInput | Prisma.HomeSkillScalarWhereInput[]
+  id?: Prisma.StringFilter<"HomeSkill"> | string
+  icon?: Prisma.StringFilter<"HomeSkill"> | string
+  label?: Prisma.StringFilter<"HomeSkill"> | string
+  order?: Prisma.IntFilter<"HomeSkill"> | number
+  createdAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"HomeSkill"> | Date | string
+  homeExperienceIDs?: Prisma.StringNullableListFilter<"HomeSkill">
+  projectId?: Prisma.StringNullableListFilter<"HomeSkill">
+}
+
+export type HomeSkillCreateWithoutHomeExperienceInput = {
+  id?: string
+  icon: string
+  label: string
+  order?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project?: Prisma.ProjectCreateNestedManyWithoutStackInput
+}
+
+export type HomeSkillUncheckedCreateWithoutHomeExperienceInput = {
+  id?: string
+  icon: string
+  label: string
+  order?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  homeExperienceIDs?: Prisma.HomeSkillCreatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillCreateprojectIdInput | string[]
+  project?: Prisma.ProjectUncheckedCreateNestedManyWithoutStackInput
+}
+
+export type HomeSkillCreateOrConnectWithoutHomeExperienceInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  create: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput>
+}
+
+export type HomeSkillUpsertWithWhereUniqueWithoutHomeExperienceInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  update: Prisma.XOR<Prisma.HomeSkillUpdateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedUpdateWithoutHomeExperienceInput>
+  create: Prisma.XOR<Prisma.HomeSkillCreateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedCreateWithoutHomeExperienceInput>
+}
+
+export type HomeSkillUpdateWithWhereUniqueWithoutHomeExperienceInput = {
+  where: Prisma.HomeSkillWhereUniqueInput
+  data: Prisma.XOR<Prisma.HomeSkillUpdateWithoutHomeExperienceInput, Prisma.HomeSkillUncheckedUpdateWithoutHomeExperienceInput>
+}
+
+export type HomeSkillUpdateManyWithWhereWithoutHomeExperienceInput = {
+  where: Prisma.HomeSkillScalarWhereInput
+  data: Prisma.XOR<Prisma.HomeSkillUpdateManyMutationInput, Prisma.HomeSkillUncheckedUpdateManyWithoutHomeExperienceInput>
+}
+
+export type HomeSkillUpdateWithoutProjectInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperience?: Prisma.HomeExperienceUpdateManyWithoutStackNestedInput
+}
+
+export type HomeSkillUncheckedUpdateWithoutProjectInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+  homeExperience?: Prisma.HomeExperienceUncheckedUpdateManyWithoutStackNestedInput
+}
+
+export type HomeSkillUncheckedUpdateManyWithoutProjectInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+}
+
+export type HomeSkillUpdateWithoutHomeExperienceInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateManyWithoutStackNestedInput
+}
+
+export type HomeSkillUncheckedUpdateWithoutHomeExperienceInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+  project?: Prisma.ProjectUncheckedUpdateManyWithoutStackNestedInput
+}
+
+export type HomeSkillUncheckedUpdateManyWithoutHomeExperienceInput = {
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeExperienceIDs?: Prisma.HomeSkillUpdatehomeExperienceIDsInput | string[]
+  projectId?: Prisma.HomeSkillUpdateprojectIdInput | string[]
+}
+
+
+/**
+ * Count Type HomeSkillCountOutputType
+ */
+
+export type HomeSkillCountOutputType = {
+  homeExperience: number
+  project: number
+}
+
+export type HomeSkillCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  homeExperience?: boolean | HomeSkillCountOutputTypeCountHomeExperienceArgs
+  project?: boolean | HomeSkillCountOutputTypeCountProjectArgs
+}
+
+/**
+ * HomeSkillCountOutputType without action
+ */
+export type HomeSkillCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HomeSkillCountOutputType
+   */
+  select?: Prisma.HomeSkillCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * HomeSkillCountOutputType without action
+ */
+export type HomeSkillCountOutputTypeCountHomeExperienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HomeExperienceWhereInput
+}
+
+/**
+ * HomeSkillCountOutputType without action
+ */
+export type HomeSkillCountOutputTypeCountProjectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectWhereInput
+}
 
 
 export type HomeSkillSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -376,6 +718,11 @@ export type HomeSkillSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  homeExperienceIDs?: boolean
+  projectId?: boolean
+  homeExperience?: boolean | Prisma.HomeSkill$homeExperienceArgs<ExtArgs>
+  project?: boolean | Prisma.HomeSkill$projectArgs<ExtArgs>
+  _count?: boolean | Prisma.HomeSkillCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["homeSkill"]>
 
 
@@ -387,20 +734,32 @@ export type HomeSkillSelectScalar = {
   order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  homeExperienceIDs?: boolean
+  projectId?: boolean
 }
 
-export type HomeSkillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "icon" | "label" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["homeSkill"]>
+export type HomeSkillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "icon" | "label" | "order" | "createdAt" | "updatedAt" | "homeExperienceIDs" | "projectId", ExtArgs["result"]["homeSkill"]>
+export type HomeSkillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  homeExperience?: boolean | Prisma.HomeSkill$homeExperienceArgs<ExtArgs>
+  project?: boolean | Prisma.HomeSkill$projectArgs<ExtArgs>
+  _count?: boolean | Prisma.HomeSkillCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $HomeSkillPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "HomeSkill"
-  objects: {}
+  objects: {
+    homeExperience: Prisma.$HomeExperiencePayload<ExtArgs>[]
+    project: Prisma.$ProjectPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     icon: string
     label: string
-    order: number | null
+    order: number
     createdAt: Date
     updatedAt: Date
+    homeExperienceIDs: string[]
+    projectId: string[]
   }, ExtArgs["result"]["homeSkill"]>
   composites: {}
 }
@@ -764,6 +1123,8 @@ readonly fields: HomeSkillFieldRefs;
  */
 export interface Prisma__HomeSkillClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  homeExperience<T extends Prisma.HomeSkill$homeExperienceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HomeSkill$homeExperienceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HomeExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  project<T extends Prisma.HomeSkill$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HomeSkill$projectArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -799,6 +1160,8 @@ export interface HomeSkillFieldRefs {
   readonly order: Prisma.FieldRef<"HomeSkill", 'Int'>
   readonly createdAt: Prisma.FieldRef<"HomeSkill", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"HomeSkill", 'DateTime'>
+  readonly homeExperienceIDs: Prisma.FieldRef<"HomeSkill", 'String[]'>
+  readonly projectId: Prisma.FieldRef<"HomeSkill", 'String[]'>
 }
     
 
@@ -815,6 +1178,10 @@ export type HomeSkillFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the HomeSkill
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
   /**
    * Filter, which HomeSkill to fetch.
    */
@@ -834,6 +1201,10 @@ export type HomeSkillFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  /**
    * Filter, which HomeSkill to fetch.
    */
   where: Prisma.HomeSkillWhereUniqueInput
@@ -851,6 +1222,10 @@ export type HomeSkillFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the HomeSkill
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
   /**
    * Filter, which HomeSkill to fetch.
    */
@@ -900,6 +1275,10 @@ export type HomeSkillFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  /**
    * Filter, which HomeSkill to fetch.
    */
   where?: Prisma.HomeSkillWhereInput
@@ -948,6 +1327,10 @@ export type HomeSkillFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  /**
    * Filter, which HomeSkills to fetch.
    */
   where?: Prisma.HomeSkillWhereInput
@@ -991,6 +1374,10 @@ export type HomeSkillCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  /**
    * The data needed to create a HomeSkill.
    */
   data: Prisma.XOR<Prisma.HomeSkillCreateInput, Prisma.HomeSkillUncheckedCreateInput>
@@ -1018,6 +1405,10 @@ export type HomeSkillUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the HomeSkill
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
   /**
    * The data needed to update a HomeSkill.
    */
@@ -1059,6 +1450,10 @@ export type HomeSkillUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  /**
    * The filter to search for the HomeSkill to update in case it exists.
    */
   where: Prisma.HomeSkillWhereUniqueInput
@@ -1084,6 +1479,10 @@ export type HomeSkillDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the HomeSkill
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
   /**
    * Filter which HomeSkill to delete.
    */
@@ -1133,6 +1532,54 @@ export type HomeSkillAggregateRawArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * HomeSkill.homeExperience
+ */
+export type HomeSkill$homeExperienceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HomeExperience
+   */
+  select?: Prisma.HomeExperienceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HomeExperience
+   */
+  omit?: Prisma.HomeExperienceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeExperienceInclude<ExtArgs> | null
+  where?: Prisma.HomeExperienceWhereInput
+  orderBy?: Prisma.HomeExperienceOrderByWithRelationInput | Prisma.HomeExperienceOrderByWithRelationInput[]
+  cursor?: Prisma.HomeExperienceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HomeExperienceScalarFieldEnum | Prisma.HomeExperienceScalarFieldEnum[]
+}
+
+/**
+ * HomeSkill.project
+ */
+export type HomeSkill$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Project
+   */
+  select?: Prisma.ProjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Project
+   */
+  omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  where?: Prisma.ProjectWhereInput
+  orderBy?: Prisma.ProjectOrderByWithRelationInput | Prisma.ProjectOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
+}
+
+/**
  * HomeSkill without action
  */
 export type HomeSkillDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1144,4 +1591,8 @@ export type HomeSkillDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the HomeSkill
    */
   omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
 }

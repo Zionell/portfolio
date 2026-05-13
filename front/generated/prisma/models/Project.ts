@@ -39,8 +39,8 @@ export type ProjectMinAggregateOutputType = {
   name: string | null
   slug: string | null
   link: string | null
+  image: string | null
   order: number | null
-  lang: string | null
   isDeveloping: boolean | null
   isArchived: boolean | null
   createdAt: Date | null
@@ -52,8 +52,8 @@ export type ProjectMaxAggregateOutputType = {
   name: string | null
   slug: string | null
   link: string | null
+  image: string | null
   order: number | null
-  lang: string | null
   isDeveloping: boolean | null
   isArchived: boolean | null
   createdAt: Date | null
@@ -65,13 +65,13 @@ export type ProjectCountAggregateOutputType = {
   name: number
   slug: number
   link: number
-  stack: number
+  image: number
   order: number
-  lang: number
   isDeveloping: number
   isArchived: number
   createdAt: number
   updatedAt: number
+  stackIDs: number
   _all: number
 }
 
@@ -89,8 +89,8 @@ export type ProjectMinAggregateInputType = {
   name?: true
   slug?: true
   link?: true
+  image?: true
   order?: true
-  lang?: true
   isDeveloping?: true
   isArchived?: true
   createdAt?: true
@@ -102,8 +102,8 @@ export type ProjectMaxAggregateInputType = {
   name?: true
   slug?: true
   link?: true
+  image?: true
   order?: true
-  lang?: true
   isDeveloping?: true
   isArchived?: true
   createdAt?: true
@@ -115,13 +115,13 @@ export type ProjectCountAggregateInputType = {
   name?: true
   slug?: true
   link?: true
-  stack?: true
+  image?: true
   order?: true
-  lang?: true
   isDeveloping?: true
   isArchived?: true
   createdAt?: true
   updatedAt?: true
+  stackIDs?: true
   _all?: true
 }
 
@@ -216,13 +216,13 @@ export type ProjectGroupByOutputType = {
   name: string
   slug: string
   link: string
-  stack: string[]
+  image: string | null
   order: number | null
-  lang: string
   isDeveloping: boolean
   isArchived: boolean
   createdAt: Date
   updatedAt: Date
+  stackIDs: string[]
   _count: ProjectCountAggregateOutputType | null
   _avg: ProjectAvgAggregateOutputType | null
   _sum: ProjectSumAggregateOutputType | null
@@ -253,13 +253,14 @@ export type ProjectWhereInput = {
   name?: Prisma.StringFilter<"Project"> | string
   slug?: Prisma.StringFilter<"Project"> | string
   link?: Prisma.StringFilter<"Project"> | string
-  stack?: Prisma.StringNullableListFilter<"Project">
+  image?: Prisma.StringNullableFilter<"Project"> | string | null
   order?: Prisma.IntNullableFilter<"Project"> | number | null
-  lang?: Prisma.StringFilter<"Project"> | string
   isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
   isArchived?: Prisma.BoolFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  stackIDs?: Prisma.StringNullableListFilter<"Project">
+  stack?: Prisma.HomeSkillListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -267,44 +268,46 @@ export type ProjectOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
-  stack?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
+  stack?: Prisma.HomeSkillOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  slug?: string
   AND?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   OR?: Prisma.ProjectWhereInput[]
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   name?: Prisma.StringFilter<"Project"> | string
+  slug?: Prisma.StringFilter<"Project"> | string
   link?: Prisma.StringFilter<"Project"> | string
-  stack?: Prisma.StringNullableListFilter<"Project">
+  image?: Prisma.StringNullableFilter<"Project"> | string | null
   order?: Prisma.IntNullableFilter<"Project"> | number | null
-  lang?: Prisma.StringFilter<"Project"> | string
   isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
   isArchived?: Prisma.BoolFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-}, "id" | "slug">
+  stackIDs?: Prisma.StringNullableListFilter<"Project">
+  stack?: Prisma.HomeSkillListRelationFilter
+}, "id">
 
 export type ProjectOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
-  stack?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
   _avg?: Prisma.ProjectAvgOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
@@ -320,13 +323,13 @@ export type ProjectScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Project"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Project"> | string
   link?: Prisma.StringWithAggregatesFilter<"Project"> | string
-  stack?: Prisma.StringNullableListFilter<"Project">
+  image?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   order?: Prisma.IntNullableWithAggregatesFilter<"Project"> | number | null
-  lang?: Prisma.StringWithAggregatesFilter<"Project"> | string
   isDeveloping?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   isArchived?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
+  stackIDs?: Prisma.StringNullableListFilter<"Project">
 }
 
 export type ProjectCreateInput = {
@@ -334,13 +337,13 @@ export type ProjectCreateInput = {
   name: string
   slug: string
   link: string
-  stack?: Prisma.ProjectCreatestackInput | string[]
+  image?: string | null
   order?: number | null
-  lang?: string
   isDeveloping?: boolean
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  stack?: Prisma.HomeSkillCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -348,39 +351,41 @@ export type ProjectUncheckedCreateInput = {
   name: string
   slug: string
   link: string
-  stack?: Prisma.ProjectCreatestackInput | string[]
+  image?: string | null
   order?: number | null
-  lang?: string
   isDeveloping?: boolean
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  stackIDs?: Prisma.ProjectCreatestackIDsInput | string[]
+  stack?: Prisma.HomeSkillUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
-  stack?: Prisma.ProjectUpdatestackInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stack?: Prisma.HomeSkillUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
-  stack?: Prisma.ProjectUpdatestackInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stackIDs?: Prisma.ProjectUpdatestackIDsInput | string[]
+  stack?: Prisma.HomeSkillUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -388,22 +393,21 @@ export type ProjectCreateManyInput = {
   name: string
   slug: string
   link: string
-  stack?: Prisma.ProjectCreatestackInput | string[]
+  image?: string | null
   order?: number | null
-  lang?: string
   isDeveloping?: boolean
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  stackIDs?: Prisma.ProjectCreatestackIDsInput | string[]
 }
 
 export type ProjectUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
-  stack?: Prisma.ProjectUpdatestackInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -414,13 +418,13 @@ export type ProjectUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
-  stack?: Prisma.ProjectUpdatestackInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stackIDs?: Prisma.ProjectUpdatestackIDsInput | string[]
 }
 
 export type ProjectCountOrderByAggregateInput = {
@@ -428,13 +432,13 @@ export type ProjectCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
-  stack?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
 }
 
 export type ProjectAvgOrderByAggregateInput = {
@@ -446,8 +450,8 @@ export type ProjectMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -459,8 +463,8 @@ export type ProjectMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -471,13 +475,23 @@ export type ProjectSumOrderByAggregateInput = {
   order?: Prisma.SortOrder
 }
 
-export type ProjectCreatestackInput = {
+export type ProjectListRelationFilter = {
+  every?: Prisma.ProjectWhereInput
+  some?: Prisma.ProjectWhereInput
+  none?: Prisma.ProjectWhereInput
+}
+
+export type ProjectOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type ProjectCreatestackIDsInput = {
   set: string[]
 }
 
-export type ProjectUpdatestackInput = {
-  set?: string[]
-  push?: string | string[]
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+  unset?: boolean
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -489,6 +503,181 @@ export type NullableIntFieldUpdateOperationsInput = {
   unset?: boolean
 }
 
+export type ProjectUpdatestackIDsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type ProjectCreateNestedManyWithoutStackInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput> | Prisma.ProjectCreateWithoutStackInput[] | Prisma.ProjectUncheckedCreateWithoutStackInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutStackInput | Prisma.ProjectCreateOrConnectWithoutStackInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+}
+
+export type ProjectUncheckedCreateNestedManyWithoutStackInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput> | Prisma.ProjectCreateWithoutStackInput[] | Prisma.ProjectUncheckedCreateWithoutStackInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutStackInput | Prisma.ProjectCreateOrConnectWithoutStackInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+}
+
+export type ProjectUpdateManyWithoutStackNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput> | Prisma.ProjectCreateWithoutStackInput[] | Prisma.ProjectUncheckedCreateWithoutStackInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutStackInput | Prisma.ProjectCreateOrConnectWithoutStackInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutStackInput | Prisma.ProjectUpsertWithWhereUniqueWithoutStackInput[]
+  set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutStackInput | Prisma.ProjectUpdateWithWhereUniqueWithoutStackInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutStackInput | Prisma.ProjectUpdateManyWithWhereWithoutStackInput[]
+  deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type ProjectUncheckedUpdateManyWithoutStackNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput> | Prisma.ProjectCreateWithoutStackInput[] | Prisma.ProjectUncheckedCreateWithoutStackInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutStackInput | Prisma.ProjectCreateOrConnectWithoutStackInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutStackInput | Prisma.ProjectUpsertWithWhereUniqueWithoutStackInput[]
+  set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutStackInput | Prisma.ProjectUpdateWithWhereUniqueWithoutStackInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutStackInput | Prisma.ProjectUpdateManyWithWhereWithoutStackInput[]
+  deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type ProjectCreateWithoutStackInput = {
+  id?: string
+  name: string
+  slug: string
+  link: string
+  image?: string | null
+  order?: number | null
+  isDeveloping?: boolean
+  isArchived?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProjectUncheckedCreateWithoutStackInput = {
+  id?: string
+  name: string
+  slug: string
+  link: string
+  image?: string | null
+  order?: number | null
+  isDeveloping?: boolean
+  isArchived?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stackIDs?: Prisma.ProjectCreatestackIDsInput | string[]
+}
+
+export type ProjectCreateOrConnectWithoutStackInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput>
+}
+
+export type ProjectUpsertWithWhereUniqueWithoutStackInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutStackInput, Prisma.ProjectUncheckedUpdateWithoutStackInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutStackInput, Prisma.ProjectUncheckedCreateWithoutStackInput>
+}
+
+export type ProjectUpdateWithWhereUniqueWithoutStackInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutStackInput, Prisma.ProjectUncheckedUpdateWithoutStackInput>
+}
+
+export type ProjectUpdateManyWithWhereWithoutStackInput = {
+  where: Prisma.ProjectScalarWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutStackInput>
+}
+
+export type ProjectScalarWhereInput = {
+  AND?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+  OR?: Prisma.ProjectScalarWhereInput[]
+  NOT?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+  id?: Prisma.StringFilter<"Project"> | string
+  name?: Prisma.StringFilter<"Project"> | string
+  slug?: Prisma.StringFilter<"Project"> | string
+  link?: Prisma.StringFilter<"Project"> | string
+  image?: Prisma.StringNullableFilter<"Project"> | string | null
+  order?: Prisma.IntNullableFilter<"Project"> | number | null
+  isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
+  isArchived?: Prisma.BoolFilter<"Project"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  stackIDs?: Prisma.StringNullableListFilter<"Project">
+}
+
+export type ProjectUpdateWithoutStackInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  link?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProjectUncheckedUpdateWithoutStackInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  link?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stackIDs?: Prisma.ProjectUpdatestackIDsInput | string[]
+}
+
+export type ProjectUncheckedUpdateManyWithoutStackInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  link?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stackIDs?: Prisma.ProjectUpdatestackIDsInput | string[]
+}
+
+
+/**
+ * Count Type ProjectCountOutputType
+ */
+
+export type ProjectCountOutputType = {
+  stack: number
+}
+
+export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  stack?: boolean | ProjectCountOutputTypeCountStackArgs
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectCountOutputType
+   */
+  select?: Prisma.ProjectCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountStackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HomeSkillWhereInput
+}
 
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -496,13 +685,15 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   slug?: boolean
   link?: boolean
-  stack?: boolean
+  image?: boolean
   order?: boolean
-  lang?: boolean
   isDeveloping?: boolean
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stackIDs?: boolean
+  stack?: boolean | Prisma.Project$stackArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 
@@ -512,32 +703,38 @@ export type ProjectSelectScalar = {
   name?: boolean
   slug?: boolean
   link?: boolean
-  stack?: boolean
+  image?: boolean
   order?: boolean
-  lang?: boolean
   isDeveloping?: boolean
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stackIDs?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "link" | "stack" | "order" | "lang" | "isDeveloping" | "isArchived" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "link" | "image" | "order" | "isDeveloping" | "isArchived" | "createdAt" | "updatedAt" | "stackIDs", ExtArgs["result"]["project"]>
+export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  stack?: boolean | Prisma.Project$stackArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
-  objects: {}
+  objects: {
+    stack: Prisma.$HomeSkillPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     slug: string
     link: string
-    stack: string[]
+    image: string | null
     order: number | null
-    lang: string
     isDeveloping: boolean
     isArchived: boolean
     createdAt: Date
     updatedAt: Date
+    stackIDs: string[]
   }, ExtArgs["result"]["project"]>
   composites: {}
 }
@@ -901,6 +1098,7 @@ readonly fields: ProjectFieldRefs;
  */
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  stack<T extends Prisma.Project$stackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$stackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HomeSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -934,13 +1132,13 @@ export interface ProjectFieldRefs {
   readonly name: Prisma.FieldRef<"Project", 'String'>
   readonly slug: Prisma.FieldRef<"Project", 'String'>
   readonly link: Prisma.FieldRef<"Project", 'String'>
-  readonly stack: Prisma.FieldRef<"Project", 'String[]'>
+  readonly image: Prisma.FieldRef<"Project", 'String'>
   readonly order: Prisma.FieldRef<"Project", 'Int'>
-  readonly lang: Prisma.FieldRef<"Project", 'String'>
   readonly isDeveloping: Prisma.FieldRef<"Project", 'Boolean'>
   readonly isArchived: Prisma.FieldRef<"Project", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>
+  readonly stackIDs: Prisma.FieldRef<"Project", 'String[]'>
 }
     
 
@@ -957,6 +1155,10 @@ export type ProjectFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Project
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
   /**
    * Filter, which Project to fetch.
    */
@@ -976,6 +1178,10 @@ export type ProjectFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  /**
    * Filter, which Project to fetch.
    */
   where: Prisma.ProjectWhereUniqueInput
@@ -993,6 +1199,10 @@ export type ProjectFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Project
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
   /**
    * Filter, which Project to fetch.
    */
@@ -1042,6 +1252,10 @@ export type ProjectFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  /**
    * Filter, which Project to fetch.
    */
   where?: Prisma.ProjectWhereInput
@@ -1090,6 +1304,10 @@ export type ProjectFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  /**
    * Filter, which Projects to fetch.
    */
   where?: Prisma.ProjectWhereInput
@@ -1133,6 +1351,10 @@ export type ProjectCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  /**
    * The data needed to create a Project.
    */
   data: Prisma.XOR<Prisma.ProjectCreateInput, Prisma.ProjectUncheckedCreateInput>
@@ -1160,6 +1382,10 @@ export type ProjectUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Project
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
   /**
    * The data needed to update a Project.
    */
@@ -1201,6 +1427,10 @@ export type ProjectUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  /**
    * The filter to search for the Project to update in case it exists.
    */
   where: Prisma.ProjectWhereUniqueInput
@@ -1226,6 +1456,10 @@ export type ProjectDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Project
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
   /**
    * Filter which Project to delete.
    */
@@ -1275,6 +1509,30 @@ export type ProjectAggregateRawArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Project.stack
+ */
+export type Project$stackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HomeSkill
+   */
+  select?: Prisma.HomeSkillSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HomeSkill
+   */
+  omit?: Prisma.HomeSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HomeSkillInclude<ExtArgs> | null
+  where?: Prisma.HomeSkillWhereInput
+  orderBy?: Prisma.HomeSkillOrderByWithRelationInput | Prisma.HomeSkillOrderByWithRelationInput[]
+  cursor?: Prisma.HomeSkillWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HomeSkillScalarFieldEnum | Prisma.HomeSkillScalarFieldEnum[]
+}
+
+/**
  * Project without action
  */
 export type ProjectDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1286,4 +1544,8 @@ export type ProjectDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Project
    */
   omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
 }

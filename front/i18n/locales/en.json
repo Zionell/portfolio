@@ -9,6 +9,11 @@
 		"skills": "Skills & Tools",
 		"experience": "Experience",
 		"projects": "Projects",
-		"blog": "Blog"
+		"blog": "Blog",
+		"contacts": "Contacts"
+	},
+	"experience": {
+		"present": "Present",
+		"responsibilities": "Responsibilities:"
 	}
 }
