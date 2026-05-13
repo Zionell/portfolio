@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { IAbout } from "#shared/types/home.types";
-import { initImageShape } from "~/assets/ts/imageShape";
 
 const props = defineProps<{
 	content: IAbout;
 }>();
 
 const { $gsap, $splitText } = useNuxtApp();
-const wrapperRef = useTemplateRef("wrapperRef");
 const textRef = useTemplateRef("textRef");
 
 const animate = () => {
@@ -35,39 +33,30 @@ const animate = () => {
 onMounted(() => {
 	nextTick(() => {
 		animate();
-
-		if (wrapperRef.value) {
-			initImageShape(wrapperRef.value);
-		}
 	});
 });
 </script>
 
 <template>
 	<TheSectionWrapper :class="$style.section" :title="$t('sections.about')">
-		<div ref="wrapperRef" :class="$style.HomeAbout">
-			<canvas></canvas>
-
-			<div :class="$style.content">
-				<div v-if="props.content?.text?.length" :class="$style.text">
-					<div
-						v-for="(text, ind) in props.content.text"
-						:key="ind"
-						ref="textRef"
-						:class="$style.paragraph"
-						v-html="text.text"
-					/>
-				</div>
-
-				<NuxtImg
-					v-if="props.content.image"
-					:class="$style.photo"
-					:src="props.content.image"
-					alt="Portfolio picture"
-					placeholder
-					data-webgl-media
+		<div :class="$style.HomeAbout">
+			<div v-if="props.content?.text?.length" :class="$style.text">
+				<div
+					v-for="(text, ind) in props.content.text"
+					:key="ind"
+					ref="textRef"
+					:class="$style.paragraph"
+					v-html="text.text"
 				/>
 			</div>
+
+			<NuxtImg
+				v-if="props.content.image"
+				:class="$style.photo"
+				:src="props.content.image"
+				alt="Portfolio picture"
+				placeholder
+			/>
 		</div>
 	</TheSectionWrapper>
 </template>
@@ -78,18 +67,6 @@ onMounted(() => {
 }
 
 .HomeAbout {
-	canvas {
-		position: fixed;
-		inset: 0;
-		z-index: 100;
-		width: 100%;
-		height: 100%;
-		opacity: 1;
-		pointer-events: none;
-	}
-}
-
-.content {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 48rem);
 	gap: 4rem;
@@ -121,10 +98,11 @@ onMounted(() => {
 }
 
 .photo {
+	overflow: hidden;
 	width: 100%;
 	height: 60vh;
-	//border-radius: 2.4rem;
-	//object-fit: cover;
-	//filter: contrast(1.05) saturate(1.05);
+	border-radius: 2.4rem;
+	object-fit: cover;
+	filter: contrast(1.05) saturate(1.05);
 }
 </style>

@@ -43,10 +43,11 @@ export const initImageShape = (wrapper: HTMLElement) => {
 	let scroll = {
 		scrollY: window.scrollY,
 		scrollVelocity: 0,
+		smoothedVelocity: 0,
 	};
 	let mediaStore: any[] = [];
-	const innerWidth = window?.innerWidth ?? 1920;
-	const innerHeight = window?.innerHeight ?? 1080;
+	let innerWidth = window?.innerWidth ?? 1920;
+	let innerHeight = window?.innerHeight ?? 1080;
 	const canvas = wrapper.querySelector("canvas") as HTMLElement;
 	const renderer = new THREE.WebGLRenderer({
 		canvas: canvas,
@@ -97,7 +98,7 @@ export const initImageShape = (wrapper: HTMLElement) => {
 	);
 
 	lenis.on("scroll", (e) => {
-		scroll.scrollY = e.targetScroll;
+		scroll.scrollY = window.scrollY;
 		scroll.scrollVelocity = e.velocity;
 	});
 
@@ -222,6 +223,11 @@ export const initImageShape = (wrapper: HTMLElement) => {
 
 	function render(time = 0) {
 		time /= 1000;
+		scroll.smoothedVelocity = lerp(
+			scroll.smoothedVelocity,
+			scroll.scrollVelocity,
+			0.08,
+		);
 
 		mediaStore.forEach((object) => {
 			if (object.isInView) {
@@ -242,7 +248,7 @@ export const initImageShape = (wrapper: HTMLElement) => {
 				object.material.uniforms.uCursor.value.x = cursorPos.current.x;
 				object.material.uniforms.uCursor.value.y = cursorPos.current.y;
 				object.material.uniforms.uScrollVelocity.value =
-					scroll.scrollVelocity;
+					scroll.smoothedVelocity;
 				object.material.uniforms.uMouseOverPos.value.x =
 					object.mouseOverPos.current.x;
 				object.material.uniforms.uMouseOverPos.value.y =
@@ -275,6 +281,8 @@ export const initImageShape = (wrapper: HTMLElement) => {
 		"resize",
 		debounce(() => {
 			const fov: number = calcFov(CAMERA_POS);
+			innerWidth = window?.innerWidth ?? 1920;
+			innerHeight = window?.innerHeight ?? 1080;
 
 			resizeThreeCanvas({ camera, fov, renderer });
 

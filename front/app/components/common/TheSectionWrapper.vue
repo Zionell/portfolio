@@ -39,9 +39,7 @@ onMounted(() => {
 			<slot name="header" />
 		</div>
 
-		<div>
-			<slot />
-		</div>
+		<slot />
 	</section>
 </template>
 

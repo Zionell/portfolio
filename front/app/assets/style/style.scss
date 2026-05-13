@@ -24,6 +24,8 @@ body {
     font-family: $ff-regular;
     color: $white;
     background: $black;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
@@ -51,4 +53,16 @@ body {
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 2rem;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
 }

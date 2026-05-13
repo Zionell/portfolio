@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
 	position: fixed;
 	top: 2.4rem;
 	width: 80vw;
-	z-index: 10;
+	z-index: 100;
 	transition: $default-transition;
 	left: 50%;
 	display: flex;

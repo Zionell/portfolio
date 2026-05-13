@@ -1,57 +1,63 @@
 <script setup lang="ts">
 import type { IHomeProject } from "#shared/types/home.types";
+import { initImageShape } from "~/assets/ts/imageShape";
 
 const props = defineProps<{
 	content: IHomeProject[];
 }>();
+
+const wrapperRef = useTemplateRef("wrapperRef");
+
+onMounted(async () => {
+	await nextTick(() => {
+		if (wrapperRef.value) {
+			initImageShape(wrapperRef.value);
+		}
+	});
+});
 </script>
 
 <template>
 	<TheSectionWrapper :title="$t('sections.projects')">
-		<div v-if="props.content.length" :class="$style.HomeProjects">
-			<NuxtLink
-				v-for="project in props.content"
-				:key="project.slug"
-				:class="$style.card"
-				:to="project.link"
-			>
-				<NuxtImg
-					:class="$style.cardImg"
-					:src="project.image"
-					:alt="project.name"
-					placeholder
-				/>
-
-				<div :class="$style.cardBody">
-					<p :class="$style.cardTitle">{{ project.name }}</p>
-					<ul v-if="project.stack?.length" :class="$style.stackList">
-						<li
-							v-for="(stack, i) in project.stack"
-							:key="i"
-							:class="$style.stack"
-						>
-							{{ stack.label }}
-						</li>
-					</ul>
+		<div ref="wrapperRef" :class="$style.HomeProjects">
+			<canvas></canvas>
+			<div :class="$style.container">
+				<div v-for="project in props.content" :class="$style.card">
+					<img
+						v-if="project?.image"
+						:class="$style.cardImg"
+						:src="project.image"
+						alt="image of ceramic piece"
+						data-webgl-media
+					/>
+					<div><strong>X05</strong><span>Kenji Sato</span></div>
 				</div>
-			</NuxtLink>
+			</div>
 		</div>
 	</TheSectionWrapper>
 </template>
 
 <style lang="scss" module>
 .HomeProjects {
+	position: relative;
+
+	canvas {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		width: 100%;
+		height: 100%;
+		opacity: 1;
+		pointer-events: none;
+	}
+
+	[data-webgl-media] {
+		opacity: 0;
+	}
+}
+
+.container {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 2rem;
-
-	@include media($tablet) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@include media($mobile) {
-		grid-template-columns: 1fr;
-	}
 }
 
 .card {
@@ -60,32 +66,9 @@ const props = defineProps<{
 	border-radius: 1.2rem;
 	transition: $default-transition;
 	display: grid;
-	height: 26rem;
-
-	&:after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 0),
-			rgba(0, 0, 0, 0.9)
-		);
-		z-index: 1;
-	}
-
-	@include hover {
-		transform: translateY(-10px);
-
-		.cardImg {
-			transform: scale(1.08);
-			filter: brightness(0.9) saturate(1.1) contrast(1.05);
-		}
-
-		.stackList {
-			animation: showStack 3s ease-out forwards;
-		}
-	}
+	grid-template-columns: repeat(2, 1fr);
+	gap: 6rem;
+	height: 60vh;
 }
 
 .cardImg {
@@ -138,23 +121,6 @@ const props = defineProps<{
 
 	&:not(:last-child):after {
 		content: "•";
-	}
-}
-
-@keyframes showStack {
-	0% {
-		height: 0;
-		transform: translateY(100%);
-	}
-
-	1% {
-		height: auto;
-		transform: translateY(99%);
-	}
-
-	100% {
-		height: auto;
-		transform: translateY(0);
 	}
 }
 </style>
