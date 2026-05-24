@@ -1,21 +1,23 @@
-import type { IFormDataProject } from "#shared/types/experience.types";
+import type { IFormDataExp } from "#shared/types/experience.types";
 
 export default defineEventHandler(async (event) => {
-	const body = await readBody<IFormDataProject[]>(event);
+	const body = await readBody<IFormDataExp[]>(event);
 
 	for (const item of body) {
 		const itemData = {
-			company: item.company || "",
-			position: item.position || "",
+			company_en: item.company_en || "",
+			position_en: item.position_en || "",
+			responsibilities_en: item.responsibilities_en || "",
+			company_ru: item.company_ru || "",
+			position_ru: item.position_ru || "",
+			responsibilities_ru: item.responsibilities_ru || "",
 			startDate: item.startDate || new Date(),
 			endDate: item.endDate || new Date(),
 			isPresent: item.isPresent || false,
 			stack: {
 				connect: item.stack.map((s) => ({ id: s.id })),
 			},
-			responsibilities: item.responsibilities || "",
 			order: item.order || 0,
-			lang: item.lang || "en",
 		};
 
 		if (item?.id) {

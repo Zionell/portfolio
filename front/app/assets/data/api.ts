@@ -1,7 +1,10 @@
 export const api = {
 	settings: "/api/v1/settings",
+	contacts: "/api/v1/contacts",
+	contactsForm: "/api/v1/contacts/form",
 	home: "/api/v1/home",
 	blog: "/api/v1/blog",
+	blogSpecs: "/api/v1/blog/specs",
 	admin: {
 		hero: "/api/v1/admin/hero",
 		about: "/api/v1/admin/about",

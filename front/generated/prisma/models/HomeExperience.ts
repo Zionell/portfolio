@@ -36,45 +36,51 @@ export type HomeExperienceSumAggregateOutputType = {
 
 export type HomeExperienceMinAggregateOutputType = {
   id: string | null
-  company: string | null
-  position: string | null
   startDate: Date | null
   endDate: Date | null
   isPresent: boolean | null
-  responsibilities: string | null
   order: number | null
-  lang: string | null
+  company_en: string | null
+  company_ru: string | null
+  position_en: string | null
+  position_ru: string | null
+  responsibilities_en: string | null
+  responsibilities_ru: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type HomeExperienceMaxAggregateOutputType = {
   id: string | null
-  company: string | null
-  position: string | null
   startDate: Date | null
   endDate: Date | null
   isPresent: boolean | null
-  responsibilities: string | null
   order: number | null
-  lang: string | null
+  company_en: string | null
+  company_ru: string | null
+  position_en: string | null
+  position_ru: string | null
+  responsibilities_en: string | null
+  responsibilities_ru: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type HomeExperienceCountAggregateOutputType = {
   id: number
-  company: number
-  position: number
   startDate: number
   endDate: number
   isPresent: number
-  responsibilities: number
   order: number
-  lang: number
+  company_en: number
+  company_ru: number
+  position_en: number
+  position_ru: number
+  responsibilities_en: number
+  responsibilities_ru: number
+  stackIDs: number
   createdAt: number
   updatedAt: number
-  stackIDs: number
   _all: number
 }
 
@@ -89,45 +95,51 @@ export type HomeExperienceSumAggregateInputType = {
 
 export type HomeExperienceMinAggregateInputType = {
   id?: true
-  company?: true
-  position?: true
   startDate?: true
   endDate?: true
   isPresent?: true
-  responsibilities?: true
   order?: true
-  lang?: true
+  company_en?: true
+  company_ru?: true
+  position_en?: true
+  position_ru?: true
+  responsibilities_en?: true
+  responsibilities_ru?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type HomeExperienceMaxAggregateInputType = {
   id?: true
-  company?: true
-  position?: true
   startDate?: true
   endDate?: true
   isPresent?: true
-  responsibilities?: true
   order?: true
-  lang?: true
+  company_en?: true
+  company_ru?: true
+  position_en?: true
+  position_ru?: true
+  responsibilities_en?: true
+  responsibilities_ru?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type HomeExperienceCountAggregateInputType = {
   id?: true
-  company?: true
-  position?: true
   startDate?: true
   endDate?: true
   isPresent?: true
-  responsibilities?: true
   order?: true
-  lang?: true
+  company_en?: true
+  company_ru?: true
+  position_en?: true
+  position_ru?: true
+  responsibilities_en?: true
+  responsibilities_ru?: true
+  stackIDs?: true
   createdAt?: true
   updatedAt?: true
-  stackIDs?: true
   _all?: true
 }
 
@@ -219,17 +231,19 @@ export type HomeExperienceGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type HomeExperienceGroupByOutputType = {
   id: string
-  company: string
-  position: string
   startDate: Date
   endDate: Date
   isPresent: boolean
-  responsibilities: string
   order: number | null
-  lang: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
+  stackIDs: string[]
   createdAt: Date
   updatedAt: Date
-  stackIDs: string[]
   _count: HomeExperienceCountAggregateOutputType | null
   _avg: HomeExperienceAvgAggregateOutputType | null
   _sum: HomeExperienceSumAggregateOutputType | null
@@ -257,33 +271,37 @@ export type HomeExperienceWhereInput = {
   OR?: Prisma.HomeExperienceWhereInput[]
   NOT?: Prisma.HomeExperienceWhereInput | Prisma.HomeExperienceWhereInput[]
   id?: Prisma.StringFilter<"HomeExperience"> | string
-  company?: Prisma.StringFilter<"HomeExperience"> | string
-  position?: Prisma.StringFilter<"HomeExperience"> | string
   startDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   endDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   isPresent?: Prisma.BoolFilter<"HomeExperience"> | boolean
-  responsibilities?: Prisma.StringFilter<"HomeExperience"> | string
   order?: Prisma.IntNullableFilter<"HomeExperience"> | number | null
-  lang?: Prisma.StringFilter<"HomeExperience"> | string
+  company_en?: Prisma.StringFilter<"HomeExperience"> | string
+  company_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  position_en?: Prisma.StringFilter<"HomeExperience"> | string
+  position_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_en?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   createdAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
-  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   stack?: Prisma.HomeSkillListRelationFilter
 }
 
 export type HomeExperienceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  company?: Prisma.SortOrder
-  position?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   isPresent?: Prisma.SortOrder
-  responsibilities?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
+  company_en?: Prisma.SortOrder
+  company_ru?: Prisma.SortOrder
+  position_en?: Prisma.SortOrder
+  position_ru?: Prisma.SortOrder
+  responsibilities_en?: Prisma.SortOrder
+  responsibilities_ru?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  stackIDs?: Prisma.SortOrder
   stack?: Prisma.HomeSkillOrderByRelationAggregateInput
 }
 
@@ -292,33 +310,37 @@ export type HomeExperienceWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.HomeExperienceWhereInput | Prisma.HomeExperienceWhereInput[]
   OR?: Prisma.HomeExperienceWhereInput[]
   NOT?: Prisma.HomeExperienceWhereInput | Prisma.HomeExperienceWhereInput[]
-  company?: Prisma.StringFilter<"HomeExperience"> | string
-  position?: Prisma.StringFilter<"HomeExperience"> | string
   startDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   endDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   isPresent?: Prisma.BoolFilter<"HomeExperience"> | boolean
-  responsibilities?: Prisma.StringFilter<"HomeExperience"> | string
   order?: Prisma.IntNullableFilter<"HomeExperience"> | number | null
-  lang?: Prisma.StringFilter<"HomeExperience"> | string
+  company_en?: Prisma.StringFilter<"HomeExperience"> | string
+  company_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  position_en?: Prisma.StringFilter<"HomeExperience"> | string
+  position_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_en?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   createdAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
-  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   stack?: Prisma.HomeSkillListRelationFilter
 }, "id">
 
 export type HomeExperienceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  company?: Prisma.SortOrder
-  position?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   isPresent?: Prisma.SortOrder
-  responsibilities?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
+  company_en?: Prisma.SortOrder
+  company_ru?: Prisma.SortOrder
+  position_en?: Prisma.SortOrder
+  position_ru?: Prisma.SortOrder
+  responsibilities_en?: Prisma.SortOrder
+  responsibilities_ru?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  stackIDs?: Prisma.SortOrder
   _count?: Prisma.HomeExperienceCountOrderByAggregateInput
   _avg?: Prisma.HomeExperienceAvgOrderByAggregateInput
   _max?: Prisma.HomeExperienceMaxOrderByAggregateInput
@@ -331,29 +353,33 @@ export type HomeExperienceScalarWhereWithAggregatesInput = {
   OR?: Prisma.HomeExperienceScalarWhereWithAggregatesInput[]
   NOT?: Prisma.HomeExperienceScalarWhereWithAggregatesInput | Prisma.HomeExperienceScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
-  company?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
-  position?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
   startDate?: Prisma.DateTimeWithAggregatesFilter<"HomeExperience"> | Date | string
   endDate?: Prisma.DateTimeWithAggregatesFilter<"HomeExperience"> | Date | string
   isPresent?: Prisma.BoolWithAggregatesFilter<"HomeExperience"> | boolean
-  responsibilities?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
   order?: Prisma.IntNullableWithAggregatesFilter<"HomeExperience"> | number | null
-  lang?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  company_en?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  company_ru?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  position_en?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  position_ru?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  responsibilities_en?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  responsibilities_ru?: Prisma.StringWithAggregatesFilter<"HomeExperience"> | string
+  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"HomeExperience"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"HomeExperience"> | Date | string
-  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
 }
 
 export type HomeExperienceCreateInput = {
   id?: string
-  company: string
-  position: string
   startDate: Date | string
-  endDate: Date | string
+  endDate?: Date | string
   isPresent?: boolean
-  responsibilities: string
   order?: number | null
-  lang?: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
   createdAt?: Date | string
   updatedAt?: Date | string
   stack?: Prisma.HomeSkillCreateNestedManyWithoutHomeExperienceInput
@@ -361,104 +387,118 @@ export type HomeExperienceCreateInput = {
 
 export type HomeExperienceUncheckedCreateInput = {
   id?: string
-  company: string
-  position: string
   startDate: Date | string
-  endDate: Date | string
+  endDate?: Date | string
   isPresent?: boolean
-  responsibilities: string
   order?: number | null
-  lang?: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
+  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
   stack?: Prisma.HomeSkillUncheckedCreateNestedManyWithoutHomeExperienceInput
 }
 
 export type HomeExperienceUpdateInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stack?: Prisma.HomeSkillUpdateManyWithoutHomeExperienceNestedInput
 }
 
 export type HomeExperienceUncheckedUpdateInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
   stack?: Prisma.HomeSkillUncheckedUpdateManyWithoutHomeExperienceNestedInput
 }
 
 export type HomeExperienceCreateManyInput = {
   id?: string
-  company: string
-  position: string
   startDate: Date | string
-  endDate: Date | string
+  endDate?: Date | string
   isPresent?: boolean
-  responsibilities: string
   order?: number | null
-  lang?: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
+  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
 }
 
 export type HomeExperienceUpdateManyMutationInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HomeExperienceUncheckedUpdateManyInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
 }
 
 export type HomeExperienceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  company?: Prisma.SortOrder
-  position?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   isPresent?: Prisma.SortOrder
-  responsibilities?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
+  company_en?: Prisma.SortOrder
+  company_ru?: Prisma.SortOrder
+  position_en?: Prisma.SortOrder
+  position_ru?: Prisma.SortOrder
+  responsibilities_en?: Prisma.SortOrder
+  responsibilities_ru?: Prisma.SortOrder
+  stackIDs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  stackIDs?: Prisma.SortOrder
 }
 
 export type HomeExperienceAvgOrderByAggregateInput = {
@@ -467,28 +507,32 @@ export type HomeExperienceAvgOrderByAggregateInput = {
 
 export type HomeExperienceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  company?: Prisma.SortOrder
-  position?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   isPresent?: Prisma.SortOrder
-  responsibilities?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
+  company_en?: Prisma.SortOrder
+  company_ru?: Prisma.SortOrder
+  position_en?: Prisma.SortOrder
+  position_ru?: Prisma.SortOrder
+  responsibilities_en?: Prisma.SortOrder
+  responsibilities_ru?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type HomeExperienceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  company?: Prisma.SortOrder
-  position?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   isPresent?: Prisma.SortOrder
-  responsibilities?: Prisma.SortOrder
   order?: Prisma.SortOrder
-  lang?: Prisma.SortOrder
+  company_en?: Prisma.SortOrder
+  company_ru?: Prisma.SortOrder
+  position_en?: Prisma.SortOrder
+  position_ru?: Prisma.SortOrder
+  responsibilities_en?: Prisma.SortOrder
+  responsibilities_ru?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -556,31 +600,35 @@ export type HomeExperienceUncheckedUpdateManyWithoutStackNestedInput = {
 
 export type HomeExperienceCreateWithoutStackInput = {
   id?: string
-  company: string
-  position: string
   startDate: Date | string
-  endDate: Date | string
+  endDate?: Date | string
   isPresent?: boolean
-  responsibilities: string
   order?: number | null
-  lang?: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type HomeExperienceUncheckedCreateWithoutStackInput = {
   id?: string
-  company: string
-  position: string
   startDate: Date | string
-  endDate: Date | string
+  endDate?: Date | string
   isPresent?: boolean
-  responsibilities: string
   order?: number | null
-  lang?: string
+  company_en: string
+  company_ru: string
+  position_en: string
+  position_ru: string
+  responsibilities_en: string
+  responsibilities_ru: string
+  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  stackIDs?: Prisma.HomeExperienceCreatestackIDsInput | string[]
 }
 
 export type HomeExperienceCreateOrConnectWithoutStackInput = {
@@ -609,58 +657,66 @@ export type HomeExperienceScalarWhereInput = {
   OR?: Prisma.HomeExperienceScalarWhereInput[]
   NOT?: Prisma.HomeExperienceScalarWhereInput | Prisma.HomeExperienceScalarWhereInput[]
   id?: Prisma.StringFilter<"HomeExperience"> | string
-  company?: Prisma.StringFilter<"HomeExperience"> | string
-  position?: Prisma.StringFilter<"HomeExperience"> | string
   startDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   endDate?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   isPresent?: Prisma.BoolFilter<"HomeExperience"> | boolean
-  responsibilities?: Prisma.StringFilter<"HomeExperience"> | string
   order?: Prisma.IntNullableFilter<"HomeExperience"> | number | null
-  lang?: Prisma.StringFilter<"HomeExperience"> | string
+  company_en?: Prisma.StringFilter<"HomeExperience"> | string
+  company_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  position_en?: Prisma.StringFilter<"HomeExperience"> | string
+  position_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_en?: Prisma.StringFilter<"HomeExperience"> | string
+  responsibilities_ru?: Prisma.StringFilter<"HomeExperience"> | string
+  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
   createdAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HomeExperience"> | Date | string
-  stackIDs?: Prisma.StringNullableListFilter<"HomeExperience">
 }
 
 export type HomeExperienceUpdateWithoutStackInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type HomeExperienceUncheckedUpdateWithoutStackInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
 }
 
 export type HomeExperienceUncheckedUpdateManyWithoutStackInput = {
-  company?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPresent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  responsibilities?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  lang?: Prisma.StringFieldUpdateOperationsInput | string
+  company_en?: Prisma.StringFieldUpdateOperationsInput | string
+  company_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  position_en?: Prisma.StringFieldUpdateOperationsInput | string
+  position_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_en?: Prisma.StringFieldUpdateOperationsInput | string
+  responsibilities_ru?: Prisma.StringFieldUpdateOperationsInput | string
+  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stackIDs?: Prisma.HomeExperienceUpdatestackIDsInput | string[]
 }
 
 
@@ -696,17 +752,19 @@ export type HomeExperienceCountOutputTypeCountStackArgs<ExtArgs extends runtime.
 
 export type HomeExperienceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  company?: boolean
-  position?: boolean
   startDate?: boolean
   endDate?: boolean
   isPresent?: boolean
-  responsibilities?: boolean
   order?: boolean
-  lang?: boolean
+  company_en?: boolean
+  company_ru?: boolean
+  position_en?: boolean
+  position_ru?: boolean
+  responsibilities_en?: boolean
+  responsibilities_ru?: boolean
+  stackIDs?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  stackIDs?: boolean
   stack?: boolean | Prisma.HomeExperience$stackArgs<ExtArgs>
   _count?: boolean | Prisma.HomeExperienceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["homeExperience"]>
@@ -715,20 +773,22 @@ export type HomeExperienceSelect<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type HomeExperienceSelectScalar = {
   id?: boolean
-  company?: boolean
-  position?: boolean
   startDate?: boolean
   endDate?: boolean
   isPresent?: boolean
-  responsibilities?: boolean
   order?: boolean
-  lang?: boolean
+  company_en?: boolean
+  company_ru?: boolean
+  position_en?: boolean
+  position_ru?: boolean
+  responsibilities_en?: boolean
+  responsibilities_ru?: boolean
+  stackIDs?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  stackIDs?: boolean
 }
 
-export type HomeExperienceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "company" | "position" | "startDate" | "endDate" | "isPresent" | "responsibilities" | "order" | "lang" | "createdAt" | "updatedAt" | "stackIDs", ExtArgs["result"]["homeExperience"]>
+export type HomeExperienceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "startDate" | "endDate" | "isPresent" | "order" | "company_en" | "company_ru" | "position_en" | "position_ru" | "responsibilities_en" | "responsibilities_ru" | "stackIDs" | "createdAt" | "updatedAt", ExtArgs["result"]["homeExperience"]>
 export type HomeExperienceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stack?: boolean | Prisma.HomeExperience$stackArgs<ExtArgs>
   _count?: boolean | Prisma.HomeExperienceCountOutputTypeDefaultArgs<ExtArgs>
@@ -741,17 +801,19 @@ export type $HomeExperiencePayload<ExtArgs extends runtime.Types.Extensions.Inte
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    company: string
-    position: string
     startDate: Date
     endDate: Date
     isPresent: boolean
-    responsibilities: string
     order: number | null
-    lang: string
+    company_en: string
+    company_ru: string
+    position_en: string
+    position_ru: string
+    responsibilities_en: string
+    responsibilities_ru: string
+    stackIDs: string[]
     createdAt: Date
     updatedAt: Date
-    stackIDs: string[]
   }, ExtArgs["result"]["homeExperience"]>
   composites: {}
 }
@@ -1146,17 +1208,19 @@ export interface Prisma__HomeExperienceClient<T, Null = never, ExtArgs extends r
  */
 export interface HomeExperienceFieldRefs {
   readonly id: Prisma.FieldRef<"HomeExperience", 'String'>
-  readonly company: Prisma.FieldRef<"HomeExperience", 'String'>
-  readonly position: Prisma.FieldRef<"HomeExperience", 'String'>
   readonly startDate: Prisma.FieldRef<"HomeExperience", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"HomeExperience", 'DateTime'>
   readonly isPresent: Prisma.FieldRef<"HomeExperience", 'Boolean'>
-  readonly responsibilities: Prisma.FieldRef<"HomeExperience", 'String'>
   readonly order: Prisma.FieldRef<"HomeExperience", 'Int'>
-  readonly lang: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly company_en: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly company_ru: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly position_en: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly position_ru: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly responsibilities_en: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly responsibilities_ru: Prisma.FieldRef<"HomeExperience", 'String'>
+  readonly stackIDs: Prisma.FieldRef<"HomeExperience", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"HomeExperience", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"HomeExperience", 'DateTime'>
-  readonly stackIDs: Prisma.FieldRef<"HomeExperience", 'String[]'>
 }
     
 

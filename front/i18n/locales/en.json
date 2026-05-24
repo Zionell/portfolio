@@ -15,5 +15,24 @@
 	"experience": {
 		"present": "Present",
 		"responsibilities": "Responsibilities:"
+	},
+	"tag": {
+		"all": "All"
+	},
+	"contactForm": {
+		"popup": {
+			"successSup": "Message sent",
+			"successTitle": "Thank you",
+			"successText": "I received your request and will get back to you soon.",
+			"errorSup": "Message failed",
+			"errorTitle": "Try again",
+			"errorText": "Something went wrong while sending your message.",
+			"button": "Close",
+			"close": "Close confirmation popup",
+			"autoClose": "Closes in {count}s"
+		}
+	},
+	"button": {
+		"send": "Send"
 	}
 }

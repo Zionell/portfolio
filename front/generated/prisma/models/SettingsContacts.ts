@@ -28,6 +28,7 @@ export type SettingsContactsMinAggregateOutputType = {
   id: string | null
   name: string | null
   link: string | null
+  icon: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,6 +37,7 @@ export type SettingsContactsMaxAggregateOutputType = {
   id: string | null
   name: string | null
   link: string | null
+  icon: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +46,7 @@ export type SettingsContactsCountAggregateOutputType = {
   id: number
   name: number
   link: number
+  icon: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -54,6 +57,7 @@ export type SettingsContactsMinAggregateInputType = {
   id?: true
   name?: true
   link?: true
+  icon?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -62,6 +66,7 @@ export type SettingsContactsMaxAggregateInputType = {
   id?: true
   name?: true
   link?: true
+  icon?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,6 +75,7 @@ export type SettingsContactsCountAggregateInputType = {
   id?: true
   name?: true
   link?: true
+  icon?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -151,6 +157,7 @@ export type SettingsContactsGroupByOutputType = {
   id: string
   name: string
   link: string
+  icon: string
   createdAt: Date
   updatedAt: Date
   _count: SettingsContactsCountAggregateOutputType | null
@@ -180,6 +187,7 @@ export type SettingsContactsWhereInput = {
   id?: Prisma.StringFilter<"SettingsContacts"> | string
   name?: Prisma.StringFilter<"SettingsContacts"> | string
   link?: Prisma.StringFilter<"SettingsContacts"> | string
+  icon?: Prisma.StringFilter<"SettingsContacts"> | string
   createdAt?: Prisma.DateTimeFilter<"SettingsContacts"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SettingsContacts"> | Date | string
 }
@@ -188,6 +196,7 @@ export type SettingsContactsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -199,6 +208,7 @@ export type SettingsContactsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SettingsContactsWhereInput | Prisma.SettingsContactsWhereInput[]
   name?: Prisma.StringFilter<"SettingsContacts"> | string
   link?: Prisma.StringFilter<"SettingsContacts"> | string
+  icon?: Prisma.StringFilter<"SettingsContacts"> | string
   createdAt?: Prisma.DateTimeFilter<"SettingsContacts"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SettingsContacts"> | Date | string
 }, "id">
@@ -207,6 +217,7 @@ export type SettingsContactsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SettingsContactsCountOrderByAggregateInput
@@ -221,6 +232,7 @@ export type SettingsContactsScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"SettingsContacts"> | string
   name?: Prisma.StringWithAggregatesFilter<"SettingsContacts"> | string
   link?: Prisma.StringWithAggregatesFilter<"SettingsContacts"> | string
+  icon?: Prisma.StringWithAggregatesFilter<"SettingsContacts"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SettingsContacts"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SettingsContacts"> | Date | string
 }
@@ -229,6 +241,7 @@ export type SettingsContactsCreateInput = {
   id?: string
   name: string
   link: string
+  icon: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -237,6 +250,7 @@ export type SettingsContactsUncheckedCreateInput = {
   id?: string
   name: string
   link: string
+  icon: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -244,6 +258,7 @@ export type SettingsContactsUncheckedCreateInput = {
 export type SettingsContactsUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -251,6 +266,7 @@ export type SettingsContactsUpdateInput = {
 export type SettingsContactsUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -259,6 +275,7 @@ export type SettingsContactsCreateManyInput = {
   id?: string
   name: string
   link: string
+  icon: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -266,6 +283,7 @@ export type SettingsContactsCreateManyInput = {
 export type SettingsContactsUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -273,6 +291,7 @@ export type SettingsContactsUpdateManyMutationInput = {
 export type SettingsContactsUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -281,6 +300,7 @@ export type SettingsContactsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -289,6 +309,7 @@ export type SettingsContactsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -297,6 +318,7 @@ export type SettingsContactsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   link?: Prisma.SortOrder
+  icon?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -307,6 +329,7 @@ export type SettingsContactsSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   name?: boolean
   link?: boolean
+  icon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["settingsContacts"]>
@@ -317,11 +340,12 @@ export type SettingsContactsSelectScalar = {
   id?: boolean
   name?: boolean
   link?: boolean
+  icon?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SettingsContactsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "link" | "createdAt" | "updatedAt", ExtArgs["result"]["settingsContacts"]>
+export type SettingsContactsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "link" | "icon" | "createdAt" | "updatedAt", ExtArgs["result"]["settingsContacts"]>
 
 export type $SettingsContactsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SettingsContacts"
@@ -330,6 +354,7 @@ export type $SettingsContactsPayload<ExtArgs extends runtime.Types.Extensions.In
     id: string
     name: string
     link: string
+    icon: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["settingsContacts"]>
@@ -727,6 +752,7 @@ export interface SettingsContactsFieldRefs {
   readonly id: Prisma.FieldRef<"SettingsContacts", 'String'>
   readonly name: Prisma.FieldRef<"SettingsContacts", 'String'>
   readonly link: Prisma.FieldRef<"SettingsContacts", 'String'>
+  readonly icon: Prisma.FieldRef<"SettingsContacts", 'String'>
   readonly createdAt: Prisma.FieldRef<"SettingsContacts", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SettingsContacts", 'DateTime'>
 }

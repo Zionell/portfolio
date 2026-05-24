@@ -1,6 +1,6 @@
-import type { ISpec } from "#shared/types/common.types";
+import type { IMenuItem } from "#shared/types/common.types";
 
-export const menu: ISpec[] = [
+export const menu: IMenuItem[] = [
 	{
 		key: "about",
 		value: "#about",
@@ -23,7 +23,7 @@ export const menu: ISpec[] = [
 	},
 	{
 		key: "contacts",
-		value: "#contacts",
+		value: "/contacts",
 	},
 	// {
 	//   label: 'Примеры кода',

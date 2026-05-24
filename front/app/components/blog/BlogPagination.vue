@@ -1,13 +1,10 @@
 <script setup lang="ts">
 const props = defineProps<{
-	page: number;
 	total: number;
 	perPage: number;
 }>();
 
-const emit = defineEmits<{
-	(e: "update:page", value: number): void;
-}>();
+const model = defineModel<number>({ default: 1 });
 
 const totalPages = computed(() => {
 	const pages = Math.ceil(props.total / props.perPage);
@@ -22,7 +19,8 @@ const setPage = (value: number): void => {
 	if (value < 1 || value > totalPages.value) {
 		return;
 	}
-	emit("update:page", value);
+
+	model.value = value;
 };
 </script>
 
@@ -31,8 +29,8 @@ const setPage = (value: number): void => {
 		<button
 			:class="$style.navBtn"
 			type="button"
-			:disabled="page <= 1"
-			@click="setPage(page - 1)"
+			:disabled="model <= 1"
+			@click="setPage(model - 1)"
 		>
 			Prev
 		</button>
@@ -40,7 +38,7 @@ const setPage = (value: number): void => {
 		<button
 			v-for="p in pages"
 			:key="p"
-			:class="[$style.pageBtn, { [$style._active]: p === page }]"
+			:class="[$style.pageBtn, { [$style._active]: p === model }]"
 			type="button"
 			@click="setPage(p)"
 		>
@@ -50,8 +48,8 @@ const setPage = (value: number): void => {
 		<button
 			:class="$style.navBtn"
 			type="button"
-			:disabled="page >= totalPages"
-			@click="setPage(page + 1)"
+			:disabled="model >= totalPages"
+			@click="setPage(model + 1)"
 		>
 			Next
 		</button>

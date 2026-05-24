@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import type { IFormDataProject } from "#shared/types/experience.types";
+import type { IFormDataExp } from "#shared/types/experience.types";
 import type { HomeSkill } from "~~/generated/prisma/client";
 
 const props = defineProps<{
-	item: IFormDataProject;
+	item: IFormDataExp;
 	index: number;
 	skills: HomeSkill[];
 }>();
 
-const { locales } = useI18n();
 const isRemoving = ref<boolean>(false);
 
 const formData = ref<IFormDataExp>(props.item);
@@ -46,7 +45,7 @@ const setStack = (value: HomeSkill[][]) => {
 </script>
 <template>
 	<PrimePanel
-		:header="formData.position || 'New experience'"
+		:header="formData.position_en || 'New experience'"
 		toggleable
 		:collapsed="props.index !== 0"
 	>
@@ -60,16 +59,6 @@ const setStack = (value: HomeSkill[][]) => {
 		</template>
 		<div :class="$style.form">
 			<div :class="$style.row">
-				<PrimeFloatLabel class="w-full md:w-56" variant="on">
-					<PrimeSelect
-						v-model="formData.lang"
-						inputId="locales"
-						:options="locales"
-						optionLabel="name"
-						optionValue="code"
-					/>
-					<label for="locales">On Label</label>
-				</PrimeFloatLabel>
 				<PrimeInputNumber
 					v-model="formData.order"
 					inputId="horizontal-buttons"
@@ -84,12 +73,32 @@ const setStack = (value: HomeSkill[][]) => {
 					</template>
 				</PrimeInputNumber>
 				<PrimeFloatLabel variant="on">
-					<PrimeInputText id="position" v-model="formData.position" />
-					<label for="position">Position</label>
+					<PrimeInputText
+						id="position_en"
+						v-model="formData.position_en"
+					/>
+					<label for="position_en">Position_en</label>
 				</PrimeFloatLabel>
 				<PrimeFloatLabel variant="on">
-					<PrimeInputText id="company" v-model="formData.company" />
-					<label for="company">Company</label>
+					<PrimeInputText
+						id="position_ru"
+						v-model="formData.position_ru"
+					/>
+					<label for="position_ru">Position_ru</label>
+				</PrimeFloatLabel>
+				<PrimeFloatLabel variant="on">
+					<PrimeInputText
+						id="company_en"
+						v-model="formData.company_en"
+					/>
+					<label for="company_en">Company_en</label>
+				</PrimeFloatLabel>
+				<PrimeFloatLabel variant="on">
+					<PrimeInputText
+						id="company_ru"
+						v-model="formData.company_ru"
+					/>
+					<label for="company_ru">Company_ru</label>
 				</PrimeFloatLabel>
 			</div>
 			<div :class="$style.block">
@@ -139,11 +148,19 @@ const setStack = (value: HomeSkill[][]) => {
 				</PrimePickList>
 			</div>
 			<div :class="$style.block">
-				<span>Responsibilities</span>
+				<span>Responsibilities_en</span>
 				<PrimeEditor
 					:class="$style.editor"
 					editorStyle="height: 180px"
-					v-model="formData.responsibilities"
+					v-model="formData.responsibilities_en"
+				/>
+			</div>
+			<div :class="$style.block">
+				<span>Responsibilities_ru</span>
+				<PrimeEditor
+					:class="$style.editor"
+					editorStyle="height: 180px"
+					v-model="formData.responsibilities_ru"
 				/>
 			</div>
 		</div>

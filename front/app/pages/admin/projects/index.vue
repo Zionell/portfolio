@@ -6,9 +6,7 @@ definePageMeta({
 	layout: "admin",
 });
 
-const { data, refresh } = await useFetch<IProject[]>(
-	api.admin.projects,
-);
+const { data, refresh } = await useFetch<IProject[]>(api.admin.projects);
 
 const handleDelete = async (id: string) => {
 	try {

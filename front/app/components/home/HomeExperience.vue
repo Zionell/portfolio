@@ -19,6 +19,31 @@ const period = (item: IHomeExperience): string => {
 
 	return `${start} - ${end}`;
 };
+
+const { $gsap } = useNuxtApp();
+const itemRef = useTemplateRef("itemRef");
+
+const animate = () => {
+	const tl = $gsap.timeline();
+
+	itemRef.value?.forEach((item, ind) => {
+		tl.from(item, {
+			scrollTrigger: {
+				trigger: item,
+				start: "top 80%",
+				end: "top 60%",
+				toggleActions: "play none resume reverse",
+				scrub: true,
+			},
+			autoAlpha: 0,
+			x: ind % 2 === 0 ? 100 : -100,
+		});
+	});
+};
+
+onMounted(() => {
+	nextTick(animate);
+});
 </script>
 
 <template>
@@ -27,6 +52,7 @@ const period = (item: IHomeExperience): string => {
 			<article
 				v-for="(item, ind) in props.content"
 				:key="ind"
+				ref="itemRef"
 				:class="$style.card"
 			>
 				<div :class="$style.cardTop">
@@ -49,7 +75,7 @@ const period = (item: IHomeExperience): string => {
 						:key="i"
 						:class="$style.stack"
 					>
-						{{ stack.label }}
+						{{ stack }}
 					</li>
 				</ul>
 

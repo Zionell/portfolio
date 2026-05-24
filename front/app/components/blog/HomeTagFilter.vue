@@ -1,35 +1,44 @@
 <script setup lang="ts">
 const props = defineProps<{
-	tags: string[];
-	active: string;
+	tags: ISpec[];
 }>();
 
-const emit = defineEmits<{
-	(e: "update:active", value: string): void;
-}>();
+const model = defineModel();
 
-const activeIndex = computed(() =>
-	Math.max(0, props.tags.indexOf(props.active)),
-);
+const activeIndex = computed(() => {
+	const index = props.tags.findIndex((tag) => tag.value === model.value);
+	return Math.max(0, index + 1);
+});
+
+const handleClick = (value: string | null) => {
+	model.value = value;
+};
 </script>
 
 <template>
 	<div
 		:class="$style.segmented"
 		:style="{
-			'--segments': props.tags.length,
+			'--segments': props.tags.length + 1,
 			'--active-index': activeIndex,
 		}"
 	>
 		<span :class="$style.indicator" />
 		<button
-			v-for="tag in props.tags"
-			:key="tag"
-			:class="[$style.segment, { [$style._active]: tag === props.active }]"
+			:class="[$style.segment, { [$style._active]: !model }]"
 			type="button"
-			@click="emit('update:active', tag)"
+			@click="handleClick(null)"
 		>
-			{{ tag }}
+			{{ $t("tag.all") }}
+		</button>
+		<button
+			v-for="tag in props.tags"
+			:key="tag.value"
+			:class="[$style.segment, { [$style._active]: tag.value === model }]"
+			type="button"
+			@click="handleClick(tag.value)"
+		>
+			{{ tag.label }}
 		</button>
 	</div>
 </template>
@@ -69,9 +78,9 @@ const activeIndex = computed(() =>
 	text-transform: uppercase;
 	color: $gray4;
 	transition: $default-transition;
-}
 
-._active {
-	color: $white;
+	&._active {
+		color: $white;
+	}
 }
 </style>

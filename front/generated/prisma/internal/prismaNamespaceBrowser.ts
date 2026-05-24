@@ -50,7 +50,9 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   PostSkeleton: 'PostSkeleton',
-  BlogPost: 'BlogPost',
+  Posts: 'Posts',
+  PostContent: 'PostContent',
+  PostsType: 'PostsType',
   Project: 'Project',
   HomeHero: 'HomeHero',
   HomeAbout: 'HomeAbout',
@@ -60,7 +62,9 @@ export const ModelName = {
   SettingsSeo: 'SettingsSeo',
   SettingsSeoContent: 'SettingsSeoContent',
   SettingsContacts: 'SettingsContacts',
-  SettingsScripts: 'SettingsScripts'
+  SettingsScripts: 'SettingsScripts',
+  ContactsHero: 'ContactsHero',
+  ContactsRequests: 'ContactsRequests'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -81,7 +85,7 @@ export const PostSkeletonScalarFieldEnum = {
 export type PostSkeletonScalarFieldEnum = (typeof PostSkeletonScalarFieldEnum)[keyof typeof PostSkeletonScalarFieldEnum]
 
 
-export const BlogPostScalarFieldEnum = {
+export const PostsScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   title: 'title',
@@ -91,14 +95,37 @@ export const BlogPostScalarFieldEnum = {
   readTime: 'readTime',
   cover: 'cover',
   mainPage: 'mainPage',
-  type: 'type',
+  isPublished: 'isPublished',
   lang: 'lang',
-  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  typeId: 'typeId'
+} as const
+
+export type PostsScalarFieldEnum = (typeof PostsScalarFieldEnum)[keyof typeof PostsScalarFieldEnum]
+
+
+export const PostContentScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  image: 'image',
+  video: 'video',
+  order: 'order',
+  postsId: 'postsId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type BlogPostScalarFieldEnum = (typeof BlogPostScalarFieldEnum)[keyof typeof BlogPostScalarFieldEnum]
+export type PostContentScalarFieldEnum = (typeof PostContentScalarFieldEnum)[keyof typeof PostContentScalarFieldEnum]
+
+
+export const PostsTypeScalarFieldEnum = {
+  id: 'id',
+  label_ru: 'label_ru',
+  label_en: 'label_en'
+} as const
+
+export type PostsTypeScalarFieldEnum = (typeof PostsTypeScalarFieldEnum)[keyof typeof PostsTypeScalarFieldEnum]
 
 
 export const ProjectScalarFieldEnum = {
@@ -107,6 +134,8 @@ export const ProjectScalarFieldEnum = {
   slug: 'slug',
   link: 'link',
   image: 'image',
+  description_ru: 'description_ru',
+  description_en: 'description_en',
   order: 'order',
   isDeveloping: 'isDeveloping',
   isArchived: 'isArchived',
@@ -155,17 +184,19 @@ export type HomeAboutTextScalarFieldEnum = (typeof HomeAboutTextScalarFieldEnum)
 
 export const HomeExperienceScalarFieldEnum = {
   id: 'id',
-  company: 'company',
-  position: 'position',
   startDate: 'startDate',
   endDate: 'endDate',
   isPresent: 'isPresent',
-  responsibilities: 'responsibilities',
   order: 'order',
-  lang: 'lang',
+  company_en: 'company_en',
+  company_ru: 'company_ru',
+  position_en: 'position_en',
+  position_ru: 'position_ru',
+  responsibilities_en: 'responsibilities_en',
+  responsibilities_ru: 'responsibilities_ru',
+  stackIDs: 'stackIDs',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  stackIDs: 'stackIDs'
+  updatedAt: 'updatedAt'
 } as const
 
 export type HomeExperienceScalarFieldEnum = (typeof HomeExperienceScalarFieldEnum)[keyof typeof HomeExperienceScalarFieldEnum]
@@ -215,6 +246,7 @@ export const SettingsContactsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   link: 'link',
+  icon: 'icon',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -233,6 +265,35 @@ export const SettingsScriptsScalarFieldEnum = {
 } as const
 
 export type SettingsScriptsScalarFieldEnum = (typeof SettingsScriptsScalarFieldEnum)[keyof typeof SettingsScriptsScalarFieldEnum]
+
+
+export const ContactsHeroScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  subTitle: 'subTitle',
+  location: 'location',
+  focus: 'focus',
+  cvLink: 'cvLink',
+  cvFileName: 'cvFileName',
+  lang: 'lang',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactsHeroScalarFieldEnum = (typeof ContactsHeroScalarFieldEnum)[keyof typeof ContactsHeroScalarFieldEnum]
+
+
+export const ContactsRequestsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  message: 'message',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactsRequestsScalarFieldEnum = (typeof ContactsRequestsScalarFieldEnum)[keyof typeof ContactsRequestsScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -66,6 +66,8 @@ useSeoMeta({
 
 <template>
 	<div :class="$style.layout">
+		<NuxtLoadingIndicator color="#6d6e71" />
+
 		<TheHeader :settings="data" />
 
 		<slot />

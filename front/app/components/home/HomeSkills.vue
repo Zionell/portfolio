@@ -84,11 +84,12 @@ onMounted(() => {
 	color: $gray4;
 	transition: $default-transition;
 	text-align: center;
+	user-select: none;
 
 	@include hover {
 		color: $white;
 		border-color: rgba(255, 255, 255, 0.25);
-		transform: translateY(-4px);
+		transform: translateY(-4px) scaleY(1.05) !important;
 	}
 }
 

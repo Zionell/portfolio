@@ -1,5 +1,5 @@
 import type {
-	BlogPost,
+	Posts,
 	HomeAbout,
 	HomeAboutText,
 	HomeExperience,
@@ -12,10 +12,11 @@ export interface IAbout extends HomeAbout {
 	text: HomeAboutText[];
 }
 
-export interface IHomeExperience extends HomeExperience {
-	stack: Array<{
-		label: string;
-	}>;
+export interface IHomeExperience extends Partial<HomeExperience> {
+	stack: string[];
+	company: string;
+	position: string;
+	responsibilities: string;
 }
 
 export interface IHomeProject extends Project {
@@ -30,5 +31,5 @@ export interface IHomeData {
 	experience: IHomeExperience[];
 	skills: HomeSkill[];
 	projects: IHomeProject[];
-	blog: BlogPost[];
+	blog: Posts[];
 }

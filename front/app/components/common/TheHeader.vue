@@ -30,7 +30,11 @@ onBeforeUnmount(() => {
 			<TheLogo :class="$style.brand" />
 
 			<div :class="$style.actions">
-				<VButton :label="$t('common.getCv')" />
+				<VButton
+					:label="$t('common.getCv')"
+					href="/Askarov_CV.pdf"
+					download="Adilkhan_Askarov_CV.pdf"
+				/>
 				<TheLanguageSelect />
 			</div>
 		</div>

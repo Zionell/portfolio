@@ -6,9 +6,33 @@
 	},
 	"sections": {
 		"about": "Обо мне",
-		"skills": "Скилы",
-		"experience": "Опыт работы",
+		"skills": "Навыки и инструменты",
+		"experience": "Опыт",
 		"projects": "Проекты",
-		"blog": "Блог"
+		"blog": "Блог",
+		"contacts": "Контакты"
+	},
+	"experience": {
+		"present": "Настоящее время",
+		"responsibilities": "Обязанности:"
+	},
+	"tag": {
+		"all": "Все"
+	},
+	"contactForm": {
+		"popup": {
+			"successSup": "Сообщение отправлено",
+			"successTitle": "Спасибо",
+			"successText": "Я получил ваш запрос и скоро свяжусь с вами.",
+			"errorSup": "Сообщение не отправлено",
+			"errorTitle": "Попробуйте еще раз",
+			"errorText": "Что-то пошло не так при отправке сообщения.",
+			"button": "Закрыть",
+			"close": "Закрыть окно подтверждения",
+			"autoClose": "Закроется через {count} сек."
+		}
+	},
+	"button": {
+		"send": "Отправить"
 	}
 }

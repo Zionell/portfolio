@@ -23,10 +23,20 @@ export * from './enums.js';
  */
 export type PostSkeleton = Prisma.PostSkeletonModel
 /**
- * Model BlogPost
+ * Model Posts
  * 
  */
-export type BlogPost = Prisma.BlogPostModel
+export type Posts = Prisma.PostsModel
+/**
+ * Model PostContent
+ * 
+ */
+export type PostContent = Prisma.PostContentModel
+/**
+ * Model PostsType
+ * 
+ */
+export type PostsType = Prisma.PostsTypeModel
 /**
  * Model Project
  * 
@@ -77,3 +87,13 @@ export type SettingsContacts = Prisma.SettingsContactsModel
  * 
  */
 export type SettingsScripts = Prisma.SettingsScriptsModel
+/**
+ * Model ContactsHero
+ * 
+ */
+export type ContactsHero = Prisma.ContactsHeroModel
+/**
+ * Model ContactsRequests
+ * 
+ */
+export type ContactsRequests = Prisma.ContactsRequestsModel

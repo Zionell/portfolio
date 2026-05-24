@@ -17,34 +17,62 @@ model PostSkeleton {
     isUsed    Boolean @default(false)
 }
 
-model BlogPost {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    slug      String   @unique
-    title     String
-    excerpt   String
-    date      String
-    tags      String[]
-    readTime  Int
-    cover     String
-    mainPage  Boolean
-    type      String
-    lang      String   @default("en")
-    status    String   @default("draft")
+model Posts {
+    id          String        @id @default(auto()) @map("_id") @db.ObjectId
+    slug        String        @unique
+    title       String
+    excerpt     String
+    date        String
+    tags        String[]
+    content     PostContent[]
+    readTime    Int
+    cover       String?
+    mainPage    Boolean       @default(false)
+    isPublished Boolean       @default(false)
+    lang        String        @default("en")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    type   PostsType @relation(fields: [typeId], references: [id])
+    typeId String    @db.ObjectId
+}
+
+model PostContent {
+    id    String  @id @default(auto()) @map("_id") @db.ObjectId
+    text  String?
+    image String?
+    video String?
+    order Int     @default(0)
+
+    posts   Posts?  @relation(fields: [postsId], references: [id])
+    postsId String? @db.ObjectId
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
+model PostsType {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    label_ru String
+    label_en String
+
+    posts Posts[]
+}
+
 model Project {
-    id           String   @id @default(auto()) @map("_id") @db.ObjectId
-    name         String
-    slug         String
-    link         String
-    image        String?
-    order        Int?
-    isDeveloping Boolean  @default(false)
-    isArchived   Boolean  @default(false)
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+    id             String   @id @default(auto()) @map("_id") @db.ObjectId
+    name           String
+    slug           String
+    link           String
+    image          String?
+    description_ru String?
+    description_en String?
+    order          Int?
+    isDeveloping   Boolean  @default(false)
+    isArchived     Boolean  @default(false)
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
 
     stackIDs String[]    @db.ObjectId
     stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
@@ -80,20 +108,24 @@ model HomeAboutText {
 }
 
 model HomeExperience {
-    id               String   @id @default(auto()) @map("_id") @db.ObjectId
-    company          String
-    position         String
-    startDate        DateTime
-    endDate          DateTime
-    isPresent        Boolean  @default(false)
-    responsibilities String
-    order            Int?
-    lang             String   @default("en")
-    createdAt        DateTime @default(now())
-    updatedAt        DateTime @updatedAt
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    startDate DateTime
+    endDate   DateTime @default(now())
+    isPresent Boolean  @default(false)
+    order     Int?
+
+    company_en          String
+    company_ru          String
+    position_en         String
+    position_ru         String
+    responsibilities_en String
+    responsibilities_ru String
 
     stackIDs String[]    @db.ObjectId
     stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model HomeSkill {
@@ -143,6 +175,7 @@ model SettingsContacts {
 
     name String
     link String
+    icon String
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -155,6 +188,35 @@ model SettingsScripts {
     innerHTML String
     async     Boolean
     body      Boolean
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model ContactsHero {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    title    String
+    subTitle String
+    location String
+    focus    String[]
+
+    cvLink     String
+    cvFileName String
+
+    lang String @unique @default("en")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model ContactsRequests {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    name    String
+    email   String
+    message String
+    isRead  Boolean
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

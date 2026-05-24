@@ -9,7 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/PostSkeleton.js'
-export type * from './models/BlogPost.js'
+export type * from './models/Posts.js'
+export type * from './models/PostContent.js'
+export type * from './models/PostsType.js'
 export type * from './models/Project.js'
 export type * from './models/HomeHero.js'
 export type * from './models/HomeAbout.js'
@@ -20,4 +22,6 @@ export type * from './models/SettingsSeo.js'
 export type * from './models/SettingsSeoContent.js'
 export type * from './models/SettingsContacts.js'
 export type * from './models/SettingsScripts.js'
+export type * from './models/ContactsHero.js'
+export type * from './models/ContactsRequests.js'
 export type * from './commonInputTypes.js'

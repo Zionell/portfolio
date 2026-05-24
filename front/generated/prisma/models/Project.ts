@@ -40,6 +40,8 @@ export type ProjectMinAggregateOutputType = {
   slug: string | null
   link: string | null
   image: string | null
+  description_ru: string | null
+  description_en: string | null
   order: number | null
   isDeveloping: boolean | null
   isArchived: boolean | null
@@ -53,6 +55,8 @@ export type ProjectMaxAggregateOutputType = {
   slug: string | null
   link: string | null
   image: string | null
+  description_ru: string | null
+  description_en: string | null
   order: number | null
   isDeveloping: boolean | null
   isArchived: boolean | null
@@ -66,6 +70,8 @@ export type ProjectCountAggregateOutputType = {
   slug: number
   link: number
   image: number
+  description_ru: number
+  description_en: number
   order: number
   isDeveloping: number
   isArchived: number
@@ -90,6 +96,8 @@ export type ProjectMinAggregateInputType = {
   slug?: true
   link?: true
   image?: true
+  description_ru?: true
+  description_en?: true
   order?: true
   isDeveloping?: true
   isArchived?: true
@@ -103,6 +111,8 @@ export type ProjectMaxAggregateInputType = {
   slug?: true
   link?: true
   image?: true
+  description_ru?: true
+  description_en?: true
   order?: true
   isDeveloping?: true
   isArchived?: true
@@ -116,6 +126,8 @@ export type ProjectCountAggregateInputType = {
   slug?: true
   link?: true
   image?: true
+  description_ru?: true
+  description_en?: true
   order?: true
   isDeveloping?: true
   isArchived?: true
@@ -217,6 +229,8 @@ export type ProjectGroupByOutputType = {
   slug: string
   link: string
   image: string | null
+  description_ru: string | null
+  description_en: string | null
   order: number | null
   isDeveloping: boolean
   isArchived: boolean
@@ -254,6 +268,8 @@ export type ProjectWhereInput = {
   slug?: Prisma.StringFilter<"Project"> | string
   link?: Prisma.StringFilter<"Project"> | string
   image?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_ru?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_en?: Prisma.StringNullableFilter<"Project"> | string | null
   order?: Prisma.IntNullableFilter<"Project"> | number | null
   isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
   isArchived?: Prisma.BoolFilter<"Project"> | boolean
@@ -269,6 +285,8 @@ export type ProjectOrderByWithRelationInput = {
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  description_ru?: Prisma.SortOrder
+  description_en?: Prisma.SortOrder
   order?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
@@ -287,6 +305,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   slug?: Prisma.StringFilter<"Project"> | string
   link?: Prisma.StringFilter<"Project"> | string
   image?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_ru?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_en?: Prisma.StringNullableFilter<"Project"> | string | null
   order?: Prisma.IntNullableFilter<"Project"> | number | null
   isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
   isArchived?: Prisma.BoolFilter<"Project"> | boolean
@@ -302,6 +322,8 @@ export type ProjectOrderByWithAggregationInput = {
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  description_ru?: Prisma.SortOrder
+  description_en?: Prisma.SortOrder
   order?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
@@ -324,6 +346,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
   slug?: Prisma.StringWithAggregatesFilter<"Project"> | string
   link?: Prisma.StringWithAggregatesFilter<"Project"> | string
   image?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  description_ru?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  description_en?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   order?: Prisma.IntNullableWithAggregatesFilter<"Project"> | number | null
   isDeveloping?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   isArchived?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
@@ -338,6 +362,8 @@ export type ProjectCreateInput = {
   slug: string
   link: string
   image?: string | null
+  description_ru?: string | null
+  description_en?: string | null
   order?: number | null
   isDeveloping?: boolean
   isArchived?: boolean
@@ -352,6 +378,8 @@ export type ProjectUncheckedCreateInput = {
   slug: string
   link: string
   image?: string | null
+  description_ru?: string | null
+  description_en?: string | null
   order?: number | null
   isDeveloping?: boolean
   isArchived?: boolean
@@ -366,6 +394,8 @@ export type ProjectUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -379,6 +409,8 @@ export type ProjectUncheckedUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -394,6 +426,8 @@ export type ProjectCreateManyInput = {
   slug: string
   link: string
   image?: string | null
+  description_ru?: string | null
+  description_en?: string | null
   order?: number | null
   isDeveloping?: boolean
   isArchived?: boolean
@@ -407,6 +441,8 @@ export type ProjectUpdateManyMutationInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -419,6 +455,8 @@ export type ProjectUncheckedUpdateManyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -433,6 +471,8 @@ export type ProjectCountOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  description_ru?: Prisma.SortOrder
+  description_en?: Prisma.SortOrder
   order?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
@@ -451,6 +491,8 @@ export type ProjectMaxOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  description_ru?: Prisma.SortOrder
+  description_en?: Prisma.SortOrder
   order?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
@@ -464,6 +506,8 @@ export type ProjectMinOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   link?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  description_ru?: Prisma.SortOrder
+  description_en?: Prisma.SortOrder
   order?: Prisma.SortOrder
   isDeveloping?: Prisma.SortOrder
   isArchived?: Prisma.SortOrder
@@ -487,11 +531,6 @@ export type ProjectOrderByRelationAggregateInput = {
 
 export type ProjectCreatestackIDsInput = {
   set: string[]
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-  unset?: boolean
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -552,6 +591,8 @@ export type ProjectCreateWithoutStackInput = {
   slug: string
   link: string
   image?: string | null
+  description_ru?: string | null
+  description_en?: string | null
   order?: number | null
   isDeveloping?: boolean
   isArchived?: boolean
@@ -565,6 +606,8 @@ export type ProjectUncheckedCreateWithoutStackInput = {
   slug: string
   link: string
   image?: string | null
+  description_ru?: string | null
+  description_en?: string | null
   order?: number | null
   isDeveloping?: boolean
   isArchived?: boolean
@@ -603,6 +646,8 @@ export type ProjectScalarWhereInput = {
   slug?: Prisma.StringFilter<"Project"> | string
   link?: Prisma.StringFilter<"Project"> | string
   image?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_ru?: Prisma.StringNullableFilter<"Project"> | string | null
+  description_en?: Prisma.StringNullableFilter<"Project"> | string | null
   order?: Prisma.IntNullableFilter<"Project"> | number | null
   isDeveloping?: Prisma.BoolFilter<"Project"> | boolean
   isArchived?: Prisma.BoolFilter<"Project"> | boolean
@@ -616,6 +661,8 @@ export type ProjectUpdateWithoutStackInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -628,6 +675,8 @@ export type ProjectUncheckedUpdateWithoutStackInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -641,6 +690,8 @@ export type ProjectUncheckedUpdateManyWithoutStackInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   link?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_ru?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description_en?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeveloping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -686,6 +737,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   slug?: boolean
   link?: boolean
   image?: boolean
+  description_ru?: boolean
+  description_en?: boolean
   order?: boolean
   isDeveloping?: boolean
   isArchived?: boolean
@@ -704,6 +757,8 @@ export type ProjectSelectScalar = {
   slug?: boolean
   link?: boolean
   image?: boolean
+  description_ru?: boolean
+  description_en?: boolean
   order?: boolean
   isDeveloping?: boolean
   isArchived?: boolean
@@ -712,7 +767,7 @@ export type ProjectSelectScalar = {
   stackIDs?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "link" | "image" | "order" | "isDeveloping" | "isArchived" | "createdAt" | "updatedAt" | "stackIDs", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "link" | "image" | "description_ru" | "description_en" | "order" | "isDeveloping" | "isArchived" | "createdAt" | "updatedAt" | "stackIDs", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stack?: boolean | Prisma.Project$stackArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -729,6 +784,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     slug: string
     link: string
     image: string | null
+    description_ru: string | null
+    description_en: string | null
     order: number | null
     isDeveloping: boolean
     isArchived: boolean
@@ -1133,6 +1190,8 @@ export interface ProjectFieldRefs {
   readonly slug: Prisma.FieldRef<"Project", 'String'>
   readonly link: Prisma.FieldRef<"Project", 'String'>
   readonly image: Prisma.FieldRef<"Project", 'String'>
+  readonly description_ru: Prisma.FieldRef<"Project", 'String'>
+  readonly description_en: Prisma.FieldRef<"Project", 'String'>
   readonly order: Prisma.FieldRef<"Project", 'Int'>
   readonly isDeveloping: Prisma.FieldRef<"Project", 'Boolean'>
   readonly isArchived: Prisma.FieldRef<"Project", 'Boolean'>

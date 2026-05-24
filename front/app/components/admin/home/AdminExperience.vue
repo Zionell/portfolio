@@ -8,21 +8,22 @@ import type {
 	IExperience,
 } from "#shared/types/experience.types";
 
-const { locale } = useI18n();
+const DEFAULT_EXP = {
+	company_en: "",
+	company_ru: "",
+	position_en: "New position",
+	position_ru: "New position",
+	responsibilities_en: "",
+	responsibilities_ru: "",
+	startDate: new Date(),
+	endDate: new Date(),
+	stack: [],
+	isPresent: false,
+	order: 0,
+};
+
 const isLoading = ref<boolean>(false);
-const formData = ref<IFormDataExp[]>([
-	{
-		company: "",
-		position: "New position",
-		responsibilities: "",
-		startDate: new Date(),
-		endDate: new Date(),
-		stack: [],
-		isPresent: false,
-		order: 0,
-		lang: locale.value,
-	},
-]);
+const formData = ref<IFormDataExp[]>([{ ...DEFAULT_EXP }]);
 const skills = ref<HomeSkill[]>([]);
 
 const toDate = (value?: Date | string | null) => {
@@ -36,24 +37,10 @@ const setFormData = () => {
 			...item,
 			startDate: toDate(item.startDate),
 			endDate: toDate(item.endDate),
-			responsibilities: item.responsibilities || "",
 			stack: item.stack || [],
 		}));
-	} else {
-		formData.value = [
-			{
-				company: "",
-				position: "New position",
-				responsibilities: "",
-				startDate: new Date(),
-				endDate: new Date(),
-				stack: [],
-				isPresent: false,
-				order: 0,
-				lang: locale.value,
-			},
-		];
 	}
+
 	skills.value = data.value?.skills || [];
 };
 
@@ -118,15 +105,8 @@ const handleChange = (item: IFormDataExp, index: number) => {
 
 const addNewItem = () => {
 	formData.value.push({
-		company: "",
-		position: "New position",
-		responsibilities: "",
-		startDate: new Date(),
-		endDate: new Date(),
-		stack: [],
-		isPresent: false,
+		...DEFAULT_EXP,
 		order: formData.value.length,
-		lang: locale.value,
 	});
 };
 </script>

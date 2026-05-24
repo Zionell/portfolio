@@ -1,81 +1,91 @@
 <script setup lang="ts">
-import type { BlogPost } from "~~/generated/prisma/client";
+import type { Posts } from "~~/generated/prisma/client";
+import { useMouseInElement } from "@vueuse/core";
+import BlogMetaInfo from "~/components/blog/BlogMetaInfo.vue";
 
 const props = defineProps<{
-	post: BlogPost;
+	post: Posts;
 }>();
 
-const { locale } = useI18n();
+const targetRef = useTemplateRef<HTMLElement>("targetRef");
+const { elementX, elementY } = useMouseInElement(targetRef);
 
 const coverSrc = computed(() => {
 	return props.post.cover || "/images/default.png";
 });
 
-const formattedDate = computed(() => {
-	const date = new Date(props.post.date);
-
-	if (Number.isNaN(date.getTime())) {
-		return props.post.date;
-	}
-
-	return date.toLocaleDateString(locale.value, {
-		month: "short",
-		day: "2-digit",
-		year: "numeric",
-	});
+const position = computed(() => {
+	return {
+		left: `${elementX.value}px`,
+		top: `${elementY.value}px`,
+	};
 });
 </script>
 
 <template>
-	<NuxtLink :to="`/blog/${props.post.slug}`" :class="$style.BlogCard">
-		<div :class="$style.cover">
-			<NuxtImg
-				:class="$style.coverImg"
-				:src="coverSrc"
-				:alt="post.title"
-				loading="lazy"
-				placeholder
-			/>
-		</div>
-
-		<div :class="$style.content">
-			<div :class="$style.meta">
-				<ul :class="$style.tags">
-					<li v-for="tag in post.tags" :key="tag" :class="$style.tag">
-						{{ tag }}
-					</li>
-				</ul>
-				<span :class="$style.dot" />
-				<span :class="$style.date">{{ formattedDate }}</span>
-				<span :class="$style.dot" />
-				<span :class="$style.readTime">
-					{{ post.readTime }} {{ $t("common.readTime") }}
-				</span>
+	<div ref="targetRef" :class="$style.BlogCard">
+		<NuxtLink :to="`/blog/${props.post.slug}`" :class="$style.inner">
+			<div :class="$style.cover">
+				<NuxtImg
+					:class="$style.coverImg"
+					:src="coverSrc"
+					:alt="post.title"
+					loading="lazy"
+					placeholder
+				/>
 			</div>
 
-			<h3 :class="$style.title">{{ post.title }}</h3>
-			<p :class="$style.excerpt">{{ post.excerpt }}</p>
-		</div>
-	</NuxtLink>
+			<div :class="$style.content">
+				<BlogMetaInfo :post="post" />
+
+				<h3 :class="$style.title">{{ post.title }}</h3>
+				<p :class="$style.excerpt">{{ post.excerpt }}</p>
+			</div>
+		</NuxtLink>
+
+		<div :class="$style.circle" :style="position" />
+	</div>
 </template>
 
 <style lang="scss" module>
 .BlogCard {
+	position: relative;
+	overflow: hidden;
+	background: $gray2;
+	padding: 1px;
+	border-radius: 1.2rem;
+}
+
+.circle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 30rem;
+	height: 30rem;
+	border-radius: 100%;
+	transform: translate(-50%, -50%);
+	background: radial-gradient($white, $gray3);
+}
+
+.inner {
+	position: relative;
+	z-index: 2;
+	background: $black;
 	display: flex;
 	flex-direction: column;
 	gap: 1.6rem;
 	padding: 2.4rem;
-	border-radius: 1.2rem;
-	border: 1px solid $gray2;
+	height: 100%;
+	border-radius: 1.3rem;
 	transition: $default-transition;
 	min-height: 30rem;
 	cursor: pointer;
 
-	@include hover {
-		transform: translateY(-4px);
-		border-color: $gray5;
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-	}
+	//@include hover {
+	//	transform: translateY(-4px);
+	//	border-color: $gray5;
+	//	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+	//}
 }
 
 .cover {
@@ -97,36 +107,6 @@ const formattedDate = computed(() => {
 	flex-direction: column;
 	gap: 1.6rem;
 	height: 100%;
-}
-
-.meta {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 1rem;
-	font-size: 1rem;
-	text-transform: uppercase;
-	color: $gray4;
-}
-
-.tags {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.8rem;
-}
-
-.tag {
-	border: 1px solid $gray3;
-	border-radius: 0.8rem;
-	padding: 0.4rem 1.2rem;
-	color: $gray5;
-}
-
-.dot {
-	width: 0.4rem;
-	height: 0.4rem;
-	border-radius: 100%;
-	background: $gray4;
 }
 
 .title {

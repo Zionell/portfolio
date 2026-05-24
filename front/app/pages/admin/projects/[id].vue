@@ -52,9 +52,7 @@ const { data } = await useAsyncData<IResponseProject>(
 			skills = await $fetch<HomeSkill[]>(api.admin.skills);
 		} else {
 			[project, skills] = await Promise.all([
-				$fetch<IProject>(
-					`${api.admin.projects}/${route.params.id}`,
-				),
+				$fetch<IProject>(`${api.admin.projects}/${route.params.id}`),
 				$fetch<HomeSkill[]>(api.admin.skills),
 			]);
 		}
@@ -96,7 +94,7 @@ const handleSave = async () => {
 
 	try {
 		await $fetch(api.admin.projects, {
-			method: isNew.value ? "POST" : 'PATCH',
+			method: isNew.value ? "POST" : "PATCH",
 			body: formData.value,
 		});
 

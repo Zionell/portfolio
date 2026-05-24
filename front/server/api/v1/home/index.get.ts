@@ -22,9 +22,6 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 				},
 			}),
 			prisma.homeExperience.findMany({
-				where: {
-					lang: curLang,
-				},
 				orderBy: { order: "asc" },
 				include: {
 					stack: {
@@ -47,21 +44,42 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 					},
 				},
 			}),
-			prisma.blogPost.findMany({
+			prisma.posts.findMany({
 				orderBy: { updatedAt: "asc" },
 				where: {
 					lang: curLang,
-					status: "published",
+					isPublished: true,
 					mainPage: true,
 				},
 				take: 3,
 			}),
 		]);
 
+	const prepareExp = experience?.map((exp) => {
+		return {
+			id: exp.id,
+			startDate: exp.startDate,
+			endDate: exp.endDate,
+			isPresent: exp.isPresent,
+			order: exp.order,
+			company:
+				exp?.[`company_${curLang}` as keyof typeof exp]?.toString() ||
+				"",
+			position:
+				exp?.[`position_${curLang}` as keyof typeof exp]?.toString() ||
+				"",
+			responsibilities:
+				exp?.[
+					`responsibilities_${curLang}` as keyof typeof exp
+				]?.toString() || "",
+			stack: exp.stack.map((s) => s.label),
+		};
+	});
+
 	return {
 		hero: hero || null,
 		about: about || null,
-		experience: experience.length ? experience : [],
+		experience: prepareExp.length ? prepareExp : [],
 		skills: skills.length ? skills : [],
 		projects: projects.length ? projects : [],
 		blog: posts.length ? posts : [],
