@@ -17,10 +17,10 @@ export const menu: IMenuItem[] = [
 		key: "projects",
 		value: "#projects",
 	},
-	{
-		key: "blog",
-		value: "/blog",
-	},
+	// {
+	// 	key: "blog",
+	// 	value: "/blog",
+	// },
 	{
 		key: "contacts",
 		value: "/contacts",
