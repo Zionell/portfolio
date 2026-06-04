@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-	<TheSectionWrapper title="Contact me">
+	<TheSectionWrapper :title="$t('sections.contacts')">
 		<div ref="wrapperRef" :class="$style.ContactForm">
 			<div :class="$style.socials">
 				<NuxtLink
@@ -203,28 +203,32 @@ onBeforeUnmount(() => {
 
 			<form :class="$style.form" @submit.prevent="handleSubmit">
 				<label :class="$style.field">
-					<span id="contact-name-label">Name</span>
+					<span id="contact-name-label">{{
+						$t("contactForm.form.name.label")
+					}}</span>
 					<input
 						v-model="form.name"
 						type="text"
 						name="name"
 						autocomplete="name"
 						required
-						placeholder="Your name"
+						:placeholder="$t('contactForm.form.name.placeholder')"
 						aria-labelledby="contact-name-label"
 						aria-describedby="contact-name-error"
 					/>
 				</label>
 
 				<label :class="$style.field">
-					<span id="contact-email-label">Email</span>
+					<span id="contact-email-label">{{
+						$t("contactForm.form.email.label")
+					}}</span>
 					<input
 						v-model="form.email"
 						type="email"
 						name="email"
 						autocomplete="email"
 						required
-						placeholder="your@email.com"
+						:placeholder="$t('contactForm.form.email.placeholder')"
 						aria-labelledby="contact-email-label"
 						aria-describedby="contact-email-error"
 						:aria-invalid="Boolean(!isEmailValid)"
@@ -232,13 +236,17 @@ onBeforeUnmount(() => {
 				</label>
 
 				<label :class="[$style.field, $style.messageField]">
-					<span id="contact-message-label">Message</span>
+					<span id="contact-message-label">
+						{{ $t("contactForm.form.message.label") }}
+					</span>
 					<textarea
 						v-model="form.message"
 						name="message"
 						required
 						rows="7"
-						placeholder="Tell me about your task"
+						:placeholder="
+							$t('contactForm.form.message.placeholder')
+						"
 						aria-labelledby="contact-message-label"
 						aria-describedby="contact-message-error"
 					/>
@@ -326,6 +334,10 @@ onBeforeUnmount(() => {
 
 .socials {
 	display: grid;
+
+	@include media($mobile) {
+		order: 2;
+	}
 }
 
 .socialLink {
@@ -360,6 +372,10 @@ onBeforeUnmount(() => {
 			transform: translateX(0);
 		}
 	}
+
+	@include media($mobile) {
+		min-height: 4.8rem;
+	}
 }
 
 .socialIcon,
@@ -369,13 +385,16 @@ onBeforeUnmount(() => {
 }
 
 .socialIcon {
-	width: 4.8rem;
-	height: 4.8rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: $gray4;
 	border-radius: 50%;
+
+	@include media($mobile) {
+		width: 3.2rem;
+		height: 3.2rem;
+	}
 }
 
 .socialName {
@@ -387,6 +406,10 @@ onBeforeUnmount(() => {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 2.4rem;
+
+	@include media($mobile) {
+		order: 1;
+	}
 }
 
 .field {

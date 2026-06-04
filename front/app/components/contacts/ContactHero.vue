@@ -141,6 +141,10 @@ onMounted(() => {
 		radial-gradient(circle at 78% 18%, rgba($gray3, 0.38), transparent 30%),
 		$black;
 	overflow: hidden;
+
+	@include media($mobile) {
+		padding: 10rem 2rem 4rem;
+	}
 }
 
 .heroContent {
@@ -162,6 +166,10 @@ onMounted(() => {
 	font-size: 7.2rem;
 	line-height: 1.05;
 	text-transform: uppercase;
+
+	@include media($mobile) {
+		font-size: 5.2rem;
+	}
 }
 
 .subtitle {
@@ -169,6 +177,10 @@ onMounted(() => {
 	font-size: 2rem;
 	line-height: 1.6;
 	color: $gray5;
+
+	@include media($mobile) {
+		font-size: 1.6rem;
+	}
 }
 
 .heroMeta {
@@ -217,6 +229,10 @@ onMounted(() => {
 		line-height: 1.5;
 		color: $white;
 		font-weight: 400;
+	}
+
+	@include media($mobile) {
+		flex-direction: column;
 	}
 }
 </style>

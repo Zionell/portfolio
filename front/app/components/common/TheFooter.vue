@@ -41,7 +41,8 @@ const currentYear = new Date().getFullYear();
 		</div>
 
 		<p :class="$style.copy">
-			© {{ currentYear }} ASKAROV.DEV. All Rights Reserved.
+			© {{ currentYear }} ASKAROV.DEV.
+			{{ $t("common.allRightsReserved") }}
 		</p>
 	</footer>
 </template>

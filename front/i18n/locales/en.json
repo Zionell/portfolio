@@ -2,7 +2,8 @@
 	"common": {
 		"getCv": "Download CV",
 		"readTime": "min",
-		"viewAll": "View all"
+		"viewAll": "View all",
+		"allRightsReserved": "All Rights Reserved."
 	},
 	"sections": {
 		"about": "About",
@@ -10,7 +11,8 @@
 		"experience": "Experience",
 		"projects": "Projects",
 		"blog": "Blog",
-		"contacts": "Contacts"
+		"contacts": "Contacts",
+		"contactMe": "Contact me"
 	},
 	"experience": {
 		"present": "Present",
@@ -20,6 +22,20 @@
 		"all": "All"
 	},
 	"contactForm": {
+		"form": {
+			"name": {
+				"label": "Name",
+				"placeholder": "Your name"
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "your{'@'}email.com"
+			},
+			"message": {
+				"label": "Message",
+				"placeholder": "Tell me about your task"
+			}
+		},
 		"popup": {
 			"successSup": "Message sent",
 			"successTitle": "Thank you",

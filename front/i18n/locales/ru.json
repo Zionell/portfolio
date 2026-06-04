@@ -2,7 +2,8 @@
 	"common": {
 		"getCv": "Скачать CV",
 		"readTime": "мин",
-		"viewAll": "Смотреть все"
+		"viewAll": "Смотреть все",
+		"allRightsReserved": "Все права защищены."
 	},
 	"sections": {
 		"about": "Обо мне",
@@ -10,7 +11,8 @@
 		"experience": "Опыт",
 		"projects": "Проекты",
 		"blog": "Блог",
-		"contacts": "Контакты"
+		"contacts": "Контакты",
+		"contactMe": "Связаться"
 	},
 	"experience": {
 		"present": "Настоящее время",
@@ -20,6 +22,20 @@
 		"all": "Все"
 	},
 	"contactForm": {
+		"form": {
+			"name": {
+				"label": "Имя",
+				"placeholder": "Ваше имя"
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "your{'@'}email.com"
+			},
+			"message": {
+				"label": "Сообщение",
+				"placeholder": "Расскажите мне о вашей задаче"
+			}
+		},
 		"popup": {
 			"successSup": "Сообщение отправлено",
 			"successTitle": "Спасибо",
