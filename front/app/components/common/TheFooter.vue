@@ -14,7 +14,7 @@ const currentYear = new Date().getFullYear();
 		<div :class="$style.line" />
 
 		<div :class="$style.content">
-			<TheLogo />
+			<TheLogo :class="$style.logo" />
 
 			<nav :class="$style.nav">
 				<NuxtLink
@@ -54,6 +54,10 @@ const currentYear = new Date().getFullYear();
 	gap: 3.2rem;
 	color: $white;
 	align-items: center;
+
+	@include media($mobile) {
+		padding: 6rem 2rem;
+	}
 }
 
 .line {
@@ -68,6 +72,20 @@ const currentYear = new Date().getFullYear();
 	align-items: center;
 	gap: 3.2rem;
 	text-align: center;
+
+	@include media($mobile) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2.4rem;
+		text-align: left;
+		width: 100%;
+	}
+}
+
+.logo {
+	@include media($mobile) {
+		grid-column: 1 / -1;
+	}
 }
 
 .nav {
@@ -75,6 +93,12 @@ const currentYear = new Date().getFullYear();
 	justify-content: center;
 	gap: 2.4rem;
 	flex-wrap: wrap;
+
+	@include media($mobile) {
+		gap: 1.6rem;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .navLink {
@@ -107,6 +131,12 @@ const currentYear = new Date().getFullYear();
 	justify-content: center;
 	gap: 2.4rem;
 	flex-wrap: wrap;
+
+	@include media($mobile) {
+		gap: 1.6rem;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .contactLink {

@@ -51,6 +51,10 @@ onMounted(() => {
 	flex-direction: column;
 	gap: 3.2rem;
 	width: 100%;
+
+	@include media($mobile) {
+		padding: 3rem 2rem;
+	}
 }
 
 .header {
@@ -63,6 +67,10 @@ onMounted(() => {
 	font-family: $ff-title;
 	font-size: 4.2rem;
 	text-transform: uppercase;
+
+	@include media($mobile) {
+		font-size: 3.2rem;
+	}
 }
 
 .rule {

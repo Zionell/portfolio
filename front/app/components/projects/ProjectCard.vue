@@ -65,7 +65,7 @@ const description = computed((): string => {
 				<TheTags v-if="tags?.length" :tags="tags" column />
 			</div>
 
-			<div>
+			<div :class="$style.content">
 				<ul :class="$style.stackList">
 					<li
 						v-for="stack in props.project.stack"
@@ -108,6 +108,16 @@ const description = computed((): string => {
 	gap: 6rem;
 	height: 60vh;
 
+	@include media($tablet) {
+		height: 50vh;
+	}
+
+	@include media($mobile) {
+		grid-template-columns: 1fr;
+		gap: 3.2rem;
+		height: auto;
+	}
+
 	&._hasLink {
 		.body {
 			@include hover {
@@ -137,6 +147,26 @@ const description = computed((): string => {
 				rgba($gray1, 0.3) 0%,
 				transparent 70%
 			);
+
+			@include media($tablet) {
+				position: relative;
+				transform: translateX(0);
+				opacity: 1;
+				height: fit-content;
+				align-self: end;
+				justify-self: end;
+				background: none;
+			}
+		}
+
+		@include media($mobile) {
+			img {
+				order: 1;
+			}
+
+			.body {
+				order: 2;
+			}
 		}
 	}
 }
@@ -148,6 +178,14 @@ const description = computed((): string => {
 	object-fit: cover;
 	transition: $default-transition;
 	z-index: 0;
+
+	@include media($mobile) {
+		height: 30vh;
+	}
+}
+
+.content {
+	margin-top: auto;
 }
 
 .body {
@@ -156,11 +194,21 @@ const description = computed((): string => {
 	flex-direction: column;
 	justify-content: space-between;
 	overflow: hidden;
+	gap: 3.2rem;
+
+	@include media($tablet) {
+		display: grid;
+		grid-template-columns: 1fr 0.3fr;
+	}
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
+
+	@include media($tablet) {
+		grid-column: 1 / -1;
+	}
 }
 
 .title {
@@ -213,6 +261,16 @@ const description = computed((): string => {
 	svg {
 		width: 2.4rem;
 		height: 2.4rem;
+	}
+
+	@include media($tablet) {
+		position: relative;
+		transform: translateX(0);
+		opacity: 1;
+		height: fit-content;
+		align-self: end;
+		justify-self: end;
+		background: none;
 	}
 }
 </style>

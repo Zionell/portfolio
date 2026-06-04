@@ -5,6 +5,16 @@ const isMenuOpen = ref(false);
 const isScrolled = ref(false);
 const headerEl = ref<HTMLElement | null>(null);
 
+const $style = useCssModule();
+
+const classes = computed(() => [
+	$style.TheHeader,
+	{
+		[$style._scrolled]: isScrolled.value,
+		[$style._opened]: isMenuOpen.value,
+	},
+]);
+
 const onScroll = () => {
 	isScrolled.value = window.scrollY > 8;
 };
@@ -20,10 +30,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-	<header
-		ref="headerEl"
-		:class="[$style.TheHeader, { [$style._scrolled]: isScrolled }]"
-	>
+	<header ref="headerEl" :class="classes">
 		<div :class="$style.container">
 			<TheBurger :is-active="isMenuOpen" @click="isMenuOpen = $event" />
 
@@ -31,6 +38,7 @@ onBeforeUnmount(() => {
 
 			<div :class="$style.actions">
 				<VButton
+					:class="$style.cv"
 					:label="$t('common.getCv')"
 					href="/Askarov_CV.pdf"
 					download="Adilkhan_Askarov_CV.pdf"
@@ -75,9 +83,17 @@ onBeforeUnmount(() => {
 			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 			border-radius: 0 0 2rem 2rem;
 		}
+	}
 
-		@include media($mobile) {
-			top: 0;
+	@include media($mobile) {
+		top: 0;
+		width: 100%;
+
+		&._opened {
+			.container {
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+				border-radius: 0;
+			}
 		}
 	}
 }
@@ -93,6 +109,11 @@ onBeforeUnmount(() => {
 	background: rgba($gray5, 0.15);
 	backdrop-filter: blur(20px);
 	border-radius: 2rem;
+	transition: $default-transition;
+
+	@include media($mobile) {
+		border-radius: 0 0 2rem 2rem;
+	}
 }
 
 .brand {
@@ -106,6 +127,12 @@ onBeforeUnmount(() => {
 	align-items: center;
 	gap: 2.4rem;
 	justify-self: end;
+}
+
+.cv {
+	@include media($mobile) {
+		display: none;
+	}
 }
 
 .drawer {
@@ -122,7 +149,9 @@ onBeforeUnmount(() => {
 	border-radius: 0 0 2rem 2rem;
 
 	@include media($mobile) {
-		width: calc(100% - 3.2rem);
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
 	}
 }
 

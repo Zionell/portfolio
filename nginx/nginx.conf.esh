@@ -1,6 +1,6 @@
 resolver 127.0.0.11 valid=5s ipv6=off;
 
-proxy_cache_path /var/lib/nginx/proxy_cache levels=1:2 keys_zone=CACHE:15m max_size=1G;
+proxy_cache_path /var/lib/nginx/proxy_cache levels=1:2 keys_zone=CACHE:10m max_size=1G;
 
 map $server_port $x_forwarded_host {
     default $host:$server_port;
@@ -44,6 +44,13 @@ server {
     merge_slashes off;
 
     error_page 497 https://$host:$server_port$request_uri;
+
+    location /admin {
+    	auth_basic "Administrator’s Area";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        client_max_body_size 250M;
+        include frontend;
+    }
 
     location /static/ {
         alias /app/www/static/;

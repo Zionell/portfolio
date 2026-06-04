@@ -104,5 +104,9 @@ onMounted(() => {
 	border-radius: 2.4rem;
 	object-fit: cover;
 	filter: contrast(1.05) saturate(1.05);
+
+	@include media($mobile) {
+		height: 50vh;
+	}
 }
 </style>

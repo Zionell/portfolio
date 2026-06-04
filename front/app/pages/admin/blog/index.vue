@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { api } from "~/assets/data/api";
 import type { IBlogListAdmin } from "#shared/types/blog.types";
-import { blog } from "~/assets/data/blog";
 
 definePageMeta({
 	layout: "admin",

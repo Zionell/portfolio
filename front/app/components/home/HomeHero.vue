@@ -83,6 +83,10 @@ onMounted(() => {
 	padding: 4rem 6rem 6rem;
 	flex: 1;
 	justify-content: center;
+
+	@include media($mobile) {
+		padding: 4rem 2rem;
+	}
 }
 
 .title {
@@ -91,11 +95,15 @@ onMounted(() => {
 	line-height: 1.1;
 	text-transform: uppercase;
 	color: $white;
+
+	@include media($mobile) {
+		font-size: 5.2rem;
+	}
 }
 
 .subtitle {
 	font-size: 2rem;
 	line-height: 1.6;
-	color: $gray5;
+	color: $gray6;
 }
 </style>
