@@ -42,9 +42,9 @@ const metaAnimation = (el: HTMLElement) => {
 	});
 
 	$splitText.create(el, {
-		type: "chars",
+		type: "words",
 		onSplit: (self) => {
-			tl.from(self.chars, {
+			tl.from(self.words, {
 				y: -100,
 				autoAlpha: 0,
 				stagger: {

@@ -6,6 +6,7 @@ const isScrolled = ref(false);
 const headerEl = ref<HTMLElement | null>(null);
 
 const $style = useCssModule();
+const router = useRouter();
 
 const classes = computed(() => [
 	$style.TheHeader,
@@ -17,6 +18,34 @@ const classes = computed(() => [
 
 const onScroll = () => {
 	isScrolled.value = window.scrollY > 8;
+};
+
+const tag = (path: string) => {
+	const isButton = path.startsWith("#");
+	const attr: Record<string, string> = {};
+
+	if (isButton) {
+		attr["type"] = "button";
+	} else {
+		attr["to"] = path;
+	}
+
+	return {
+		tag: isButton ? "button" : resolveComponent("NuxtLink"),
+		attr,
+	};
+};
+
+const handleClick = (path: string) => {
+	if (path.startsWith("#")) {
+		console.log("`/${path}`", `/${path}`);
+		router.push({
+			path: `/`,
+			hash: path,
+		});
+	}
+
+	isMenuOpen.value = false;
 };
 
 onMounted(() => {
@@ -49,15 +78,16 @@ onBeforeUnmount(() => {
 
 		<Transition name="menu" mode="out-in" appear>
 			<nav v-if="isMenuOpen" :class="$style.drawer">
-				<NuxtLink
+				<component
 					v-for="item in menu"
+					:is="tag(item.value).tag"
 					:key="item.value"
+					v-bind="tag(item.value).attr"
 					:class="$style.drawerLink"
-					:to="item.value"
-					@click="isMenuOpen = false"
+					@click="handleClick(item.value)"
 				>
 					{{ $t(`sections.${item.key}`) }}
-				</NuxtLink>
+				</component>
 			</nav>
 		</Transition>
 	</header>

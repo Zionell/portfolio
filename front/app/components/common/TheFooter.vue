@@ -6,7 +6,34 @@ const props = defineProps<{
 	settings: ISettings | undefined;
 }>();
 
+const router = useRouter();
 const currentYear = new Date().getFullYear();
+
+const tag = (path: string) => {
+	const isButton = path.startsWith("#");
+	const attr: Record<string, string> = {};
+
+	if (isButton) {
+		attr["type"] = "button";
+	} else {
+		attr["to"] = path;
+	}
+
+	return {
+		tag: isButton ? "button" : resolveComponent("NuxtLink"),
+		attr,
+	};
+};
+
+const handleClick = (path: string) => {
+	if (path.startsWith("#")) {
+		console.log("`/${path}`", `/${path}`);
+		router.push({
+			path: `/`,
+			hash: path,
+		});
+	}
+};
 </script>
 
 <template>
@@ -17,14 +44,16 @@ const currentYear = new Date().getFullYear();
 			<TheLogo :class="$style.logo" />
 
 			<nav :class="$style.nav">
-				<NuxtLink
+				<component
 					v-for="item in menu"
+					:is="tag(item.value).tag"
 					:key="item.value"
+					v-bind="tag(item.value).attr"
 					:class="$style.navLink"
-					:to="item.value"
+					@click="handleClick(item.value)"
 				>
 					{{ $t(`sections.${item.key}`) }}
-				</NuxtLink>
+				</component>
 			</nav>
 
 			<div v-if="props.settings?.contacts" :class="$style.contacts">

@@ -12,7 +12,7 @@ const toggle = () => {
 
 const handleChange = async (code: Locale) => {
 	await setLocale(code);
-	await refreshNuxtData();
+	window?.location?.reload();
 };
 
 const targetRef = useTemplateRef("targetRef");

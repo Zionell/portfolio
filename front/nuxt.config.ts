@@ -96,7 +96,7 @@ export default defineNuxtConfig({
 			},
 		},
 		optimizeDeps: {
-			include: ["@vueuse/core", "quill-delta", "eventemitter3"],
+			include: ["@vueuse/core", "quill-delta", "eventemitter3", "gsap"],
 		},
 		css: {
 			preprocessorOptions: {

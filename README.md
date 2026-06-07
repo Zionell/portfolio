@@ -16,23 +16,28 @@
 ---
 
 ## PROFILE
+
 - Frontend developer focused on UI systems, landing pages, and motion design.
 - Mentor who enjoys teaching and sharing practical knowledge.
 - Currently sharpening **React** and **Redux**.
 
 ## EXPERIENCE SNAPSHOT
+
 - **Kelnik Studios** — Senior Frontend Developer (Oct 2025 — Present)
-- **Idaproject** — Team Lead Frontend (Jan 2025 — Oct 2025) · Middle Frontend (Feb 2023 — Jan 2025) · Frontend (Jan 2022 — Feb 2023)
+- **Idaproject** — Team Lead Frontend (Jan 2025 — Oct 2025) · Middle Frontend (Feb 2023 — Jan 2025) · Frontend (Jan
+  2022 — Feb 2023)
 - **Sarawan** — Frontend Developer (Aug 2021 — Mar 2022)
 - **GeekBrains** — Student Mentor (Dec 2020 — Dec 2021)
 - **KAFI** — Other Experience (Nov 2019 — Dec 2021)
 
 ## FOCUS
+
 - Product websites, portfolios, and high‑impact landing pages
 - Interactive UI (GSAP, smooth transitions, micro‑motion)
 - Clean architecture and scalable component systems
 
 ## TECH STACK
+
 <h3>Frontend</h3>
 <div>
   <img src="https://raw.githubusercontent.com/Zionell/portfolio/refs/heads/master/assets/icons/html.svg" width="50" height="50"/>
@@ -76,6 +81,7 @@
 </div>
 
 ## SELECTED WORK
+
 <table>
   <tr>
     <td>
@@ -93,18 +99,20 @@
       Data‑heavy admin UI
     </td>
     <td>
-      <img src="front/public/images/projects/mogo.jpg" alt="MoGo" width="100%" />
+      <img src="front/public/images/projects/livesimply.jpg" alt="MoGo" width="100%" />
       <br />
-      <strong>MoGo</strong>
+      <strong>Livesimply</strong>
       <br />
-      Minimal landing with crisp typography
-    </td>
+		Personal finance app for expense tracking, budgeting, and financial insights.    
+</td>
   </tr>
 </table>
 
 ## CONTACT
+
 - Email: **studio.askarov@gmail.com**
 - Telegram: [@Adilhan96](https://t.me/Adilhan96)
+- LinkedIn: https://www.linkedin.com/in/adilkhan-askarov-frontend
 
 ---
 
