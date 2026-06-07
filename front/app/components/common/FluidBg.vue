@@ -9,7 +9,6 @@ import {
 	Vec2,
 	Vec4,
 } from "ogl";
-import { nextTick } from "vue";
 import { fragment, vertex } from "~/assets/data/ogl-data";
 const wrapperRef = useTemplateRef<HTMLElement>("wrapperRef");
 
@@ -18,6 +17,11 @@ const imageAspect = SIZE[1] / SIZE[0];
 const aspect = shallowRef(1);
 const mouse = new Vec2(-1);
 const velocity = new Vec2();
+
+const isTouchDevice = () =>
+	"ontouchstart" in window ||
+	navigator.maxTouchPoints > 0 ||
+	window.matchMedia("(pointer: coarse)").matches;
 
 const getScale = () => {
 	const windowWidth = window.innerWidth;
@@ -104,15 +108,7 @@ const initAnimation = () => {
 	window.addEventListener("resize", resize, false);
 	resize();
 
-	const isTouchCapable = "ontouchstart" in window;
-	if (isTouchCapable) {
-		wrapperRef.value?.addEventListener("touchstart", updateMouse, false);
-		wrapperRef.value?.addEventListener("touchmove", updateMouse, {
-			passive: false,
-		});
-	} else {
-		wrapperRef.value?.addEventListener("mousemove", updateMouse, false);
-	}
+	wrapperRef.value?.addEventListener("mousemove", updateMouse, false);
 
 	let lastTime;
 	const lastMouse = new Vec2();
@@ -173,7 +169,9 @@ const initAnimation = () => {
 };
 
 onMounted(() => {
-	nextTick(initAnimation);
+	if (!isTouchDevice()) {
+		nextTick(initAnimation);
+	}
 });
 </script>
 

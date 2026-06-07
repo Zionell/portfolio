@@ -425,6 +425,7 @@ onBeforeUnmount(() => {
 
 	input,
 	textarea {
+		font-size: 16px;
 		width: 100%;
 		padding: 1.6rem 0;
 		color: $white;

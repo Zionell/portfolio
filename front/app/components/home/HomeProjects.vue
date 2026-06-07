@@ -9,12 +9,19 @@ const props = defineProps<{
 
 const wrapperRef = useTemplateRef("wrapperRef");
 
+const isTouchDevice = () =>
+	"ontouchstart" in window ||
+	navigator.maxTouchPoints > 0 ||
+	window.matchMedia("(pointer: coarse)").matches;
+
 onMounted(async () => {
-	await nextTick(() => {
-		if (wrapperRef.value) {
-			initImageShape(wrapperRef.value);
-		}
-	});
+	if (!isTouchDevice()) {
+		await nextTick(() => {
+			if (wrapperRef.value) {
+				initImageShape(wrapperRef.value);
+			}
+		});
+	}
 });
 </script>
 
