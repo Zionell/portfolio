@@ -1,37 +1,41 @@
 version: '3.3'
 
 services:
-  nginx:
-    restart: always
-    volumes:
-      - nginx_cache:/var/lib/nginx/proxy_cache
-      - static:/app/www/static/
-      - local_static:/var/www/local_static/
-      - nuxt:/var/www/nuxt:ro
-      - static:/var/www/static/:ro
-      - acme.sh:/acme.sh:delegated
-      - certs:/etc/nginx/certs
-    build:
-      context: ./nginx
-    ports:
-      - 80:80
-      - 443:443
-    env_file:
-      - .env
+    nginx:
+        restart: always
+        volumes:
+            - nginx_cache:/var/lib/nginx/proxy_cache
+            - static:/app/www/static/
+            - local_static:/var/www/local_static/
+            - nuxt:/var/www/nuxt:ro
+            - static:/var/www/static/:ro
+            - acme.sh:/acme.sh:delegated
+            - certs:/etc/nginx/certs
+        build:
+            context: ./nginx
+        ports:
+            - 80:80
+            - 443:443
+        env_file:
+            - .env
 
-  frontend:
-    restart: always
-    build:
-      context: ./front
-    env_file:
-      - .env
-    volumes:
-      - nuxt:/app/nuxt_volume:delegated
+    frontend:
+        restart: always
+        build:
+            context: ./front
+            args:
+                - DATABASE_URL=${DATABASE_URL}
+        environment:
+            - DATABASE_URL
+        env_file:
+            - .env
+        volumes:
+            - nuxt:/app/nuxt_volume:delegated
 
 volumes:
-  nginx_cache:
-  local_static:
-  static:
-  nuxt:
-  acme.sh:
-  certs:
+    nginx_cache:
+    local_static:
+    static:
+    nuxt:
+    acme.sh:
+    certs:
