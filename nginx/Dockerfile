@@ -10,5 +10,5 @@ RUN curl https://get.acme.sh | sh
 RUN ln -s  /root/.acme.sh/acme.sh  /usr/local/bin/acme.sh
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf.esh ssl_params frontend .htpasswd /etc/nginx/
+COPY nginx.conf.esh ssl_params frontend /etc/nginx/
 CMD ["/bin/sh", "-c", "esh -o /etc/nginx/conf.d/nginx.conf /etc/nginx/nginx.conf.esh && exec nginx -g 'daemon off;'"]
