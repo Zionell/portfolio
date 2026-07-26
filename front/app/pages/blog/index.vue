@@ -18,18 +18,30 @@ const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
 		},
 	},
 );
+
+const typeLabel = (post: Posts): string =>
+	specs.value?.find((s) => s.value === post.typeId)?.label || "";
+
+watch(activeType, () => {
+	page.value = 1;
+});
 </script>
 
 <template>
-	<TheSectionWrapper :class="$style.BlogPage" :title="$t('sections.blog')">
-		<div :class="$style.filterGroup">
-			<div v-if="specs && specs?.length > 1" :class="$style.filterBlock">
-				<p :class="$style.filterLabel">Type</p>
-				<div :class="$style.typeTabs">
-					<HomeTagFilter v-model="activeType" :tags="specs" />
-				</div>
-			</div>
-		</div>
+	<main :class="[$style.BlogPage, 'container']">
+		<section :class="$style.hero">
+			<p :class="$style.kicker">{{ $t("sections.blog") }}</p>
+
+			<h1 :class="$style.title">
+				{{ $t("blog.titleStart") }}
+				<span :class="$style.amp">&amp;</span>
+				{{ $t("blog.titleEnd") }}
+			</h1>
+		</section>
+
+		<section v-if="specs && specs.length > 1" :class="$style.filters">
+			<HomeTagFilter v-model="activeType" :tags="specs" />
+		</section>
 
 		<Transition name="list" mode="out-in">
 			<div
@@ -41,7 +53,12 @@ const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
 					v-for="post in posts.data"
 					:key="post.id"
 					:post="post"
+					:type-label="typeLabel(post)"
 				/>
+			</div>
+
+			<div v-else :class="$style.empty">
+				{{ $t("blog.empty") }}
 			</div>
 		</Transition>
 
@@ -55,55 +72,86 @@ const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
 				:per-page="pageSize"
 			/>
 		</div>
-	</TheSectionWrapper>
+	</main>
 </template>
 
 <style lang="scss" module>
 .BlogPage {
-	padding-top: 14rem;
+	padding: 14rem 6rem 10rem;
+	display: flex;
+	flex-direction: column;
+	gap: 3.2rem;
 
 	@include media($mobile) {
-		padding-top: 6rem;
+		padding: 8rem 2rem 6rem;
+		gap: 2.4rem;
 	}
 }
 
-.filterGroup {
-	display: flex;
-	gap: 2.4rem;
-	padding: 2rem 0;
-	border-top: 1px solid rgba(255, 255, 255, 0.08);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.filterBlock {
+.hero {
 	display: grid;
-	gap: 1.2rem;
+	gap: 2rem;
+	justify-items: start;
 }
 
-.filterLabel {
-	font-size: 1.1rem;
-	letter-spacing: 0.3em;
+.kicker {
+	display: flex;
+	align-items: center;
+	gap: 1.2rem;
+	font-size: 1.2rem;
+	letter-spacing: 0.2em;
 	text-transform: uppercase;
+	color: $gray4;
+
+	&:before {
+		content: "";
+		width: 4.4rem;
+		height: 1px;
+		background: $gray3;
+	}
+}
+
+.title {
+	font-family: $ff-title;
+	color: $white;
+	font-size: 4.2rem;
+	line-height: 1.08;
+	text-transform: uppercase;
+
+	@include media($mobile) {
+		font-size: 3.2rem;
+	}
+}
+
+.amp {
 	color: $gray4;
 }
 
-.typeTabs {
-	display: inline-flex;
-	max-width: 52rem;
+.filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.6rem;
+	align-items: center;
 }
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 2rem;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 3.2rem;
 
 	@include media($tablet) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: repeat(2, 1fr);
 	}
 
 	@include media($mobile) {
 		grid-template-columns: 1fr;
 	}
+}
+
+.empty {
+	padding: 4rem 0;
+	font-size: 1.5rem;
+	color: $gray4;
 }
 
 .pagination {

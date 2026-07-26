@@ -25,9 +25,11 @@ const classes = computed(() => {
 
 <style module lang="scss">
 .tag {
-	font-size: 1.6rem;
-	padding: 0.4rem 1.2rem;
+	font-size: 1.1rem;
+	padding: 0.4rem 1rem;
 	width: auto;
+	border-radius: 0.8rem;
+	color: $white;
 }
 
 .tag__error {

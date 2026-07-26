@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
 
 	return prisma.postSkeleton.delete({
 		where: {
-			id
-		}
+			id,
+		},
 	});
 });

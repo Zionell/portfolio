@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import type { Posts } from "~~/generated/prisma/client";
 import { useMouseInElement } from "@vueuse/core";
-import BlogMetaInfo from "~/components/blog/BlogMetaInfo.vue";
 
 const props = defineProps<{
 	post: Posts;
 }>();
 
+const { locale } = useI18n();
+
 const targetRef = useTemplateRef<HTMLElement>("targetRef");
 const { elementX, elementY } = useMouseInElement(targetRef);
-
-const coverSrc = computed(() => {
-	return props.post.cover || "/images/default.png";
-});
 
 const position = computed(() => {
 	return {
@@ -20,26 +17,61 @@ const position = computed(() => {
 		top: `${elementY.value}px`,
 	};
 });
+
+const label = computed(() => {
+	if (props.post.typeId === "mock-news") {
+		return locale.value === "ru" ? "Новости" : "News";
+	}
+
+	if (props.post.typeId === "mock-post") {
+		return locale.value === "ru" ? "Пост" : "Post";
+	}
+
+	return "";
+});
+
+const formattedDate = computed(() => {
+	const date = new Date(props.post.date);
+
+	if (Number.isNaN(date.getTime())) {
+		return props.post.date;
+	}
+
+	return date.toLocaleDateString(locale.value, {
+		month: "short",
+		year: "numeric",
+	});
+});
 </script>
 
 <template>
 	<div ref="targetRef" :class="$style.BlogCard">
 		<NuxtLink :to="`/blog/${props.post.slug}`" :class="$style.inner">
-			<div :class="$style.cover">
-				<NuxtImg
-					:class="$style.coverImg"
-					:src="coverSrc"
-					:alt="post.title"
-					loading="lazy"
-					placeholder
-				/>
-			</div>
+			<NuxtImg
+				:class="$style.coverImg"
+				:src="props.post?.cover || '/images/default.png'"
+				:alt="post.title"
+				loading="lazy"
+				placeholder
+			/>
 
-			<div :class="$style.content">
-				<BlogMetaInfo :post="post" />
+			<div :class="$style.body">
+				<div :class="$style.meta">
+					<span v-if="label" :class="$style.type">{{ label }}</span>
+					<span :class="$style.date">{{ formattedDate }}</span>
+				</div>
 
 				<h3 :class="$style.title">{{ post.title }}</h3>
 				<p :class="$style.excerpt">{{ post.excerpt }}</p>
+
+				<div :class="$style.bottom">
+					<span v-if="post.tags?.length" :class="$style.project">
+						{{ post.tags[0] }}
+					</span>
+					<span :class="$style.read">
+						{{ post.readTime }} {{ $t("common.readTime") }}
+					</span>
+				</div>
 			</div>
 		</NuxtLink>
 
@@ -73,40 +105,53 @@ const position = computed(() => {
 	background: $black;
 	display: flex;
 	flex-direction: column;
-	gap: 1.6rem;
-	padding: 2.4rem;
 	height: 100%;
 	border-radius: 1.3rem;
-	transition: $default-transition;
-	min-height: 30rem;
-	cursor: pointer;
-
-	//@include hover {
-	//	transform: translateY(-4px);
-	//	border-color: $gray5;
-	//	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-	//}
-}
-
-.cover {
-	display: block;
-	height: 12rem;
-	border-radius: 0.9rem;
 	overflow: hidden;
-	flex-shrink: 0;
+	transition: $default-transition;
+	cursor: pointer;
+	text-decoration: none;
+	color: $white;
 }
 
 .coverImg {
+	flex-shrink: 0;
+	overflow: hidden;
 	width: 100%;
-	height: 100%;
+	height: 20rem;
 	object-fit: cover;
+	background: #3f424d;
 }
 
-.content {
+.body {
+	padding: 2rem 2.4rem 2.4rem;
 	display: flex;
 	flex-direction: column;
-	gap: 1.6rem;
-	height: 100%;
+	gap: 1.4rem;
+	flex: 1;
+}
+
+.meta {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.type {
+	display: inline-flex;
+	align-items: center;
+	font-size: 1.2rem;
+	letter-spacing: 0.02em;
+	padding: 0.4rem 1rem;
+	border: 1px solid $gray3;
+	border-radius: 0.8rem;
+	color: $gray6;
+}
+
+.date {
+	font-size: 1.2rem;
+	color: $gray4;
 }
 
 .title {
@@ -114,13 +159,32 @@ const position = computed(() => {
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
 	font-size: 2rem;
+	line-height: 1.4;
 	color: $white;
 }
 
 .excerpt {
-	margin-top: auto;
 	font-size: 1.4rem;
 	line-height: 1.6;
 	color: $gray5;
+}
+
+.bottom {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: auto;
+	justify-content: space-between;
+}
+
+.project {
+	font-size: 1.2rem;
+	color: $gray6;
+}
+
+.read {
+	font-size: 1.2rem;
+	color: $gray4;
+	margin-left: auto;
 }
 </style>

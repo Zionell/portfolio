@@ -3,7 +3,6 @@ import { menu } from "~/assets/data/menu";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
-const headerEl = ref<HTMLElement | null>(null);
 
 const $style = useCssModule();
 const router = useRouter();
@@ -97,7 +96,9 @@ onBeforeUnmount(() => {
 .TheHeader {
 	position: fixed;
 	top: 2.4rem;
-	width: 80vw;
+	max-width: 160rem;
+	padding: 0 6rem;
+	width: 100%;
 	z-index: 100;
 	transition: $default-transition;
 	left: 50%;
@@ -117,7 +118,7 @@ onBeforeUnmount(() => {
 
 	@include media($mobile) {
 		top: 0;
-		width: 100%;
+		padding: 0;
 
 		&._opened {
 			.container {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { BlogPost } from "~~/generated/prisma/client";
+import type { Posts } from "~~/generated/prisma/client";
 
 const props = defineProps<{
-	content: BlogPost[];
+	content: Posts[];
 }>();
 </script>
 
 <template>
-	<TheSectionWrapper :title="$t('sections.blog')">
+	<TheSectionWrapper class="container" :title="$t('sections.blog')">
 		<template #header>
 			<NuxtLink :class="$style.more" to="/blog">
 				{{ $t("common.viewAll") }}
@@ -19,7 +19,6 @@ const props = defineProps<{
 				v-for="post in props.content"
 				:key="post.id"
 				:post="post"
-				:class="$style.card"
 			/>
 		</div>
 	</TheSectionWrapper>
@@ -27,13 +26,17 @@ const props = defineProps<{
 
 <style lang="scss" module>
 .HomeBlog {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 2rem;
-}
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 3.2rem;
 
-.card {
-	flex: 1 0 32%;
+	@include media($tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include media($mobile) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .more {

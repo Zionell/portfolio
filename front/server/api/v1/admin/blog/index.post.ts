@@ -1,7 +1,7 @@
-import type { Posts } from "~~/generated/prisma/client";
+import type { IFormDataPost } from "#shared/types/blog.types";
 
 export default defineEventHandler(async (event) => {
-	const body = await readBody<Partial<Posts>>(event);
+	const body = await readBody<IFormDataPost>(event);
 
 	if (!body?.slug || !body?.title) {
 		throw createError({
@@ -10,28 +10,59 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	// await prisma.posts.create({
-	// 	data: {
-	// 		slug: body.slug,
-	// 		title: body.title,
-	// 		excerpt: body.excerpt || "",
-	// 		date: body.date || "",
-	// 		tags: body.tags || [],
-	// 		readTime: body.readTime || 1,
-	// 		cover: body.cover || "",
-	// 		isPublished: body.isPublished || false,
-	// 		mainPage: body.mainPage || false,
-	// 		...(body.typeId
-	// 			? {
-	// 					typeId: {
-	// 						connect: {
-	// 							id: body.typeId,
-	// 						},
-	// 					},
-	// 				}
-	// 			: {}),
-	// 	},
-	// });
+	if (!body?.typeId) {
+		throw createError({
+			statusCode: 400,
+			statusMessage: "Type is required",
+		});
+	}
 
-	return true;
+	const exists = await prisma.posts.findUnique({
+		where: {
+			slug: body.slug,
+		},
+	});
+
+	if (exists) {
+		throw createError({
+			statusCode: 409,
+			statusMessage: "Post with this slug already exists",
+		});
+	}
+
+	const post = await prisma.posts.create({
+		data: {
+			slug: body.slug,
+			title: body.title,
+			excerpt: body.excerpt || "",
+			date: todayDateString(),
+			tags: [],
+			readTime: body.readTime || 1,
+			cover: body.cover || "",
+			lang: body.lang || "en",
+			mainPage: body.mainPage || false,
+			isPublished: body.isPublished || false,
+			type: {
+				connect: {
+					id: body.typeId,
+				},
+			},
+			content: {
+				create: normalizePostContent(body.content),
+			},
+		},
+	});
+
+	if (body.skeletonId) {
+		await prisma.postSkeleton.update({
+			where: {
+				id: body.skeletonId,
+			},
+			data: {
+				isUsed: true,
+			},
+		});
+	}
+
+	return post;
 });

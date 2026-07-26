@@ -12,6 +12,7 @@ export default defineEventHandler(
 		const query: IBlogQuery = getQuery(event);
 		const limit = Number(query.limit) || 10;
 		const offset = (query.page - 1) * query.limit || 0;
+
 		const where = {
 			lang: curLang,
 			isPublished: true,

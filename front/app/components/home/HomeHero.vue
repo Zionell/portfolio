@@ -46,9 +46,29 @@ onMounted(() => {
 
 <template>
 	<section :class="$style.HomeHero">
-		<FluidBg />
+		<div :class="$style.bg">
+			<FluidBg
+				:colors="['#4d4640', '#3f4542', '#7f8383']"
+				:count="3"
+				:speed="0.2"
+				:amplitude="0.9"
+				:waviness="1.7"
+				:thickness="0.7"
+				:glow="0.75"
+				:taper="1.5"
+				:spread="1.1"
+				:intensity="0.2"
+				:saturation="1.7"
+				:opacity="1"
+				:scale="2.8"
+				:glass="false"
+				:refraction="1"
+				:dispersion="0.85"
+				:glass-size="1"
+			/>
+		</div>
 
-		<div :class="$style.content">
+		<div :class="[$style.content, 'container']">
 			<h1
 				v-if="props.content.title"
 				ref="titleRef"
@@ -73,6 +93,12 @@ onMounted(() => {
 	display: flex;
 	position: relative;
 	overflow: hidden;
+}
+
+.bg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
 }
 
 .content {

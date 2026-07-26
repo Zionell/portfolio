@@ -1,213 +1,662 @@
 <script setup lang="ts">
-import type { IHomeData, IBlogPost } from "#shared/types/home.types";
 import { api } from "~/assets/data/api";
 import { useAdminUpload } from "~/composables/useAdminUpload";
-import InputText from "primevue/inputtext";
-import Editor from "primevue/editor";
-import FileUpload from "primevue/fileupload";
-
-const route = useRoute();
+import { resolveFile, slugify } from "~/assets/ts/utils";
+import type { PostSkeleton, PostsType } from "~~/generated/prisma/client";
+import type {
+	IFormDataPost,
+	IPostAdmin,
+	IResponsePostAdmin,
+} from "#shared/types/blog.types";
+import AdminSectionFooter from "~/components/admin/common/AdminSectionFooter.vue";
 
 definePageMeta({
 	layout: "admin",
 });
 
-const { data } = await useFetch<IHomeData>(api.home);
+type BlockKind = "text" | "image";
 
-const post = computed<IBlogPost | null>(() => {
-	return data.value?.blog.find((item) => item.slug === route.params.slug) || null;
-});
+interface IEditorBlock {
+	uid: string;
+	kind: BlockKind;
+	text: string;
+	image: string;
+}
 
-const form = reactive({
-	title: "",
-	slug: "",
-	excerpt: "",
-	date: "",
-	readTime: 1,
-	tags: "",
-	cover: "",
-});
-
-const isUploading = ref(false);
-const uploadError = ref("");
+const route = useRoute();
 const { uploadFile } = useAdminUpload();
-const isSaving = ref(false);
-const isPublishing = ref(false);
-const saveMessage = ref("");
-const saveError = ref("");
 
-watch(
-	post,
-	(value) => {
-		if (!value) return;
-		form.title = value.title;
-		form.slug = value.slug;
-		form.excerpt = value.excerpt;
-		form.date = value.date;
-		form.readTime = value.readTime;
-		form.tags = value.tags.join(", ");
-		form.cover = value.cover;
-	},
-	{ immediate: true },
+const postId = computed(() => String(route.params.slug || ""));
+const isNew = computed(() => postId.value === "new");
+const skeletonId = computed(() =>
+	route.query.skeletonId ? String(route.query.skeletonId) : null,
 );
 
-const resolveFile = (payload: any): File | null => {
-	const files = payload?.files || payload?.target?.files;
-	if (!files) return null;
-	return Array.isArray(files) ? files[0] : files?.[0] || null;
+const formData = ref<IFormDataPost>({
+	slug: "",
+	title: "",
+	excerpt: "",
+	readTime: 1,
+	cover: "",
+	lang: "en",
+	mainPage: false,
+	isPublished: false,
+	typeId: "",
+	content: [],
+});
+
+const blocks = ref<IEditorBlock[]>([]);
+const types = ref<PostsType[]>([]);
+const isSlugTouched = ref(false);
+const isSaving = ref(false);
+const isUploading = ref(false);
+const saveError = ref("");
+const saveMessage = ref("");
+
+const langOptions = [
+	{ label: "EN", value: "en" },
+	{ label: "RU", value: "ru" },
+];
+
+const createBlock = (kind: BlockKind, text = ""): IEditorBlock => ({
+	uid: `${kind}-${Math.random().toString(36).slice(2)}`,
+	kind,
+	text,
+	image: "",
+});
+
+const { data, error: fetchError } = await useAsyncData<IResponsePostAdmin>(
+	() => `admin-post-${postId.value}-${skeletonId.value || ""}`,
+	async () => {
+		const [post, postTypes, skeleton] = await Promise.all([
+			isNew.value
+				? null
+				: $fetch<IPostAdmin>(`${api.admin.blog}/${postId.value}`),
+			$fetch<PostsType[]>(`${api.admin.blog}/specs`),
+			skeletonId.value
+				? $fetch<PostSkeleton>(
+						`${api.admin.skeleton}/${skeletonId.value}`,
+					)
+				: null,
+		]);
+
+		return { post, types: postTypes, skeleton };
+	},
+);
+
+const setFormData = () => {
+	types.value = data.value?.types || [];
+
+	const post = data.value?.post;
+
+	if (post) {
+		formData.value = {
+			id: post.id,
+			slug: post.slug,
+			title: post.title,
+			excerpt: post.excerpt,
+			readTime: post.readTime,
+			cover: post.cover || "",
+			lang: post.lang,
+			mainPage: post.mainPage,
+			isPublished: post.isPublished,
+			typeId: post.typeId,
+			content: [],
+		};
+
+		blocks.value = post.content.map(
+			(item): IEditorBlock => ({
+				uid: item.id,
+				kind: item.image ? "image" : "text",
+				text: item.text || "",
+				image: item.image || "",
+			}),
+		);
+
+		return;
+	}
+
+	// Новый пост: без скелета остаётся пустая форма с одним текстовым блоком
+	const skeleton = data.value?.skeleton;
+
+	formData.value.typeId = types.value[0]?.id || "";
+
+	if (skeleton) {
+		formData.value.title = skeleton.title;
+		formData.value.slug = slugify(skeleton.title);
+
+		blocks.value = [createBlock("text", skeleton.body || "")];
+
+		if (skeleton.commits) {
+			blocks.value.push(
+				createBlock("text", `<pre>${skeleton.commits}</pre>`),
+			);
+		}
+
+		return;
+	}
+
+	blocks.value = [createBlock("text")];
+};
+
+setFormData();
+
+const coverPreview = computed(() => formData.value.cover);
+
+const isValid = computed(
+	() =>
+		Boolean(formData.value.title.trim()) &&
+		Boolean(formData.value.slug.trim()) &&
+		Boolean(formData.value.typeId),
+);
+
+watch(
+	() => formData.value.title,
+	(title) => {
+		if (!isNew.value || isSlugTouched.value) return;
+
+		formData.value.slug = slugify(title);
+	},
+);
+
+const moveBlock = (index: number, direction: -1 | 1) => {
+	const target = index + direction;
+
+	if (target < 0 || target >= blocks.value.length) return;
+
+	const list = blocks.value;
+	const [item] = list.splice(index, 1);
+
+	if (item) list.splice(target, 0, item);
+};
+
+const removeBlock = (index: number) => {
+	blocks.value.splice(index, 1);
+};
+
+const addBlock = (kind: BlockKind) => {
+	blocks.value.push(createBlock(kind));
 };
 
 const onCoverChange = async (event: any) => {
 	const file = resolveFile(event);
 	if (!file) return;
+
 	isUploading.value = true;
-	uploadError.value = "";
+
 	try {
-		form.cover = await uploadFile(file, "blog");
+		formData.value.cover = await uploadFile(file, "blog");
 	} catch (error) {
-		uploadError.value = "Не удалось загрузить изображение.";
+		saveError.value = "Failed to upload the cover.";
 	} finally {
 		isUploading.value = false;
 	}
 };
 
-const handleSave = async () => {
-	saveMessage.value = "";
-	saveError.value = "";
-	isSaving.value = true;
+const onBlockImageChange = async (event: any, block: IEditorBlock) => {
+	const file = resolveFile(event);
+	if (!file) return;
+
+	isUploading.value = true;
+
 	try {
-		await $fetch("/api/v1/admin/posts/save", {
-			method: "POST",
-			body: {
-				slug: form.slug,
-				title: form.title,
-				excerpt: form.excerpt,
-				date: form.date,
-				readTime: form.readTime,
-				cover: form.cover,
-				tags: form.tags
-					.split(",")
-					.map((item) => item.trim())
-					.filter(Boolean),
-			},
-		});
-		saveMessage.value = "Черновик сохранен.";
+		block.image = await uploadFile(file, "blog");
 	} catch (error) {
-		saveError.value = "Не удалось сохранить.";
+		saveError.value = "Failed to upload the image.";
 	} finally {
-		isSaving.value = false;
+		isUploading.value = false;
 	}
 };
 
-const handlePublish = async () => {
-	saveMessage.value = "";
+const estimateReadTime = () => {
+	const text = blocks.value
+		.filter((block) => block.kind === "text")
+		.map((block) => block.text)
+		.concat(formData.value.excerpt)
+		.join(" ")
+		.replace(/<[^>]*>/g, " ")
+		.replace(/&nbsp;/g, " ");
+
+	const words = text.split(/\s+/).filter(Boolean).length;
+
+	formData.value.readTime = Math.max(1, Math.round(words / 200));
+};
+
+const handleSave = async () => {
 	saveError.value = "";
-	if (!form.slug) {
-		saveError.value = "Сначала заполните slug.";
+	saveMessage.value = "";
+
+	if (!isValid.value) {
+		saveError.value = "Title, slug and type are required.";
 		return;
 	}
-	isPublishing.value = true;
+
+	isSaving.value = true;
+
 	try {
-		await $fetch("/api/v1/admin/posts/publish", {
-			method: "POST",
-			body: { slug: form.slug },
+		const payload: IFormDataPost = {
+			...formData.value,
+			slug: formData.value.slug.trim(),
+			title: formData.value.title.trim(),
+			content: blocks.value.map((block, index) => ({
+				text: block.kind === "text" ? block.text : null,
+				image: block.kind === "image" ? block.image : null,
+				order: index,
+			})),
+			skeletonId: skeletonId.value,
+		};
+
+		const post = await $fetch<IPostAdmin>(api.admin.blog, {
+			method: isNew.value ? "POST" : "PATCH",
+			body: payload,
 		});
-		saveMessage.value = "Пост опубликован.";
-	} catch (error) {
-		saveError.value = "Не удалось опубликовать.";
+
+		if (isNew.value) {
+			await navigateTo(`/admin/blog/${post.id}`);
+			return;
+		}
+
+		saveMessage.value = "Saved.";
+	} catch (error: any) {
+		saveError.value =
+			error?.data?.statusMessage || error?.message || "Failed to save.";
 	} finally {
-		isPublishing.value = false;
+		isSaving.value = false;
 	}
 };
 </script>
 
 <template>
-	<section class="admin-section">
-		<header class="admin-header">
-			<div>
-				<h1 class="admin-title">Редактировать пост</h1>
-				<p class="admin-subtitle">{{ post?.title || "Пост не найден" }}</p>
+	<section :class="$style.AdminSection">
+		<AdminHeader
+			:title="isNew ? 'New post' : formData.title || 'Edit post'"
+			:description="isNew ? '' : `/blog/${formData.slug}`"
+		>
+			<div :class="$style.headerActions">
+				<PrimeButton
+					label="Back to list"
+					severity="secondary"
+					variant="outlined"
+					@click="navigateTo('/admin/blog')"
+				/>
+				<PrimeTag
+					:severity="formData.isPublished ? 'success' : 'warn'"
+					:value="formData.isPublished ? 'Published' : 'Draft'"
+				/>
 			</div>
-				<div class="admin-actions">
-					<UButton
-						class="admin-button"
-						type="button"
-						:loading="isSaving"
-						@click="handleSave"
-					>
-						Сохранить
-					</UButton>
-					<UButton
-						class="admin-button"
-						type="button"
-						:disabled="isPublishing"
-						@click="handlePublish"
-					>
-						Опубликовать
-					</UButton>
-				</div>
-		</header>
-		<p v-if="saveMessage" class="admin-helper">{{ saveMessage }}</p>
-		<p v-if="saveError" class="admin-error">{{ saveError }}</p>
+		</AdminHeader>
 
-		<form v-if="post" class="admin-form">
-			<div class="admin-row">
-				<label class="admin-field">
-					<span>Заголовок</span>
-					<InputText v-model="form.title" class="admin-input" />
-				</label>
-				<label class="admin-field">
-					<span>Slug</span>
-					<InputText v-model="form.slug" class="admin-input" />
-				</label>
-			</div>
-			<label class="admin-field">
-				<span>Краткое описание</span>
-				<ClientOnly>
-					<Editor v-model="form.excerpt" editorStyle="height: 180px" />
-					<template #fallback>
-						<div class="admin-helper">Редактор загружается...</div>
-					</template>
-				</ClientOnly>
-			</label>
-			<div class="admin-row">
-				<label class="admin-field">
-					<span>Дата</span>
-					<InputText v-model="form.date" class="admin-input" />
-				</label>
-				<label class="admin-field">
-					<span>Время чтения</span>
-					<InputText v-model.number="form.readTime" class="admin-input" />
-				</label>
-			</div>
-			<div class="admin-row">
-				<label class="admin-field">
-					<span>Теги (через запятую)</span>
-					<InputText v-model="form.tags" class="admin-input" />
-				</label>
-				<label class="admin-field">
-					<span>Обложка</span>
-					<ClientOnly>
-						<FileUpload
-							mode="basic"
-							customUpload
-							auto
-							chooseLabel="Загрузить"
-							accept="image/*"
-							class="admin-input"
-							@uploader="onCoverChange"
+		<PrimeMessage
+			v-if="fetchError"
+			severity="error"
+			:class="$style.message"
+		>
+			Post not found.
+		</PrimeMessage>
+
+		<div v-else :class="$style.form">
+			<PrimeMessage
+				v-if="saveError"
+				severity="error"
+				:class="$style.message"
+			>
+				{{ saveError }}
+			</PrimeMessage>
+			<PrimeMessage
+				v-if="saveMessage"
+				severity="success"
+				:class="$style.message"
+			>
+				{{ saveMessage }}
+			</PrimeMessage>
+
+			<PrimePanel header="Main" toggleable>
+				<div :class="$style.grid">
+					<PrimeFloatLabel variant="on">
+						<PrimeInputText
+							id="title"
+							v-model="formData.title"
+							fluid
+							:invalid="!formData.title.trim()"
 						/>
-						<template #fallback>
-							<div class="admin-helper">Загрузка формы...</div>
-						</template>
-					</ClientOnly>
-					<small v-if="form.cover" class="admin-helper">{{ form.cover }}</small>
-					<small v-if="isUploading" class="admin-helper">Загрузка...</small>
-					<small v-if="uploadError" class="admin-error">{{ uploadError }}</small>
-				</label>
-			</div>
-		</form>
+						<label for="title">Title</label>
+					</PrimeFloatLabel>
 
-		<p v-else class="admin-subtitle">Пост не найден.</p>
+					<PrimeFloatLabel variant="on">
+						<PrimeInputText
+							id="slug"
+							v-model="formData.slug"
+							fluid
+							:invalid="!formData.slug.trim()"
+							@input="isSlugTouched = true"
+						/>
+						<label for="slug">Slug</label>
+					</PrimeFloatLabel>
+
+					<PrimeFloatLabel variant="on">
+						<PrimeSelect
+							id="type"
+							v-model="formData.typeId"
+							:options="types"
+							option-label="label_en"
+							option-value="id"
+							:invalid="!formData.typeId"
+							fluid
+						/>
+						<label for="type">Type</label>
+					</PrimeFloatLabel>
+
+					<div :class="$style.inline">
+						<PrimeFloatLabel variant="on" :class="$style.grow">
+							<PrimeInputNumber
+								id="readTime"
+								v-model="formData.readTime"
+								:min="1"
+								show-buttons
+								button-layout="horizontal"
+								fluid
+							>
+								<template #incrementbuttonicon>
+									<span class="pi pi-plus" />
+								</template>
+								<template #decrementbuttonicon>
+									<span class="pi pi-minus" />
+								</template>
+							</PrimeInputNumber>
+							<label for="readTime">Read time, min</label>
+						</PrimeFloatLabel>
+						<PrimeButton
+							label="Estimate"
+							severity="secondary"
+							variant="outlined"
+							@click="estimateReadTime"
+						/>
+					</div>
+				</div>
+
+				<div :class="$style.excerpt">
+					<PrimeFloatLabel variant="on">
+						<PrimeTextarea
+							id="excerpt"
+							v-model="formData.excerpt"
+							rows="3"
+							auto-resize
+							fluid
+						/>
+						<label for="excerpt">Excerpt</label>
+					</PrimeFloatLabel>
+				</div>
+
+				<div :class="$style.toggles">
+					<div :class="$style.toggle">
+						<PrimeToggleSwitch
+							input-id="mainPage"
+							v-model="formData.mainPage"
+						/>
+						<label for="mainPage">Show on main page</label>
+					</div>
+					<PrimeSelectButton
+						v-model="formData.lang"
+						:options="langOptions"
+						option-label="label"
+						option-value="value"
+						:allow-empty="false"
+					/>
+				</div>
+			</PrimePanel>
+
+			<PrimePanel header="Cover" toggleable>
+				<div :class="$style.inline">
+					<PrimeFileUpload
+						mode="basic"
+						custom-upload
+						auto
+						choose-label="Upload"
+						accept="image/*"
+						@uploader="onCoverChange"
+					/>
+					<PrimeButton
+						v-if="formData.cover"
+						label="Remove"
+						severity="danger"
+						variant="outlined"
+						@click="formData.cover = ''"
+					/>
+					<PrimeProgressSpinner
+						v-if="isUploading"
+						:class="$style.spinner"
+						stroke-width="6"
+					/>
+					<NuxtImg
+						v-if="coverPreview"
+						:src="coverPreview"
+						:class="$style.preview"
+						alt="Post cover"
+					/>
+				</div>
+			</PrimePanel>
+
+			<PrimePanel header="Content" toggleable>
+				<div :class="$style.blocks">
+					<div
+						v-for="(block, index) in blocks"
+						:key="block.uid"
+						:class="$style.block"
+					>
+						<div :class="$style.blockHead">
+							<PrimeTag
+								:value="block.kind"
+								severity="secondary"
+							/>
+							<span :class="$style.blockOrder">
+								#{{ index + 1 }}
+							</span>
+							<div :class="$style.blockActions">
+								<PrimeButton
+									icon="pi pi-arrow-up"
+									severity="secondary"
+									variant="text"
+									:disabled="index === 0"
+									aria-label="Move up"
+									@click="moveBlock(index, -1)"
+								/>
+								<PrimeButton
+									icon="pi pi-arrow-down"
+									severity="secondary"
+									variant="text"
+									:disabled="index === blocks.length - 1"
+									aria-label="Move down"
+									@click="moveBlock(index, 1)"
+								/>
+								<PrimeButton
+									icon="pi pi-trash"
+									severity="danger"
+									variant="text"
+									aria-label="Remove block"
+									@click="removeBlock(index)"
+								/>
+							</div>
+						</div>
+
+						<ClientOnly v-if="block.kind === 'text'">
+							<PrimeEditor
+								v-model="block.text"
+								editor-style="height: 28rem"
+							/>
+							<template #fallback>
+								<PrimeSkeleton height="28rem" />
+							</template>
+						</ClientOnly>
+
+						<div v-else :class="$style.inline">
+							<PrimeFileUpload
+								mode="basic"
+								custom-upload
+								auto
+								choose-label="Upload"
+								accept="image/*"
+								@uploader="onBlockImageChange($event, block)"
+							/>
+							<PrimeInputText
+								v-model="block.image"
+								placeholder="Image URL"
+								:class="$style.grow"
+							/>
+							<NuxtImg
+								v-if="block.image"
+								:src="block.image"
+								:class="$style.preview"
+								alt="Content image"
+							/>
+						</div>
+					</div>
+
+					<div v-if="!blocks.length" :class="$style.empty">
+						No content blocks yet
+					</div>
+
+					<div :class="$style.inline">
+						<PrimeButton
+							icon="pi pi-align-left"
+							label="Add text"
+							severity="secondary"
+							variant="outlined"
+							@click="addBlock('text')"
+						/>
+						<PrimeButton
+							icon="pi pi-image"
+							label="Add image"
+							severity="secondary"
+							variant="outlined"
+							@click="addBlock('image')"
+						/>
+					</div>
+				</div>
+			</PrimePanel>
+
+			<AdminSectionFooter :is-saving="isSaving" @save="handleSave">
+				<div :class="$style.toggle">
+					<PrimeToggleSwitch
+						input-id="isPublished"
+						v-model="formData.isPublished"
+					/>
+					<label for="isPublished">Published</label>
+				</div>
+			</AdminSectionFooter>
+		</div>
 	</section>
 </template>
+
+<style lang="scss" module>
+.AdminSection {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.headerActions {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.form {
+	display: grid;
+	gap: 2.4rem;
+	padding: 1.6rem 0 3.2rem;
+}
+
+.message {
+	margin: 0;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+	gap: 2.4rem;
+}
+
+.excerpt {
+	padding-top: 2.4rem;
+}
+
+.inline {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.2rem;
+}
+
+.grow {
+	flex: 1;
+	min-width: 20rem;
+}
+
+.toggles {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2.4rem;
+	padding-top: 2.4rem;
+}
+
+.toggle {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.blocks {
+	display: grid;
+	gap: 2rem;
+}
+
+.block {
+	display: grid;
+	gap: 1.2rem;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 0.8rem;
+	padding: 1.6rem;
+}
+
+.blockHead {
+	display: flex;
+	align-items: center;
+	gap: 1.2rem;
+}
+
+.blockOrder {
+	color: $gray4;
+	font-size: 1.2rem;
+}
+
+.blockActions {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-left: auto;
+}
+
+.empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 12vh;
+	color: $gray4;
+}
+
+.preview {
+	width: 20rem;
+	height: 10rem;
+	object-fit: cover;
+	border-radius: 0.6rem;
+}
+
+.spinner {
+	width: 2.4rem;
+	height: 2.4rem;
+}
+</style>

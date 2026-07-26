@@ -9,7 +9,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-	<footer>
+	<footer :class="$style.AdminSectionFooter">
+		<slot />
+
 		<PrimeButton
 			:loading="props.isSaving"
 			label="Save"
@@ -19,6 +21,12 @@ const emit = defineEmits<{
 </template>
 
 <style module lang="scss">
+.AdminSectionFooter {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+
 .helper {
 	color: $gray4;
 	font-size: 1.1rem;

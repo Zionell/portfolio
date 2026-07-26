@@ -17,13 +17,9 @@ export const menu: IMenuItem[] = [
 		key: "projects",
 		value: "#projects",
 	},
-	// {
-	// 	key: "blog",
-	// 	value: "/blog",
-	// },
 	{
-		key: "contacts",
-		value: "/contacts",
+		key: "blog",
+		value: "/blog",
 	},
 	// {
 	//   label: 'Примеры кода',

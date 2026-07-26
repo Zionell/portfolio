@@ -1,5 +1,4 @@
 import Nora from "@primeuix/themes/nora";
-import glsl from "vite-plugin-glsl";
 
 const breakpoints = {
 	mobile: 767,
@@ -88,7 +87,6 @@ export default defineNuxtConfig({
 	css: ["~/assets/style/style.scss"],
 
 	vite: {
-		plugins: [glsl()],
 		build: {
 			minify: "esbuild",
 			commonjsOptions: {

@@ -36,11 +36,11 @@ const handleRedirect = (id: string) => {
 	navigateTo(`/admin/blog/${id}`);
 };
 
-const handleAddNew = (skeletonId?: string) => {
+const handleAddNew = (skeletonId?: string | null) => {
 	if (skeletonId) {
 		navigateTo(`/admin/blog/new?skeletonId=${skeletonId}`);
 	} else {
-		navigateTo(`/admin/blog/new?order=${data.value?.length || 0}`);
+		navigateTo(`/admin/blog/new?order=${data.value?.posts?.length || 0}`);
 	}
 };
 </script>
@@ -48,7 +48,7 @@ const handleAddNew = (skeletonId?: string) => {
 <template>
 	<section :class="$style.AdminSection">
 		<AdminHeader title="Blog">
-			<PrimeButton label="Add post" @click="handleAddNew" />
+			<PrimeButton label="Add post" @click="handleAddNew(null)" />
 		</AdminHeader>
 
 		<PrimeTabs :class="$style.tabs" value="0">

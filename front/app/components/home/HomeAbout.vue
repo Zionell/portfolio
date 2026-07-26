@@ -38,7 +38,10 @@ onMounted(() => {
 </script>
 
 <template>
-	<TheSectionWrapper :class="$style.section" :title="$t('sections.about')">
+	<TheSectionWrapper
+		:class="[$style.section, 'container']"
+		:title="$t('sections.about')"
+	>
 		<div :class="$style.HomeAbout">
 			<div v-if="props.content?.text?.length" :class="$style.text">
 				<div

@@ -45,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<TheSectionWrapper :title="$t('sections.skills')">
+	<TheSectionWrapper class="container" :title="$t('sections.skills')">
 		<div
 			v-if="props.content.length"
 			ref="wrapperRef"
