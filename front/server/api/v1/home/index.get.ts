@@ -82,7 +82,6 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 		experience: prepareExp.length ? prepareExp : [],
 		skills: skills.length ? skills : [],
 		projects: projects.length ? projects : [],
-		// Мок-fallback: пока в базе нет опубликованных постов
-		blog: posts.length ? posts : mockBlogPosts.slice(0, 3),
+		blog: posts.length ? posts : [],
 	};
 });
