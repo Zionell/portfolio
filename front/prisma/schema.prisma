@@ -23,26 +23,23 @@ model Posts {
     title       String
     excerpt     String
     date        String
-    tags        String[]
     content     PostContent[]
     readTime    Int
     cover       String?
     mainPage    Boolean       @default(false)
     isPublished Boolean       @default(false)
     lang        String        @default("en")
+    type        String
+    views       Int           @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    type   PostsType @relation(fields: [typeId], references: [id])
-    typeId String    @db.ObjectId
 }
 
 model PostContent {
     id    String  @id @default(auto()) @map("_id") @db.ObjectId
     text  String?
     image String?
-    video String?
     order Int     @default(0)
 
     posts   Posts?  @relation(fields: [postsId], references: [id])
@@ -50,14 +47,6 @@ model PostContent {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-}
-
-model PostsType {
-    id       String @id @default(auto()) @map("_id") @db.ObjectId
-    label_ru String
-    label_en String
-
-    posts Posts[]
 }
 
 model Project {
@@ -188,35 +177,6 @@ model SettingsScripts {
     innerHTML String
     async     Boolean
     body      Boolean
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
-model ContactsHero {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-
-    title    String
-    subTitle String
-    location String
-    focus    String[]
-
-    cvLink     String
-    cvFileName String
-
-    lang String @unique @default("en")
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
-model ContactsRequests {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-
-    name    String
-    email   String
-    message String
-    isRead  Boolean
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

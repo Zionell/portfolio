@@ -5,7 +5,20 @@ import BlogMetaInfo from "~/components/blog/BlogMetaInfo.vue";
 const route = useRoute();
 const slug = computed(() => String(route.params.slug || ""));
 
-const { data: post } = await useFetch(`${api.blog}/${slug.value}`);
+const { data: post, error } = await useFetch(`${api.blog}/${slug.value}`);
+
+if (error.value) {
+	throw showError({
+		status: 404,
+		statusText: "Page Not Found",
+	});
+}
+
+onMounted(async () => {
+	await $fetch(`${api.blog}/${slug.value}`, {
+		method: "PATCH",
+	});
+});
 </script>
 
 <template>
@@ -130,6 +143,10 @@ const { data: post } = await useFetch(`${api.blog}/${slug.value}`);
 	display: grid;
 	gap: 1.6rem;
 	max-width: 50%;
+
+	@include media($tablet) {
+		max-width: 70%;
+	}
 
 	@include media($mobile) {
 		max-width: 90%;

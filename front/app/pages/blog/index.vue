@@ -7,7 +7,6 @@ const activeType = ref<string | null>(null);
 const pageSize = 9;
 const page = ref(1);
 
-const { data: specs } = await useFetch<ISpec[]>(api.blogSpecs);
 const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
 	api.blog,
 	{
@@ -18,9 +17,6 @@ const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
 		},
 	},
 );
-
-const typeLabel = (post: Posts): string =>
-	specs.value?.find((s) => s.value === post.typeId)?.label || "";
 
 watch(activeType, () => {
 	page.value = 1;
@@ -39,9 +35,9 @@ watch(activeType, () => {
 			</h1>
 		</section>
 
-		<section v-if="specs && specs.length > 1" :class="$style.filters">
-			<HomeTagFilter v-model="activeType" :tags="specs" />
-		</section>
+		<!--		<section v-if="specs && specs.length > 1" :class="$style.filters">-->
+		<!--			<HomeTagFilter v-model="activeType" :tags="specs" />-->
+		<!--		</section>-->
 
 		<Transition name="list" mode="out-in">
 			<div
@@ -53,7 +49,6 @@ watch(activeType, () => {
 					v-for="post in posts.data"
 					:key="post.id"
 					:post="post"
-					:type-label="typeLabel(post)"
 				/>
 			</div>
 

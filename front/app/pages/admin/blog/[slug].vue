@@ -2,7 +2,7 @@
 import { api } from "~/assets/data/api";
 import { useAdminUpload } from "~/composables/useAdminUpload";
 import { resolveFile, slugify } from "~/assets/ts/utils";
-import type { PostSkeleton, PostsType } from "~~/generated/prisma/client";
+import type { PostSkeleton } from "~~/generated/prisma/client";
 import type {
 	IFormDataPost,
 	IPostAdmin,
@@ -23,8 +23,12 @@ interface IEditorBlock {
 	image: string;
 }
 
+const TYPES: string[] = ["Post", "News"];
+
 const route = useRoute();
+const id = useId();
 const { uploadFile } = useAdminUpload();
+const { locales, locale } = useI18n();
 
 const postId = computed(() => String(route.params.slug || ""));
 const isNew = computed(() => postId.value === "new");
@@ -38,28 +42,22 @@ const formData = ref<IFormDataPost>({
 	excerpt: "",
 	readTime: 1,
 	cover: "",
-	lang: "en",
+	lang: locale.value,
 	mainPage: false,
 	isPublished: false,
-	typeId: "",
+	type: "",
 	content: [],
 });
 
 const blocks = ref<IEditorBlock[]>([]);
-const types = ref<PostsType[]>([]);
 const isSlugTouched = ref(false);
 const isSaving = ref(false);
 const isUploading = ref(false);
 const saveError = ref("");
 const saveMessage = ref("");
 
-const langOptions = [
-	{ label: "EN", value: "en" },
-	{ label: "RU", value: "ru" },
-];
-
 const createBlock = (kind: BlockKind, text = ""): IEditorBlock => ({
-	uid: `${kind}-${Math.random().toString(36).slice(2)}`,
+	uid: id,
 	kind,
 	text,
 	image: "",
@@ -68,11 +66,10 @@ const createBlock = (kind: BlockKind, text = ""): IEditorBlock => ({
 const { data, error: fetchError } = await useAsyncData<IResponsePostAdmin>(
 	() => `admin-post-${postId.value}-${skeletonId.value || ""}`,
 	async () => {
-		const [post, postTypes, skeleton] = await Promise.all([
+		const [post, skeleton] = await Promise.all([
 			isNew.value
 				? null
 				: $fetch<IPostAdmin>(`${api.admin.blog}/${postId.value}`),
-			$fetch<PostsType[]>(`${api.admin.blog}/specs`),
 			skeletonId.value
 				? $fetch<PostSkeleton>(
 						`${api.admin.skeleton}/${skeletonId.value}`,
@@ -80,13 +77,11 @@ const { data, error: fetchError } = await useAsyncData<IResponsePostAdmin>(
 				: null,
 		]);
 
-		return { post, types: postTypes, skeleton };
+		return { post, skeleton };
 	},
 );
 
-const setFormData = () => {
-	types.value = data.value?.types || [];
-
+if (data.value) {
 	const post = data.value?.post;
 
 	if (post) {
@@ -100,7 +95,7 @@ const setFormData = () => {
 			lang: post.lang,
 			mainPage: post.mainPage,
 			isPublished: post.isPublished,
-			typeId: post.typeId,
+			type: post.type,
 			content: [],
 		};
 
@@ -112,14 +107,10 @@ const setFormData = () => {
 				image: item.image || "",
 			}),
 		);
-
-		return;
 	}
 
 	// Новый пост: без скелета остаётся пустая форма с одним текстовым блоком
 	const skeleton = data.value?.skeleton;
-
-	formData.value.typeId = types.value[0]?.id || "";
 
 	if (skeleton) {
 		formData.value.title = skeleton.title;
@@ -132,22 +123,19 @@ const setFormData = () => {
 				createBlock("text", `<pre>${skeleton.commits}</pre>`),
 			);
 		}
-
-		return;
 	}
 
-	blocks.value = [createBlock("text")];
-};
-
-setFormData();
+	if (!blocks.value.length) {
+		blocks.value = [createBlock("text")];
+	}
+}
 
 const coverPreview = computed(() => formData.value.cover);
 
 const isValid = computed(
 	() =>
 		Boolean(formData.value.title.trim()) &&
-		Boolean(formData.value.slug.trim()) &&
-		Boolean(formData.value.typeId),
+		Boolean(formData.value.slug.trim()),
 );
 
 watch(
@@ -239,7 +227,10 @@ const handleSave = async () => {
 			slug: formData.value.slug.trim(),
 			title: formData.value.title.trim(),
 			content: blocks.value.map((block, index) => ({
-				text: block.kind === "text" ? block.text : null,
+				text:
+					block.kind === "text"
+						? block.text.replace(/&nbsp;/g, " ")
+						: null,
 				image: block.kind === "image" ? block.image : null,
 				order: index,
 			})),
@@ -336,11 +327,9 @@ const handleSave = async () => {
 					<PrimeFloatLabel variant="on">
 						<PrimeSelect
 							id="type"
-							v-model="formData.typeId"
-							:options="types"
-							option-label="label_en"
-							option-value="id"
-							:invalid="!formData.typeId"
+							v-model="formData.type"
+							:options="TYPES"
+							:invalid="!formData.type"
 							fluid
 						/>
 						<label for="type">Type</label>
@@ -397,9 +386,9 @@ const handleSave = async () => {
 					</div>
 					<PrimeSelectButton
 						v-model="formData.lang"
-						:options="langOptions"
-						option-label="label"
-						option-value="value"
+						:options="locales"
+						option-label="name"
+						option-value="code"
 						:allow-empty="false"
 					/>
 				</div>

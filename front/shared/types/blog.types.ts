@@ -3,7 +3,6 @@ import type {
 	Posts,
 	PostContent,
 	PostSkeleton,
-	PostsType,
 } from "~~/generated/prisma/client";
 
 export interface IBlogQuery extends IPaginateQuery {
@@ -39,13 +38,12 @@ export interface IFormDataPost {
 	lang: string;
 	mainPage: boolean;
 	isPublished: boolean;
-	typeId: string;
+	type: string;
 	content: IFormDataPostContent[];
 	skeletonId?: string | null;
 }
 
 export interface IResponsePostAdmin {
 	post: IPostAdmin | null;
-	types: PostsType[];
 	skeleton: PostSkeleton | null;
 }

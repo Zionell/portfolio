@@ -55,6 +55,10 @@ const buttonAttrs = computed(() => {
 		v-bind="buttonAttrs"
 		@click="emit('click')"
 	>
+		<span v-if="$slots.icon" :class="$style.icon">
+			<slot name="icon" />
+		</span>
+
 		<span :class="$style.label">
 			{{ label }}
 		</span>
@@ -68,6 +72,7 @@ const buttonAttrs = computed(() => {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	gap: 1.2rem;
 	height: 4.4rem;
 	width: max-content;
 	padding: 0 2.8rem;
@@ -114,6 +119,14 @@ const buttonAttrs = computed(() => {
 	font-family: $ff-regular;
 	position: relative;
 	z-index: 2;
+}
+
+.icon {
+	position: relative;
+	z-index: 2;
+	display: inline-flex;
+	font-size: 1.6rem;
+	line-height: 1;
 }
 
 @keyframes anim {

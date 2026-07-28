@@ -135,6 +135,7 @@ const handleClick = (path: string) => {
 	position: relative;
 	font-size: 1.4rem;
 	color: $gray4;
+	text-align: left;
 
 	&:after {
 		content: "";

@@ -31,5 +31,12 @@
 		"subtitle": "Notes on frontend engineering, releases and what's happening inside my projects.",
 		"empty": "No posts yet — check back soon.",
 		"back": "Back to Blog"
+	},
+	"error": {
+		"description": "Please try again a bit later.",
+		"descriptionNotFound": "Sorry, we couldn't find the page.",
+		"title": "Something went wrong",
+		"titleNotFound": "Are you lost?",
+		"back": "Go back"
 	}
 }

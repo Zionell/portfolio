@@ -18,7 +18,7 @@ export default defineEventHandler(
 			isPublished: true,
 			...(query.type
 				? {
-						typeId: query.type,
+						type: query.type,
 					}
 				: {}),
 		};
@@ -30,21 +30,6 @@ export default defineEventHandler(
 				updatedAt: "asc",
 			},
 			where,
-			select: {
-				id: true,
-				slug: true,
-				title: true,
-				excerpt: true,
-				date: true,
-				tags: true,
-				readTime: true,
-				cover: true,
-				isPublished: true,
-				lang: true,
-				createdAt: true,
-				updatedAt: true,
-				typeId: true,
-			},
 		});
 		const count = await prisma.posts.count({ where });
 

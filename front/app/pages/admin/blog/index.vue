@@ -59,32 +59,51 @@ const handleAddNew = (skeletonId?: string | null) => {
 			<PrimeTabPanels>
 				<PrimeTabPanel value="0">
 					<div :class="$style.list" v-if="data?.posts?.length">
-						<PrimeCard v-for="item in data.posts">
-							<template #header>
-								<NuxtImg
-									:alt="item.title"
-									:src="item.cover || '/images/default.png'"
-								/>
-							</template>
-
-							<template #title>{{ item.title }}</template>
-
-							<template #footer>
-								<div :class="$style.actions">
-									<PrimeButton
-										label="Delete"
-										severity="secondary"
-										variant="outlined"
-										class="w-full"
-										@click="handleDelete(item.id)"
-									/>
-									<PrimeButton
-										label="Edit"
-										@click="handleRedirect(item.id)"
-									/>
-								</div>
-							</template>
-						</PrimeCard>
+						<PrimeDataTable
+							:value="data.posts"
+							tableStyle="min-width: 50rem"
+						>
+							<PrimeColumn header="Title">
+								<template #body="{ data }">
+									<div :class="$style.tableColumn">
+										<img
+											:alt="data.title"
+											:src="
+												data.cover ||
+												'/images/default.png'
+											"
+											:class="$style.tableImg"
+										/>
+										<div :class="$style.tableTitle">
+											{{ data.title }}
+										</div>
+									</div>
+								</template>
+							</PrimeColumn>
+							<PrimeColumn header="Views">
+								<template #body="{ data }">
+									<div :class="$style.tableColumn">
+										{{ data.views }}
+									</div>
+								</template>
+							</PrimeColumn>
+							<PrimeColumn header="Actions">
+								<template #body="{ data }">
+									<div :class="$style.actions">
+										<PrimeButton
+											label="Edit"
+											@click="handleRedirect(data.id)"
+										/>
+										<PrimeButton
+											label="Delete"
+											severity="secondary"
+											variant="outlined"
+											@click="handleDelete(data.id)"
+										/>
+									</div>
+								</template>
+							</PrimeColumn>
+						</PrimeDataTable>
 					</div>
 					<div v-else :class="$style.empty">Is Empty</div>
 				</PrimeTabPanel>
@@ -93,39 +112,46 @@ const handleAddNew = (skeletonId?: string | null) => {
 						v-if="data?.skeletons?.length"
 						:class="$style.skeletons"
 					>
-						<PrimeCard
-							v-for="item in data.skeletons"
-							:key="item.id"
-							:class="$style.skeleton"
+						<PrimeDataTable
+							:value="data.skeletons"
+							tableStyle="min-width: 50rem"
 						>
-							<template #title>
-								<div :class="$style.cardTitle">
-									{{ item.title }}
+							<PrimeColumn header="Title">
+								<template #body="{ data }">
+									<div :class="$style.tableTitle">
+										{{ data.title }}
+									</div>
+								</template>
+							</PrimeColumn>
+							<PrimeColumn header="Ыефегы">
+								<template #body="{ data }">
 									<PrimeTag
 										:severity="
-											item.isUsed ? 'danger' : 'success'
+											data.isUsed ? 'danger' : 'success'
 										"
-										:value="item.isUsed ? 'Used' : 'Free'"
+										:value="data.isUsed ? 'Used' : 'Free'"
 									></PrimeTag>
-								</div>
-							</template>
-
-							<template #footer>
-								<div :class="$style.actions">
-									<PrimeButton
-										label="Delete"
-										severity="secondary"
-										variant="outlined"
-										class="w-full"
-										@click="handleDeleteSkeleton(item.id)"
-									/>
-									<PrimeButton
-										label="Use skeleton"
-										@click="handleAddNew(item.id)"
-									/>
-								</div>
-							</template>
-						</PrimeCard>
+								</template>
+							</PrimeColumn>
+							<PrimeColumn header="Actions">
+								<template #body="{ data }">
+									<div :class="$style.actions">
+										<PrimeButton
+											label="Use skeleton"
+											@click="handleAddNew(data.id)"
+										/>
+										<PrimeButton
+											label="Delete"
+											severity="secondary"
+											variant="outlined"
+											@click="
+												handleDeleteSkeleton(data.id)
+											"
+										/>
+									</div>
+								</template>
+							</PrimeColumn>
+						</PrimeDataTable>
 					</div>
 					<div v-else :class="$style.empty">Is Empty</div>
 				</PrimeTabPanel>
@@ -157,6 +183,25 @@ const handleAddNew = (skeletonId?: string | null) => {
 	&:not(:last-child) {
 		border-bottom: 1px solid $gray3;
 	}
+}
+
+.tableColumn {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+.tableImg {
+	overflow: hidden;
+	border-radius: 1rem;
+	width: 10rem;
+	height: 6rem;
+	object-fit: cover;
+}
+
+.tableTitle {
+	font-size: 1.6rem;
+	font-weight: 600;
 }
 
 .cardTitle,

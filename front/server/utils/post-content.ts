@@ -3,7 +3,6 @@ import type { IFormDataPostContent } from "#shared/types/blog.types";
 interface IPostContentCreate {
 	text: string | null;
 	image: string | null;
-	video: string | null;
 	order: number;
 }
 
@@ -38,9 +37,8 @@ export function normalizePostContent(
 			return {
 				text: text && !isEmptyHtml(text) ? text : null,
 				image: block.image?.trim() || null,
-				video: block.video?.trim() || null,
 			};
 		})
-		.filter((block) => block.text || block.image || block.video)
+		.filter((block) => block.text || block.image)
 		.map((block, index) => ({ ...block, order: index }));
 }

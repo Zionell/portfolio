@@ -18,18 +18,6 @@ const position = computed(() => {
 	};
 });
 
-const label = computed(() => {
-	if (props.post.typeId === "mock-news") {
-		return locale.value === "ru" ? "Новости" : "News";
-	}
-
-	if (props.post.typeId === "mock-post") {
-		return locale.value === "ru" ? "Пост" : "Post";
-	}
-
-	return "";
-});
-
 const formattedDate = computed(() => {
 	const date = new Date(props.post.date);
 
@@ -57,7 +45,9 @@ const formattedDate = computed(() => {
 
 			<div :class="$style.body">
 				<div :class="$style.meta">
-					<span v-if="label" :class="$style.type">{{ label }}</span>
+					<span v-if="props.post?.type" :class="$style.type">
+						{{ props.post.type }}
+					</span>
 					<span :class="$style.date">{{ formattedDate }}</span>
 				</div>
 
@@ -65,9 +55,6 @@ const formattedDate = computed(() => {
 				<p :class="$style.excerpt">{{ post.excerpt }}</p>
 
 				<div :class="$style.bottom">
-					<span v-if="post.tags?.length" :class="$style.project">
-						{{ post.tags[0] }}
-					</span>
 					<span :class="$style.read">
 						{{ post.readTime }} {{ $t("common.readTime") }}
 					</span>
@@ -164,6 +151,7 @@ const formattedDate = computed(() => {
 }
 
 .excerpt {
+	@include truncate(5);
 	font-size: 1.4rem;
 	line-height: 1.6;
 	color: $gray5;

@@ -57,11 +57,7 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 
 	const prepareExp = experience?.map((exp) => {
 		return {
-			id: exp.id,
-			startDate: exp.startDate,
-			endDate: exp.endDate,
-			isPresent: exp.isPresent,
-			order: exp.order,
+			...exp,
 			company:
 				exp?.[`company_${curLang}` as keyof typeof exp]?.toString() ||
 				"",

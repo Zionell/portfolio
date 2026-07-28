@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	if (!body?.typeId) {
+	if (!body?.type) {
 		throw createError({
 			statusCode: 400,
 			statusMessage: "Type is required",
@@ -36,17 +36,12 @@ export default defineEventHandler(async (event) => {
 			title: body.title,
 			excerpt: body.excerpt || "",
 			date: todayDateString(),
-			tags: [],
 			readTime: body.readTime || 1,
 			cover: body.cover || "",
 			lang: body.lang || "en",
 			mainPage: body.mainPage || false,
 			isPublished: body.isPublished || false,
-			type: {
-				connect: {
-					id: body.typeId,
-				},
-			},
+			type: body.type,
 			content: {
 				create: normalizePostContent(body.content),
 			},

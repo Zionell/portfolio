@@ -24,3 +24,21 @@
 		@content;
 	}
 }
+
+@mixin truncate($lines: 1, $display: block, $preserve: false) {
+	display: $display;
+	overflow: hidden;
+
+	@if $lines == 1 {
+		@if $preserve {
+			white-space: normal;
+		} @else {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	} @else {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: #{$lines};
+	}
+}

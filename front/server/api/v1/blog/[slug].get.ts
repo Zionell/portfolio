@@ -12,7 +12,7 @@ export default defineEventHandler(async (event): Promise<Posts> => {
 		},
 	});
 
-	if (!blog) {
+	if (!blog || !blog?.isPublished) {
 		throw createError({
 			statusCode: 404,
 			statusMessage: "Post not found",

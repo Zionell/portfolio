@@ -24,13 +24,11 @@ const formattedDate = computed(() => {
 
 <template>
 	<div :class="$style.BlogMetaInfo">
-		<ul v-if="post.tags.length" :class="$style.tags">
-			<li v-for="tag in post.tags" :key="tag" :class="$style.tag">
-				{{ tag }}
-			</li>
-		</ul>
+		<span v-if="post.type" :class="$style.tag">
+			{{ post.type }}
+		</span>
 
-		<span v-if="post.tags.length" :class="$style.dot" />
+		<span v-if="post.type" :class="$style.dot" />
 		<span v-if="props.post.date" :class="$style.date">
 			{{ formattedDate }}
 		</span>
