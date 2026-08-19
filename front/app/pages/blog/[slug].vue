@@ -191,6 +191,9 @@ onMounted(async () => {
 }
 
 .text {
+	// grid-item с min-width: auto растягивается под самую длинную строку в pre,
+	// и overflow-x на самом pre не срабатывает — страница едет вбок на мобильных
+	min-width: 0;
 	font-size: 1.6rem;
 	line-height: 1.8;
 	color: $gray5;
@@ -252,14 +255,23 @@ onMounted(async () => {
 		color: $gray6;
 	}
 
-	pre {
+	// Quill при сохранении переписывает pre в контейнер из div'ов,
+	// поэтому оба варианта разметки должны выглядеть одинаково
+	pre,
+	:global(.ql-code-block-container) {
 		margin-bottom: 1.6rem;
 		padding: 1.6rem 2rem;
 		border-radius: 0.9rem;
 		background: rgba(255, 255, 255, 0.04);
 		border: 1px solid rgba(255, 255, 255, 0.08);
 		overflow-x: auto;
+		font-family: $ff-regular;
 		font-size: 1.4rem;
+	}
+
+	// каждая строка кода — отдельный div, без white-space отступы схлопнутся
+	:global(.ql-code-block) {
+		white-space: pre;
 	}
 
 	code {

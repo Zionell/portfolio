@@ -80,6 +80,21 @@ const handleAddNew = (skeletonId?: string | null) => {
 									</div>
 								</template>
 							</PrimeColumn>
+							<PrimeColumn header="Is published?">
+								<template #body="{ data }">
+									<div :class="$style.tableColumn">
+										<PrimeBadge
+											:severity="
+												data.isPublished
+													? 'success'
+													: 'danger'
+											"
+										>
+											{{ data.isPublished }}
+										</PrimeBadge>
+									</div>
+								</template>
+							</PrimeColumn>
 							<PrimeColumn header="Views">
 								<template #body="{ data }">
 									<div :class="$style.tableColumn">
