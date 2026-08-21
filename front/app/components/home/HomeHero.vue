@@ -39,8 +39,10 @@ const animate = () => {
 	});
 };
 
+const { whenReady } = usePreloader();
+
 onMounted(() => {
-	nextTick(animate);
+	whenReady(() => nextTick(animate));
 });
 </script>
 

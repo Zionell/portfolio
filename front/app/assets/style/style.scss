@@ -28,6 +28,10 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+body._preloading {
+    overflow: hidden;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }

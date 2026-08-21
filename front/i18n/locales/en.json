@@ -38,5 +38,12 @@
 		"title": "Something went wrong",
 		"titleNotFound": "Are you lost?",
 		"back": "Go back"
+	},
+	"preloader": {
+		"init": "Initializing",
+		"assets": "Loading assets",
+		"interface": "Building interface",
+		"ready": "Ready",
+		"hint": "Just a moment"
 	}
 }
