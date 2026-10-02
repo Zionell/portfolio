@@ -50,7 +50,7 @@ onMounted(() => {
 	<section :class="$style.HomeHero">
 		<div :class="$style.bg">
 			<FluidBg
-				:colors="['#4d4640', '#3f4542', '#7f8383']"
+				:colors="['#2b6bff', '#83a4d5', '#5086d6']"
 				:count="3"
 				:speed="0.2"
 				:amplitude="0.9"
@@ -62,7 +62,7 @@ onMounted(() => {
 				:intensity="0.2"
 				:saturation="1.7"
 				:opacity="1"
-				:scale="2.8"
+				:scale="2"
 				:glass="false"
 				:refraction="1"
 				:dispersion="0.85"

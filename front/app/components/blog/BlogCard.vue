@@ -70,7 +70,7 @@ const formattedDate = computed(() => {
 .BlogCard {
 	position: relative;
 	overflow: hidden;
-	background: $gray2;
+	background: rgba($white, 0.12);
 	padding: 1px;
 	border-radius: 1.2rem;
 }
@@ -83,7 +83,8 @@ const formattedDate = computed(() => {
 	height: 30rem;
 	border-radius: 100%;
 	transform: translate(-50%, -50%);
-	background: radial-gradient($white, $gray3);
+	// светится только 1px рамки: центр белый, дальше уходит в акцент
+	background: radial-gradient($white, $accent 35%, transparent 70%);
 }
 
 .inner {

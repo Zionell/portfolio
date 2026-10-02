@@ -88,7 +88,8 @@ onMounted(() => {
 
 	@include hover {
 		color: $white;
-		border-color: rgba(255, 255, 255, 0.25);
+		border-color: $accent;
+		box-shadow: 0 0 2.4rem rgba($accent, 0.18);
 		transform: translateY(-4px) scaleY(1.05) !important;
 	}
 }

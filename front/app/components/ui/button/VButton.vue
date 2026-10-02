@@ -80,7 +80,8 @@ const buttonAttrs = computed(() => {
 	user-select: none;
 	background: transparent;
 	color: inherit;
-	border: 1px solid $gray5;
+	border: 1px solid rgba($accent, 0.55);
+	transition: border-color $default-transition, box-shadow $default-transition;
 
 	&:before {
 		content: "";
@@ -90,7 +91,7 @@ const buttonAttrs = computed(() => {
 		display: flex;
 		width: 100%;
 		height: 100%;
-		background: $gray5;
+		background: $accent;
 		z-index: 0;
 		transform: translateX(-100%);
 		transition: transform 0.35s ease;
@@ -108,6 +109,9 @@ const buttonAttrs = computed(() => {
 	}
 
 	@include hover {
+		border-color: $accent;
+		box-shadow: 0 0 2.4rem $accent-glow;
+
 		&:before {
 			transform: translateX(0);
 		}

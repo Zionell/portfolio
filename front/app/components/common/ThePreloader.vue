@@ -428,7 +428,8 @@ onBeforeUnmount(teardown);
 	width: 0.6rem;
 	height: 0.6rem;
 	flex-shrink: 0;
-	background: $success;
+	background: $accent;
+	box-shadow: 0 0 1.2rem $accent-glow;
 	animation: blink 1.1s steps(1, end) infinite;
 }
 

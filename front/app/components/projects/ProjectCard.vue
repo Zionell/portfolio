@@ -106,7 +106,8 @@ const linkLabel = computed((): string => {
 	transform-origin: bottom;
 
 	@include hover {
-		border-color: rgba($white, 0.3);
+		border-color: rgba($accent, 0.55);
+		box-shadow: 0 0 3.2rem rgba($accent, 0.12);
 		transform: translateY(-4px) scaleY(1.05) !important;
 	}
 }
@@ -155,6 +156,7 @@ const linkLabel = computed((): string => {
 }
 
 .arrow {
-	color: $success;
+	color: $accent;
+	text-shadow: 0 0 1.2rem $accent-glow;
 }
 </style>
