@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Posts } from "~~/generated/prisma/client";
+import type { IPostWithProject } from "#shared/types/blog.types";
 import { useMouseInElement } from "@vueuse/core";
 
 const props = defineProps<{
-	post: Posts;
+	post: IPostWithProject;
 }>();
 
 const { locale } = useI18n();
@@ -45,9 +45,14 @@ const formattedDate = computed(() => {
 
 			<div :class="$style.body">
 				<div :class="$style.meta">
-					<span v-if="props.post?.type" :class="$style.type">
-						{{ props.post.type }}
-					</span>
+					<div :class="$style.tags">
+						<span v-if="props.post?.type" :class="$style.type">
+							{{ props.post.type }}
+						</span>
+						<span v-if="props.post?.project" :class="$style.type">
+							{{ props.post.project.name }}
+						</span>
+					</div>
 					<span :class="$style.date">{{ formattedDate }}</span>
 				</div>
 
@@ -124,6 +129,12 @@ const formattedDate = computed(() => {
 	align-items: center;
 	gap: 1rem;
 	justify-content: space-between;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
 }
 
 .type {

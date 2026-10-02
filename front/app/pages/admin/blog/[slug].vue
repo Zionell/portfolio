@@ -5,7 +5,9 @@ import { resolveFile, slugify } from "~/assets/ts/utils";
 import type { PostSkeleton } from "~~/generated/prisma/client";
 import type {
 	IFormDataPost,
+	IGeneratedDraft,
 	IPostAdmin,
+	IPostProject,
 	IResponsePostAdmin,
 } from "#shared/types/blog.types";
 import AdminSectionFooter from "~/components/admin/common/AdminSectionFooter.vue";
@@ -46,6 +48,7 @@ const formData = ref<IFormDataPost>({
 	mainPage: false,
 	isPublished: false,
 	type: "",
+	projectId: null,
 	content: [],
 });
 
@@ -53,6 +56,7 @@ const blocks = ref<IEditorBlock[]>([]);
 const isSlugTouched = ref(false);
 const isSaving = ref(false);
 const isUploading = ref(false);
+const isGenerating = ref(false);
 const saveError = ref("");
 const saveMessage = ref("");
 
@@ -66,7 +70,7 @@ const createBlock = (kind: BlockKind, text = ""): IEditorBlock => ({
 const { data, error: fetchError } = await useAsyncData<IResponsePostAdmin>(
 	() => `admin-post-${postId.value}-${skeletonId.value || ""}`,
 	async () => {
-		const [post, skeleton] = await Promise.all([
+		const [post, skeleton, projects] = await Promise.all([
 			isNew.value
 				? null
 				: $fetch<IPostAdmin>(`${api.admin.blog}/${postId.value}`),
@@ -75,9 +79,18 @@ const { data, error: fetchError } = await useAsyncData<IResponsePostAdmin>(
 						`${api.admin.skeleton}/${skeletonId.value}`,
 					)
 				: null,
+			$fetch<IPostProject[]>(api.admin.projects),
 		]);
 
-		return { post, skeleton };
+		return {
+			post,
+			skeleton,
+			projects: projects.map(({ id, name, slug }) => ({
+				id,
+				name,
+				slug,
+			})),
+		};
 	},
 );
 
@@ -96,32 +109,34 @@ if (data.value) {
 			mainPage: post.mainPage,
 			isPublished: post.isPublished,
 			type: post.type,
+			projectId: post.projectId,
 			content: [],
 		};
 
-		blocks.value = post.content.map(
-			(item): IEditorBlock => ({
-				uid: item.id,
-				kind: item.image ? "image" : "text",
-				text: item.text || "",
-				image: item.image || "",
-			}),
-		);
+		blocks.value = post.content.map((item): IEditorBlock => ({
+			uid: item.id,
+			kind: item.image ? "image" : "text",
+			text: item.text || "",
+			image: item.image || "",
+		}));
 	}
 
 	// Новый пост: без скелета остаётся пустая форма с одним текстовым блоком
 	const skeleton = data.value?.skeleton;
 
+	// Тема: title и body — заголовок и excerpt поста. PR: название и
+	// описание PR, коммиты лежат в тексте, пока пост не сгенерирован
 	if (skeleton) {
 		formData.value.title = skeleton.title;
 		formData.value.slug = slugify(skeleton.title);
-
-		blocks.value = [createBlock("text", skeleton.body || "")];
+		formData.value.excerpt = skeleton.body || "";
+		formData.value.lang = skeleton.lang;
+		formData.value.projectId = skeleton.projectId;
 
 		if (skeleton.commits) {
-			blocks.value.push(
+			blocks.value = [
 				createBlock("text", `<pre>${skeleton.commits}</pre>`),
-			);
+			];
 		}
 	}
 
@@ -131,6 +146,10 @@ if (data.value) {
 }
 
 const coverPreview = computed(() => formData.value.cover);
+const projects = computed(() => data.value?.projects || []);
+const isPrSkeleton = computed(() =>
+	Boolean(data.value?.skeleton?.commits || data.value?.skeleton?.repo_name),
+);
 
 const isValid = computed(
 	() =>
@@ -173,7 +192,7 @@ const onCoverChange = async (event: any) => {
 	isUploading.value = true;
 
 	try {
-		formData.value.cover = await uploadFile(file, "blog");
+		formData.value.cover = await uploadFile(file);
 	} catch (error) {
 		saveError.value = "Failed to upload the cover.";
 	} finally {
@@ -188,11 +207,80 @@ const onBlockImageChange = async (event: any, block: IEditorBlock) => {
 	isUploading.value = true;
 
 	try {
-		block.image = await uploadFile(file, "blog");
+		block.image = await uploadFile(file);
 	} catch (error) {
 		saveError.value = "Failed to upload the image.";
 	} finally {
 		isUploading.value = false;
+	}
+};
+
+// скелетону из PR хватает коммитов, теме нужны заголовок и excerpt
+const canGenerate = computed(
+	() =>
+		isPrSkeleton.value ||
+		(Boolean(formData.value.title.trim()) &&
+			Boolean(formData.value.excerpt.trim())),
+);
+
+const hasText = () =>
+	blocks.value.some(
+		(block) =>
+			block.kind === "text" &&
+			block.text
+				.replace(/<[^>]*>/g, "")
+				.replace(/&nbsp;/g, " ")
+				.trim(),
+	);
+
+const handleGenerate = async () => {
+	if (
+		(hasText() || formData.value.cover) &&
+		!confirm(
+			isPrSkeleton.value
+				? "Replace the title, excerpt, text and cover with generated ones?"
+				: "Replace the current text and cover with generated ones?",
+		)
+	) {
+		return;
+	}
+
+	saveError.value = "";
+	saveMessage.value = "";
+	isGenerating.value = true;
+
+	try {
+		const draft = await $fetch<IGeneratedDraft>(api.admin.blogDraft, {
+			method: "POST",
+			body: {
+				title: formData.value.title,
+				excerpt: formData.value.excerpt,
+				lang: formData.value.lang,
+				skeletonId: skeletonId.value,
+			},
+		});
+
+		// для PR модель придумывает заголовок и excerpt сама
+		if (isPrSkeleton.value) {
+			formData.value.title = draft.title;
+			formData.value.excerpt = draft.excerpt;
+		}
+
+		// картинки из контента оставляем, текст заменяем одним блоком
+		blocks.value = [
+			createBlock("text", draft.content),
+			...blocks.value.filter((block) => block.kind === "image"),
+		];
+		formData.value.readTime = draft.readTime;
+
+		if (draft.cover) formData.value.cover = draft.cover;
+	} catch (error: any) {
+		saveError.value =
+			error?.data?.statusMessage ||
+			error?.message ||
+			"Failed to generate post.";
+	} finally {
+		isGenerating.value = false;
 	}
 };
 
@@ -335,6 +423,19 @@ const handleSave = async () => {
 						<label for="type">Type</label>
 					</PrimeFloatLabel>
 
+					<PrimeFloatLabel variant="on">
+						<PrimeSelect
+							id="project"
+							v-model="formData.projectId"
+							:options="projects"
+							option-label="name"
+							option-value="id"
+							show-clear
+							fluid
+						/>
+						<label for="project">Project</label>
+					</PrimeFloatLabel>
+
 					<div :class="$style.inline">
 						<PrimeFloatLabel variant="on" :class="$style.grow">
 							<PrimeInputNumber
@@ -374,6 +475,15 @@ const handleSave = async () => {
 						/>
 						<label for="excerpt">Excerpt</label>
 					</PrimeFloatLabel>
+					<PrimeButton
+						icon="pi pi-sparkles"
+						label="Generate post & cover"
+						severity="secondary"
+						variant="outlined"
+						:disabled="!canGenerate"
+						:loading="isGenerating"
+						@click="handleGenerate"
+					/>
 				</div>
 
 				<div :class="$style.toggles">
@@ -569,7 +679,13 @@ const handleSave = async () => {
 }
 
 .excerpt {
+	display: grid;
+	gap: 1.2rem;
 	padding-top: 2.4rem;
+
+	> button {
+		justify-self: start;
+	}
 }
 
 .inline {

@@ -8,12 +8,22 @@ datasource db {
 }
 
 model PostSkeleton {
-  id        String  @id @default(cuid())
-  repo_name String
-  title     String
-  body      String
-  commits   String
-  isUsed    Boolean @default(false)
+  id     String  @id @default(cuid())
+  title  String
+  // для темы — excerpt будущего поста, для PR — описание PR
+  body   String
+  lang   String  @default("ru")
+  isUsed Boolean @default(false)
+
+  // скелетон из PR: репозиторий, коммиты и проект, о котором пост
+  repo_name String?
+  commits   String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectId String?
+
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
 }
 
 model Posts {
@@ -31,8 +41,13 @@ model Posts {
   type        String
   views       Int           @default(0)
 
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectId String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([projectId])
 }
 
 model PostContent {
@@ -74,6 +89,9 @@ model Project {
   links  ProjectLink[]
 
   stack HomeSkill[] @relation("ProjectStack")
+
+  posts     Posts[]
+  skeletons PostSkeleton[]
 }
 
 model ProjectBlock {

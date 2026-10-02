@@ -13,6 +13,7 @@ export const api = {
 		projects: "/api/v1/admin/projects",
 		skills: "/api/v1/admin/skills",
 		blog: "/api/v1/admin/blog",
+		blogDraft: "/api/v1/admin/blog/generate-draft",
 		skeleton: "/api/v1/admin/skeleton",
 		upload: "/api/v1/upload",
 		settings: {

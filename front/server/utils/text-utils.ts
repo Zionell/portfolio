@@ -36,6 +36,29 @@ const postHtmlOptions: IFilterXSSOptions = {
 	},
 	stripIgnoreTag: true,
 	stripIgnoreTagBody: ["script", "style"],
+	// встраивать можно только видео-плееры: черновики пишет LLM по тексту
+	// PR, и чужой iframe в посте — готовая фишинговая форма на нашем домене
+	onTagAttr: (tag, name, value) => {
+		if (tag === "iframe" && name === "src" && !isAllowedEmbed(value)) {
+			return "";
+		}
+	},
+};
+
+const EMBED_HOSTS = [
+	"www.youtube.com",
+	"www.youtube-nocookie.com",
+	"player.vimeo.com",
+];
+
+const isAllowedEmbed = (src: string): boolean => {
+	try {
+		const url = new URL(src);
+
+		return url.protocol === "https:" && EMBED_HOSTS.includes(url.hostname);
+	} catch {
+		return false;
+	}
 };
 
 export function sanitizePostHtml(input?: string | null): string {

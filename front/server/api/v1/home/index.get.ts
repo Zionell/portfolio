@@ -47,12 +47,13 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 				},
 			}),
 			prisma.posts.findMany({
-				orderBy: { updatedAt: "asc" },
+				orderBy: PUBLIC_POSTS_ORDER,
 				where: {
 					lang: curLang,
 					isPublished: true,
 					mainPage: true,
 				},
+				include: { project: { select: PUBLIC_POST_PROJECT_SELECT } },
 				take: 3,
 			}),
 		]);
