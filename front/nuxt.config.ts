@@ -12,6 +12,20 @@ export default defineNuxtConfig({
 
 	devtools: { enabled: false },
 
+	runtimeConfig: {
+		session: {
+			name: "admin_session",
+			maxAge: 60 * 60 * 24 * 14,
+			cookie: {
+				httpOnly: true,
+				sameSite: "lax",
+				secure: process.env.NODE_ENV === "production",
+			},
+		},
+		adminPassword: "",
+		skeletonApiToken: "",
+	},
+
 	// Modules
 	modules: [
 		"@nuxt/image",
@@ -19,6 +33,7 @@ export default defineNuxtConfig({
 		"@nuxtjs/device",
 		"@nuxtjs/i18n",
 		"@primevue/nuxt-module",
+		"nuxt-auth-utils",
 	],
 
 	// PrimeVue

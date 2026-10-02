@@ -24,6 +24,7 @@ declare module 'vue' {
     PrimeInputText: typeof import('primevue/inputtext')['default']
     PrimeMessage: typeof import('primevue/message')['default']
     PrimePanel: typeof import('primevue/panel')['default']
+    PrimePassword: typeof import('primevue/password')['default']
     PrimePickList: typeof import('primevue/picklist')['default']
     PrimeProgressSpinner: typeof import('primevue/progressspinner')['default']
     PrimeSelect: typeof import('primevue/select')['default']

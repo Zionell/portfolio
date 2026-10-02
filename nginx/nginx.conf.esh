@@ -46,9 +46,6 @@ server {
     error_page 497 https://$host:$server_port$request_uri;
 
     location /admin {
-    	auth_basic "Administrator’s Area";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-        client_max_body_size 250M;
         include frontend;
     }
 
