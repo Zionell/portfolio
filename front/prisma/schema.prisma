@@ -1,183 +1,254 @@
 generator client {
-    provider = "prisma-client"
-    output   = "../generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "mongodb"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 model PostSkeleton {
-    id        String  @id @default(auto()) @map("_id") @db.ObjectId
-    repo_name String
-    title     String
-    body      String
-    commits   String
-    isUsed    Boolean @default(false)
+  id        String  @id @default(cuid())
+  repo_name String
+  title     String
+  body      String
+  commits   String
+  isUsed    Boolean @default(false)
 }
 
 model Posts {
-    id          String        @id @default(auto()) @map("_id") @db.ObjectId
-    slug        String        @unique
-    title       String
-    excerpt     String
-    date        String
-    content     PostContent[]
-    readTime    Int
-    cover       String?
-    mainPage    Boolean       @default(false)
-    isPublished Boolean       @default(false)
-    lang        String        @default("en")
-    type        String
-    views       Int           @default(0)
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  excerpt     String
+  date        String
+  content     PostContent[]
+  readTime    Int
+  cover       String?
+  mainPage    Boolean       @default(false)
+  isPublished Boolean       @default(false)
+  lang        String        @default("en")
+  type        String
+  views       Int           @default(0)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model PostContent {
-    id    String  @id @default(auto()) @map("_id") @db.ObjectId
-    text  String?
-    image String?
-    order Int     @default(0)
+  id    String  @id @default(cuid())
+  text  String?
+  image String?
+  order Int     @default(0)
 
-    posts   Posts?  @relation(fields: [postsId], references: [id])
-    postsId String? @db.ObjectId
+  posts   Posts?  @relation(fields: [postsId], references: [id])
+  postsId String?
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postsId])
 }
 
 model Project {
-    id             String   @id @default(auto()) @map("_id") @db.ObjectId
-    name           String
-    slug           String
-    link           String
-    image          String?
-    description_ru String?
-    description_en String?
-    order          Int?
-    isDeveloping   Boolean  @default(false)
-    isArchived     Boolean  @default(false)
-    createdAt      DateTime @default(now())
-    updatedAt      DateTime @updatedAt
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  link           String
+  image          String?
+  description_ru String?
+  description_en String?
+  order          Int?
+  isDeveloping   Boolean  @default(false)
+  isArchived     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-    stackIDs String[]    @db.ObjectId
-    stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
+  eyebrow_en String?
+  eyebrow_ru String?
+  facts_en   String[]
+  facts_ru   String[]
+
+  blocks ProjectBlock[]
+  images ProjectImage[]
+  links  ProjectLink[]
+
+  stack HomeSkill[] @relation("ProjectStack")
+}
+
+model ProjectBlock {
+  id    String @id @default(cuid())
+  order    Int    @default(0)
+  title_en String @default("")
+  title_ru String @default("")
+  text_en  String @default("")
+  text_ru  String @default("")
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model ProjectImage {
+  id         String  @id @default(cuid())
+  order      Int     @default(0)
+  image      String
+  caption_en String  @default("")
+  caption_ru String  @default("")
+  isWide     Boolean @default(false)
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model ProjectLink {
+  id       String @id @default(cuid())
+  order    Int    @default(0)
+  label_en String @default("")
+  label_ru String @default("")
+  url      String
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
 }
 
 model HomeHero {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    title     String
-    subtitle  String
-    lang      String   @unique @default("en")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id       String @id @default(cuid())
+  title    String
+  subtitle String
+  lang     String @unique @default("en")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HomeAvailability {
+  id        String   @id @default(cuid())
+  lang      String   @unique @default("en")
+  isVisible Boolean  @default(true)
+  isOpen    Boolean  @default(true)
+  status    String   @default("")
+  facts     String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model HomeAbout {
-    id        String          @id @default(auto()) @map("_id") @db.ObjectId
-    image     String
-    key       String          @unique @default("main")
-    createdAt DateTime        @default(now())
-    updatedAt DateTime        @updatedAt
-    text      HomeAboutText[]
+  id        String          @id @default(cuid())
+  image     String
+  key       String          @unique @default("main")
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  text      HomeAboutText[]
 }
 
 model HomeAboutText {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    text      String
-    lang      String   @unique @default("en")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  text      String
+  lang      String   @unique @default("en")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    homeAbout   HomeAbout @relation(fields: [homeAboutId], references: [id])
-    homeAboutId String    @db.ObjectId
+  homeAbout   HomeAbout @relation(fields: [homeAboutId], references: [id])
+  homeAboutId String
+
+  @@index([homeAboutId])
 }
 
 model HomeExperience {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    startDate DateTime
-    endDate   DateTime @default(now())
-    isPresent Boolean  @default(false)
-    order     Int?
+  id        String   @id @default(cuid())
+  startDate DateTime
+  endDate   DateTime @default(now())
+  isPresent Boolean  @default(false)
+  order     Int?
 
-    company_en          String
-    company_ru          String
-    position_en         String
-    position_ru         String
-    responsibilities_en String
-    responsibilities_ru String
+  company_en          String
+  company_ru          String
+  position_en         String
+  position_ru         String
+  responsibilities_en String
+  responsibilities_ru String
 
-    stackIDs String[]    @db.ObjectId
-    stack    HomeSkill[] @relation(fields: [stackIDs], references: [id])
+  stack HomeSkill[] @relation("ExperienceStack")
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model HomeSkill {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    icon      String
-    label     String
-    order     Int      @default(0)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  icon      String
+  label     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    homeExperienceIDs String[]         @db.ObjectId
-    homeExperience    HomeExperience[] @relation(fields: [homeExperienceIDs], references: [id])
-
-    projectId String[]  @db.ObjectId
-    project   Project[] @relation(fields: [projectId], references: [id])
+  homeExperience HomeExperience[] @relation("ExperienceStack")
+  project        Project[]        @relation("ProjectStack")
 }
 
 model SettingsSeo {
-    id    String @id @default(auto()) @map("_id") @db.ObjectId
-    image String
-    key   String @unique @default("main")
+  id    String @id @default(cuid())
+  image String
+  key   String @unique @default("main")
 
-    content SettingsSeoContent[]
+  content SettingsSeoContent[]
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SettingsSeoContent {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
-    title       String
-    description String
-    link        String
-    author      String
-    lang        String @unique @default("en")
+  title       String
+  description String
+  link        String
+  author      String
+  lang        String @unique @default("en")
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    settingsSeo   SettingsSeo? @relation(fields: [settingsSeoId], references: [id])
-    settingsSeoId String?      @db.ObjectId
+  settingsSeo   SettingsSeo? @relation(fields: [settingsSeoId], references: [id])
+  settingsSeoId String?
+
+  @@index([settingsSeoId])
 }
 
 model SettingsContacts {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
-    name String
-    link String
-    icon String
+  name String
+  link String
+  icon String @default("")
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SettingsScripts {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
-    type      String
-    innerHTML String
-    async     Boolean
-    body      Boolean
+  type      String
+  innerHTML String
+  async     Boolean
+  body      Boolean
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

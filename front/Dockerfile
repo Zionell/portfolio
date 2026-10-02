@@ -1,10 +1,7 @@
 # ---------- BUILD ----------
-FROM node:22.18-alpine AS build
+FROM node:26-alpine AS build
 
 WORKDIR /app
-
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
 
 COPY package*.json ./
 
@@ -17,8 +14,16 @@ RUN npm run prisma-generate
 RUN npm run build
 
 
+# ---------- MIGRATE ----------
+# одноразовый контейнер: накатывает миграции до старта frontend,
+# в runtime-образе prisma CLI нет
+FROM build AS migrate
+
+CMD ["npx", "prisma", "migrate", "deploy"]
+
+
 # ---------- RUNTIME ----------
-FROM node:22.18-alpine
+FROM node:26-alpine AS runtime
 
 WORKDIR /app
 

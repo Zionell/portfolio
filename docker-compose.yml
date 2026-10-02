@@ -1,6 +1,20 @@
-version: '3.3'
-
 services:
+    postgres:
+        image: postgres:18-alpine
+        container_name: portfolio_postgres
+        restart: always
+        environment:
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        volumes:
+            - postgres_data:/var/lib/postgresql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+
     nginx:
         restart: always
         volumes:
@@ -16,21 +30,38 @@ services:
         ports:
             - 80:80
             - 443:443
-        env_file:
-            - .env
+        # nginx нужны только эти две переменные, остальные секреты ему ни к чему
+        environment:
+            - SITE_HOST=${SITE_HOST}
+            - TLS_MODE=${TLS_MODE}
+
+    migrate:
+        build:
+            context: ./front
+            target: migrate
+        environment:
+            - DATABASE_URL=${DATABASE_URL}
+        restart: "no"
+        depends_on:
+            postgres:
+                condition: service_healthy
 
     frontend:
         restart: always
         build:
             context: ./front
-            args:
-                - DATABASE_URL=${DATABASE_URL}
-        environment:
-            - DATABASE_URL
+            target: runtime
         env_file:
             - .env
+        environment:
+            - DATABASE_URL=${DATABASE_URL}
         volumes:
             - nuxt:/app/nuxt_volume:delegated
+        depends_on:
+            postgres:
+                condition: service_healthy
+            migrate:
+                condition: service_completed_successfully
 
 volumes:
     nginx_cache:
@@ -39,3 +70,4 @@ volumes:
     nuxt:
     acme.sh:
     certs:
+    postgres_data:
