@@ -19,6 +19,35 @@
 	}
 }
 
+// Ссылка: по ховеру фон заливается акцентом слева направо, текст белеет.
+// Подложка растянута чуть шире текста через отрицательный inset, поэтому
+// раскладка не едет — размеры самой ссылки не меняются.
+@mixin link-sweep($from: $gray4, $to: $accent, $duration: 0.35s) {
+	position: relative;
+	isolation: isolate;
+	color: $from;
+	transition: color $duration ease;
+
+	&:before {
+		content: "";
+		position: absolute;
+		inset: -0.4rem -0.8rem;
+		z-index: -1;
+		background: $to;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform $duration ease;
+	}
+
+	@include hover {
+		color: $white;
+
+		&:before {
+			transform: scaleX(1);
+		}
+	}
+}
+
 @mixin media($bp) {
 	@media (max-width: $bp) {
 		@content;

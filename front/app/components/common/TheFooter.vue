@@ -132,29 +132,10 @@ const handleClick = (path: string) => {
 }
 
 .navLink {
-	position: relative;
 	font-size: 1.4rem;
-	color: $gray4;
 	text-align: left;
 
-	&:after {
-		content: "";
-		position: absolute;
-		bottom: -0.4rem;
-		left: 0;
-		width: 100%;
-		height: 0.1rem;
-		background: $gray4;
-		transform: scaleX(0);
-		transform-origin: left;
-		transition: $default-transition;
-	}
-
-	@include hover {
-		&:after {
-			transform: scaleX(1);
-		}
-	}
+	@include link-sweep($gray4, $accent);
 }
 
 .contacts {
@@ -171,13 +152,9 @@ const handleClick = (path: string) => {
 }
 
 .contactLink {
-	color: $gray4;
 	font-size: 1.4rem;
-	transition: $default-transition;
 
-	@include hover {
-		color: $white;
-	}
+	@include link-sweep($gray4, $accent);
 }
 
 .copy {

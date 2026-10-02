@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" fill="none" role="img" aria-label="Ракета, улетевшая с орбиты">
 	<defs>
 		<radialGradient id="err-glow" cx="50%" cy="45%" r="55%">
-			<stop offset="0%" stop-color="#9efc47" stop-opacity=".14" />
-			<stop offset="100%" stop-color="#9efc47" stop-opacity="0" />
+			<stop offset="0%" stop-color="#2b6bff" stop-opacity=".14" />
+			<stop offset="100%" stop-color="#2b6bff" stop-opacity="0" />
 		</radialGradient>
 	</defs>
 
@@ -19,19 +19,19 @@
 	/>
 
 	<!-- орбиты -->
-	<ellipse cx="300" cy="212" rx="248" ry="66" transform="rotate(-14 300 212)" stroke="#9efc47" stroke-opacity=".45" stroke-width="1.5" />
-	<ellipse cx="322" cy="352" rx="256" ry="72" transform="rotate(-7 322 352)" stroke="#9efc47" stroke-opacity=".3" stroke-width="1.5" />
+	<ellipse cx="300" cy="212" rx="248" ry="66" transform="rotate(-14 300 212)" stroke="#2b6bff" stroke-opacity=".45" stroke-width="1.5" />
+	<ellipse cx="322" cy="352" rx="256" ry="72" transform="rotate(-7 322 352)" stroke="#2b6bff" stroke-opacity=".3" stroke-width="1.5" />
 
 	<!-- планета -->
-	<circle cx="132" cy="196" r="62" fill="#9efc47" />
+	<circle cx="132" cy="196" r="62" fill="#2b6bff" />
 	<circle cx="132" cy="196" r="62" fill="#000" fill-opacity=".08" />
 
 	<!-- звёзды -->
 	<circle cx="252" cy="118" r="3" fill="#fff" fill-opacity=".85" />
 	<circle cx="470" cy="150" r="2.5" fill="#fff" fill-opacity=".6" />
 	<circle cx="228" cy="232" r="2" fill="#fff" fill-opacity=".5" />
-	<circle cx="512" cy="290" r="4" fill="#9efc47" fill-opacity=".8" />
-	<circle cx="196" cy="330" r="5" fill="#9efc47" fill-opacity=".55" />
+	<circle cx="512" cy="290" r="4" fill="#2b6bff" fill-opacity=".8" />
+	<circle cx="196" cy="330" r="5" fill="#2b6bff" fill-opacity=".55" />
 	<circle cx="286" cy="412" r="2.5" fill="#fff" fill-opacity=".45" />
 	<circle cx="438" cy="430" r="3" fill="#fff" fill-opacity=".3" />
 	<circle cx="366" cy="96" r="2" fill="#fff" fill-opacity=".4" />
@@ -52,13 +52,13 @@
 			d="M0-148c28 40 42 92 42 148v34c0 12-10 22-22 22h-40c-12 0-22-10-22-22v-34c0-56 14-108 42-148Z"
 			fill="#f4f4f4"
 		/>
-		<!-- зелёный пояс -->
-		<path d="M-38-46h76c1 14 2 28 2 42h-80c0-14 1-28 2-42Z" fill="#9efc47" />
+		<!-- синий пояс -->
+		<path d="M-38-46h76c1 14 2 28 2 42h-80c0-14 1-28 2-42Z" fill="#2b6bff" />
 		<!-- носовой акцент -->
-		<path d="M0-148c11 16 20 34 27 54h-54c7-20 16-38 27-54Z" fill="#9efc47" />
+		<path d="M0-148c11 16 20 34 27 54h-54c7-20 16-38 27-54Z" fill="#2b6bff" />
 		<!-- иллюминатор -->
 		<circle cx="0" cy="24" r="17" fill="#0a0a0a" fill-opacity=".8" />
-		<circle cx="0" cy="24" r="17" stroke="#9efc47" stroke-width="3" />
+		<circle cx="0" cy="24" r="17" stroke="#2b6bff" stroke-width="3" />
 		<!-- сопла -->
 		<path d="M-24 56h48" stroke="#0a0a0a" stroke-opacity=".18" stroke-width="4" stroke-linecap="round" />
 	</g>

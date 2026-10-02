@@ -43,13 +43,9 @@ const props = defineProps<{
 	font-size: 1.2rem;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: $gray4;
 	text-decoration: none;
-	transition: $default-transition;
 	white-space: nowrap;
 
-	@include hover {
-		color: $white;
-	}
+	@include link-sweep($gray4, $accent);
 }
 </style>

@@ -187,29 +187,10 @@ onBeforeUnmount(() => {
 }
 
 .drawerLink {
-	position: relative;
 	font-size: 1.4rem;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
-	color: $white;
 
-	&:after {
-		content: "";
-		position: absolute;
-		bottom: -0.4rem;
-		left: 0;
-		width: 100%;
-		height: 0.1rem;
-		background: $white;
-		transform: scaleX(0);
-		transform-origin: left;
-		transition: $default-transition;
-	}
-
-	@include hover {
-		&:after {
-			transform: scaleX(1);
-		}
-	}
+	@include link-sweep($white, $accent);
 }
 </style>

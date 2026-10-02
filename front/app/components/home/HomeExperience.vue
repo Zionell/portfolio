@@ -111,9 +111,47 @@ onMounted(() => {
 		background: linear-gradient(
 			to right,
 			transparent,
-			rgba(255, 255, 255, 0.18) 4.8rem calc(100% - 4.8rem),
+			rgba($accent, 0.35) 4.8rem calc(100% - 4.8rem),
 			transparent
 		);
+	}
+
+	// маятник по разделителю: блик ходит влево-вправо и не вылезает за края.
+	// Сегмент занимает 24% строки, значит правым краем он упрётся в конец
+	// строки, сдвинувшись на (100 - 24) / 24 ≈ 316% собственной ширины
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 24%;
+		height: 1px;
+		background: linear-gradient(
+			to right,
+			transparent,
+			$accent,
+			transparent
+		);
+		box-shadow: 0 0 1.2rem $accent-glow;
+		transform: translateX(0);
+		animation: runner 5s ease-in-out infinite alternate;
+		will-change: transform;
+	}
+
+	// блики соседних строк не должны идти строем
+	&:nth-child(3n + 2):after {
+		animation-delay: -2s;
+	}
+
+	&:nth-child(3n):after {
+		animation-delay: -4s;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&:after {
+			animation: none;
+			opacity: 0;
+		}
 	}
 
 	@include media($mobile) {
@@ -122,6 +160,16 @@ onMounted(() => {
 		> div:last-child {
 			grid-column: 2;
 		}
+	}
+}
+
+@keyframes runner {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(316.6%);
 	}
 }
 
