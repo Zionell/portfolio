@@ -74,6 +74,13 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 
 	return {
 		hero: hero || null,
+		availability:
+			hero?.availabilityStatus || hero?.availabilityFacts.length
+				? {
+						status: hero.availabilityStatus,
+						facts: hero.availabilityFacts,
+					}
+				: null,
 		about: about || null,
 		experience: prepareExp.length ? prepareExp : [],
 		skills: skills.length ? skills : [],

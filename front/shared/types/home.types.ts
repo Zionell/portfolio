@@ -25,8 +25,15 @@ export interface IHomeProject extends Project {
 	}>;
 }
 
+// плашка availability лежит в HomeHero, на фронт уходит уже без префиксов
+export interface IHomeAvailability {
+	status: string;
+	facts: string[];
+}
+
 export interface IHomeData {
 	hero: HomeHero | null;
+	availability: IHomeAvailability | null;
 	about: IAbout | null;
 	experience: IHomeExperience[];
 	skills: HomeSkill[];

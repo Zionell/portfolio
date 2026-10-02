@@ -19,6 +19,7 @@ declare module 'vue' {
     PrimeEditor: typeof import('primevue/editor')['default']
     PrimeFileUpload: typeof import('primevue/fileupload')['default']
     PrimeFloatLabel: typeof import('primevue/floatlabel')['default']
+    PrimeInputChips: typeof import('primevue/inputchips')['default']
     PrimeInputNumber: typeof import('primevue/inputnumber')['default']
     PrimeInputText: typeof import('primevue/inputtext')['default']
     PrimeMessage: typeof import('primevue/message')['default']
