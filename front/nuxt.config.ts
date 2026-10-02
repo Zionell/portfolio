@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import Nora from "@primeuix/themes/nora";
+import Lara from "@primeuix/themes/lara";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 
@@ -148,14 +148,14 @@ export default defineNuxtConfig({
 		},
 		options: {
 			theme: {
-				preset: Nora,
+				preset: Lara,
 			},
 		},
 	},
 
 	// I18n
 	i18n: {
-		baseUrl: "https://askarov.dev/",
+		baseUrl: `https://${process.env.SITE_HOST}/`,
 		strategy: "no_prefix",
 		defaultLocale: "en",
 		locales: [
