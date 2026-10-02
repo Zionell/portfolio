@@ -43,6 +43,10 @@ server {
     client_max_body_size 5M;
     merge_slashes off;
 
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
     error_page 497 https://$host:$server_port$request_uri;
 
     location /api/v1/upload {

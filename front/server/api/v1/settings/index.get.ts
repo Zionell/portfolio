@@ -25,10 +25,16 @@ export default defineEventHandler(async (event): Promise<ISettings> => {
 	const noScripts: Noscript[] = [];
 
 	resScripts?.forEach((script) => {
+		const tag = {
+			innerHTML: script.innerHTML,
+			tagPosition: script.body ? ("bodyClose" as const) : ("head" as const),
+		};
+
+		// async у inline-скрипта браузер игнорирует, он работает только с src
 		if (script.type === "script") {
-			scripts.push(script);
+			scripts.push(tag);
 		} else {
-			noScripts.push(script);
+			noScripts.push(tag);
 		}
 	});
 
