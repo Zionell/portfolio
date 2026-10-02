@@ -1,3 +1,4 @@
+import type { IProjectCard } from "#shared/types/project.types";
 import type {
 	Posts,
 	HomeAbout,
@@ -5,7 +6,6 @@ import type {
 	HomeExperience,
 	HomeHero,
 	HomeSkill,
-	Project,
 } from "~~/generated/prisma/client";
 
 export interface IAbout extends HomeAbout {
@@ -17,12 +17,6 @@ export interface IHomeExperience extends Partial<HomeExperience> {
 	company: string;
 	position: string;
 	responsibilities: string;
-}
-
-export interface IHomeProject extends Project {
-	stack: Array<{
-		label: string;
-	}>;
 }
 
 // плашка availability лежит в HomeHero, на фронт уходит уже без префиксов
@@ -37,6 +31,6 @@ export interface IHomeData {
 	about: IAbout | null;
 	experience: IHomeExperience[];
 	skills: HomeSkill[];
-	projects: IHomeProject[];
+	projects: IProjectCard[];
 	blog: Posts[];
 }

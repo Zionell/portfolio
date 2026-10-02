@@ -59,15 +59,15 @@ model Project {
   description_ru String?
   description_en String?
   order          Int?
+  mainPage       Boolean  @default(false)
   isDeveloping   Boolean  @default(false)
   isArchived     Boolean  @default(false)
+  showDetail     Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   eyebrow_en String?
   eyebrow_ru String?
-  facts_en   String[]
-  facts_ru   String[]
 
   blocks ProjectBlock[]
   images ProjectImage[]

@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import type { IHomeProject } from "#shared/types/home.types";
-import { Colors, type ITag } from "#shared/types/common.types";
 import TheTag from "~/components/ui/tags/TheTag.vue";
 
 const props = defineProps<{
-	project: IHomeProject;
+	project: IProjectCard;
 }>();
 
 const { t } = useI18n();
 
 const component = computed(() => {
+	if (props.project.hasDetail) {
+		return {
+			tag: resolveComponent("NuxtLink"),
+			attrs: {
+				to: `/projects/${props.project.slug}`,
+			},
+		};
+	}
+
 	if (props.project.link) {
 		return {
 			tag: "a",
@@ -50,6 +57,10 @@ const tech = computed((): string => {
 });
 
 const linkLabel = computed((): string => {
+	if (props.project.hasDetail) {
+		return t("project.details");
+	}
+
 	return props.project?.link
 		? props.project?.link.replace(/^https?:\/\//, "").replace(/\/$/, "")
 		: "";
@@ -83,7 +94,9 @@ const linkLabel = computed((): string => {
 			</p>
 
 			<p v-if="linkLabel" :class="$style.link">
-				<span :class="$style.arrow">↗</span>
+				<span :class="$style.arrow">
+					{{ project.hasDetail ? "→" : "↗" }}
+				</span>
 				{{ linkLabel }}
 			</p>
 		</div>
