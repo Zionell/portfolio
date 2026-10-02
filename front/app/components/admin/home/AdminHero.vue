@@ -4,6 +4,7 @@ import type { HomeHero } from "~~/generated/prisma/client";
 import AdminSectionFooter from "~/components/admin/common/AdminSectionFooter.vue";
 
 const { locales } = useI18n();
+const { notifySaved, notifyError } = useAdminToast();
 
 const formData = reactive<Partial<HomeHero>[]>([]);
 const isLoading = ref<boolean>(false);
@@ -40,8 +41,10 @@ const handleSave = async () => {
 			method: "POST",
 			body: formData,
 		});
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить Hero");
 	} finally {
 		isLoading.value = false;
 	}

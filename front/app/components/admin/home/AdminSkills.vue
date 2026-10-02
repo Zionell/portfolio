@@ -4,6 +4,7 @@ import type { HomeSkill } from "~~/generated/prisma/client";
 import AdminSkillsAddNew from "~/components/admin/home/AdminSkillsAddNew.vue";
 
 const isRemoving = ref<string[]>([]);
+const { notifyError } = useAdminToast();
 
 const { data, refresh } = await useFetch<HomeSkill[]>(api.admin.skills);
 
@@ -19,7 +20,7 @@ const removeSkill = async (item: HomeSkill) => {
 
 		await refresh();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось удалить навык");
 	}
 };
 </script>

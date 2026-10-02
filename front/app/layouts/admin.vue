@@ -12,6 +12,7 @@ useHead({
 
 const route = useRoute();
 const { user, clear } = useUserSession();
+const { notifyError } = useAdminToast();
 
 const isLoggingOut = ref(false);
 
@@ -22,7 +23,7 @@ const handleLogout = async () => {
 		await clear();
 		await navigateTo("/login");
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось выйти");
 	} finally {
 		isLoggingOut.value = false;
 	}
@@ -69,6 +70,8 @@ const menu = [
 				/>
 			</div>
 		</aside>
+		<PrimeToast position="top-right" />
+
 		<main :class="$style.main">
 			<slot />
 		</main>

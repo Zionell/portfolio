@@ -12,6 +12,7 @@ const formData = ref<Partial<SettingsScripts>[]>([
 	},
 ]);
 const isLoading = ref<boolean>(false);
+const { notifySaved, notifyError } = useAdminToast();
 
 const { data, refresh } = await useFetch<SettingsScripts[]>(
 	api.admin.settings.scripts,
@@ -35,8 +36,10 @@ const handleSave = async () => {
 		if (data.value?.length) {
 			formData.value = data.value;
 		}
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить скрипты");
 	} finally {
 		isLoading.value = false;
 	}

@@ -9,6 +9,7 @@ const formData = ref<Partial<SettingsContacts>[]>([
 	},
 ]);
 const isLoading = ref<boolean>(false);
+const { notifySaved, notifyError } = useAdminToast();
 
 const { data, refresh } = await useFetch<SettingsContacts[]>(
 	api.admin.settings.contacts,
@@ -32,8 +33,10 @@ const handleSave = async () => {
 		if (data.value?.length) {
 			formData.value = data.value;
 		}
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить контакты");
 	} finally {
 		isLoading.value = false;
 	}

@@ -18,6 +18,7 @@ const isLoading = ref<boolean>(false);
 const isUploading = ref(false);
 const uploadError = ref("");
 const { uploadFile } = useAdminUpload();
+const { notifySaved, notifyError, messageOf } = useAdminToast();
 
 locales.value.forEach((l) => {
 	text.value.push({
@@ -53,8 +54,10 @@ const handleSave = async () => {
 				text: sanitizedText,
 			},
 		});
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить блок About");
 	} finally {
 		isLoading.value = false;
 	}
@@ -105,14 +108,14 @@ const onAboutImageChange = async (event: any) => {
 			</div>
 		</PrimePanel>
 		<PrimePanel
-			v-for="(text, ind) in text"
+			v-for="(item, ind) in text"
 			:key="`Paragraph_${ind}`"
-			:header="`Paragraph ${text.lang}`"
+			:header="`Paragraph ${item.lang}`"
 			toggleable
 		>
 			<div :class="$style.form">
 				<PrimeEditor
-					v-model="text.text"
+					v-model="item.text"
 					:class="$style.editor"
 					editorStyle="height: 460px"
 				/>

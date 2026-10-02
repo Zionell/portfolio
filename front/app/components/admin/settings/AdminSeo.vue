@@ -4,12 +4,14 @@ import AdminSectionFooter from "~/components/admin/common/AdminSectionFooter.vue
 import { useAdminUpload } from "~/composables/useAdminUpload";
 import { resolveFile } from "~/assets/ts/utils";
 import type { ISettingsSeo } from "#shared/types/settings.types";
+import type { SettingsSeoContent } from "~~/generated/prisma/client";
 
 const { locales } = useI18n();
 
 const imageSrc = ref<string>("");
 const content = ref<Partial<SettingsSeoContent>[]>([]);
 const isLoading = ref<boolean>(false);
+const { notifySaved, notifyError } = useAdminToast();
 const { uploadFile } = useAdminUpload();
 
 locales.value.forEach((l) => {
@@ -44,8 +46,10 @@ const handleSave = async () => {
 				content: content.value,
 			},
 		});
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить SEO");
 	} finally {
 		isLoading.value = false;
 	}

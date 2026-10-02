@@ -23,6 +23,7 @@ const DEFAULT_EXP = {
 };
 
 const isLoading = ref<boolean>(false);
+const { notifySaved, notifyError } = useAdminToast();
 const formData = ref<IFormDataExp[]>([{ ...DEFAULT_EXP }]);
 const skills = ref<HomeSkill[]>([]);
 
@@ -71,8 +72,10 @@ const handleSave = async () => {
 
 		await refresh();
 		setFormData();
+
+		notifySaved();
 	} catch (error) {
-		console.error("handleSave", error);
+		notifyError(error, "Не удалось сохранить опыт");
 	} finally {
 		isLoading.value = false;
 	}
@@ -91,7 +94,7 @@ const removeItem = async ({ index, id }: { index?: number; id?: string }) => {
 		await refresh();
 		setFormData();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось удалить запись");
 	}
 };
 
