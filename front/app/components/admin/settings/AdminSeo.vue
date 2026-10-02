@@ -61,9 +61,9 @@ const onAboutImageChange = async (event: any) => {
 	if (!file) return;
 
 	try {
-		imageSrc.value = await uploadFile(file, "seo");
+		imageSrc.value = await uploadFile(file);
 	} catch (error) {
-		console.error("onAboutImageChange", error);
+		notifyError(error, "Не удалось загрузить изображение");
 	}
 };
 </script>

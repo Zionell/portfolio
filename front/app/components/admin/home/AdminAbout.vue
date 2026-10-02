@@ -71,9 +71,12 @@ const onAboutImageChange = async (event: any) => {
 	uploadError.value = "";
 
 	try {
-		imageSrc.value = await uploadFile(file, "about");
+		imageSrc.value = await uploadFile(file);
 	} catch (error) {
-		uploadError.value = "Не удалось загрузить изображение.";
+		// здесь под ошибку есть место прямо под полем — тост не нужен,
+		// но причину сервер называет ту же самую
+		console.error("onAboutImageChange", error);
+		uploadError.value = messageOf(error, "Не удалось загрузить изображение.");
 	} finally {
 		isUploading.value = false;
 	}

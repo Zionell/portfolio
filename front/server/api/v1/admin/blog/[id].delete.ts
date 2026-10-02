@@ -1,8 +1,14 @@
 export default defineEventHandler(async (event) => {
 	const id = getRouterParam(event, "id");
 
-	// Блоки контента живут отдельной коллекцией, mongo не каскадит
-	const [, post] = await prisma.$transaction([
+	const current = await prisma.posts.findUnique({
+		where: { id },
+		select: { cover: true, content: { select: { image: true } } },
+	});
+
+	// Блоки контента живут отдельной таблицей, связь опциональная —
+	// каскада нет, чистим руками
+	const [, post] = await notFoundIfMissing(prisma.$transaction([
 		prisma.postContent.deleteMany({
 			where: {
 				postsId: id,
@@ -13,7 +19,14 @@ export default defineEventHandler(async (event) => {
 				id,
 			},
 		}),
-	]);
+	]));
+
+	if (current) {
+		await deleteUploads([
+			current.cover,
+			...current.content.map((block) => block.image),
+		]);
+	}
 
 	return post;
 });

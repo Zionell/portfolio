@@ -1,4 +1,13 @@
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import Nora from "@primeuix/themes/nora";
+
+const rootDir = fileURLToPath(new URL(".", import.meta.url));
+
+const storageRoot = join(rootDir, "storage");
+const storageDir = join(storageRoot, "uploads");
+
+const isDev = process.env.NODE_ENV !== "production";
 
 const breakpoints = {
 	mobile: 767,
@@ -33,8 +42,13 @@ export default defineNuxtConfig({
 		"@nuxtjs/device",
 		"@nuxtjs/i18n",
 		"@primevue/nuxt-module",
+		"nuxt-file-storage",
 		"nuxt-auth-utils",
 	],
+
+	fileStorage: {
+		mount: storageDir,
+	},
 
 	// PrimeVue
 	primevue: {
@@ -88,6 +102,15 @@ export default defineNuxtConfig({
 	// Nuxt images module
 	image: {
 		screens: { ...breakpoints, desktop: 1920 },
+
+		ipx: {
+			fs: {
+				dir: [
+					join(rootDir, isDev ? "public" : ".output/public"),
+					storageRoot,
+				],
+			},
+		},
 
 		presets: {
 			preview: {

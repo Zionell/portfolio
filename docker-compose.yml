@@ -57,6 +57,7 @@ services:
             - DATABASE_URL=${DATABASE_URL}
         volumes:
             - nuxt:/app/nuxt_volume:delegated
+            - uploads:/app/storage/uploads
         depends_on:
             postgres:
                 condition: service_healthy
@@ -71,3 +72,4 @@ volumes:
     acme.sh:
     certs:
     postgres_data:
+    uploads:

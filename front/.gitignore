@@ -18,6 +18,9 @@ logs
 .fleet
 .idea
 
+# Uploads from the admin panel
+/storage
+
 # Local env files
 .env
 .env.*

@@ -14,6 +14,7 @@ export const api = {
 		skills: "/api/v1/admin/skills",
 		blog: "/api/v1/admin/blog",
 		skeleton: "/api/v1/admin/skeleton",
+		upload: "/api/v1/upload",
 		settings: {
 			contacts: "/api/v1/admin/settings/contacts",
 			seo: "/api/v1/admin/settings/seo",

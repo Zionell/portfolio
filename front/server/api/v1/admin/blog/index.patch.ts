@@ -29,6 +29,9 @@ export default defineEventHandler(async (event) => {
 			where: {
 				id: body.id,
 			},
+			include: {
+				content: { select: { image: true } },
+			},
 		}),
 		prisma.posts.findUnique({
 			where: {
@@ -83,6 +86,14 @@ export default defineEventHandler(async (event) => {
 			},
 		}),
 	]);
+
+	await deleteReplacedUploads(
+		[current.cover, ...current.content.map((block) => block.image)],
+		[
+			post.cover,
+			...(body.content || []).map((block) => block.image?.trim()),
+		],
+	);
 
 	return post;
 });
