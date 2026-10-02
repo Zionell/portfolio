@@ -10,9 +10,9 @@ const textRef = useTemplateRef("textRef");
 
 const animate = () => {
 	$splitText.create(textRef.value, {
-		type: "chars",
+		type: "words",
 		onSplit: (self) => {
-			$gsap.from(self.chars, {
+			$gsap.from(self.words, {
 				scrollTrigger: {
 					trigger: textRef.value,
 					start: "top 60%",
