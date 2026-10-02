@@ -40,6 +40,7 @@ model Posts {
   lang        String        @default("en")
   type        String
   views       Int           @default(0)
+  viewDays    PostViewDay[]
 
   project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
   projectId String?
@@ -261,4 +262,36 @@ model SettingsScripts {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Заходы на сайт за день (по Москве). Повтор с тех же IP и user agent
+// в пределах окна не считается; сами IP и user agent не хранятся
+model SiteVisitDay {
+  date  DateTime @id @db.Date
+  count Int      @default(0)
+  // загрузки страниц ботами: куки они не хранят, поэтому без окна
+  bots  Int      @default(0)
+}
+
+// Заходы в статью за день, правило окна то же
+model PostViewDay {
+  date  DateTime @db.Date
+  count Int      @default(0)
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  @@id([postId, date])
+  @@index([date])
+}
+
+// Сбой генерации автопоста (крон или ручной запуск из админки)
+model PostGenerationError {
+  id      String @id @default(cuid())
+  source  String
+  message String
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }

@@ -16,6 +16,10 @@ export const api = {
 		blogDraft: "/api/v1/admin/blog/generate-draft",
 		skeleton: "/api/v1/admin/skeleton",
 		upload: "/api/v1/upload",
+		analytics: {
+			overview: "/api/v1/admin/analytics",
+			errors: "/api/v1/admin/analytics/errors",
+		},
 		settings: {
 			contacts: "/api/v1/admin/settings/contacts",
 			seo: "/api/v1/admin/settings/seo",

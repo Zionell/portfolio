@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "SiteVisitDay" ADD COLUMN     "bots" INTEGER NOT NULL DEFAULT 0;

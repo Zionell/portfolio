@@ -33,6 +33,7 @@ const menu = [
 	{ label: "Home page", to: "/admin" },
 	{ label: "Projects", to: "/admin/projects" },
 	{ label: "Blog", to: "/admin/blog" },
+	{ label: "Analytics", to: "/admin/analytics" },
 	{ label: "Settings", to: "/admin/settings" },
 ];
 </script>

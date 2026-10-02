@@ -33,6 +33,10 @@ export default defineNuxtConfig({
 		},
 		adminPassword: "",
 		skeletonApiToken: "",
+		public: {
+			// NUXT_PUBLIC_YANDEX_METRIKA_ID, пусто — Метрика не грузится
+			yandexMetrikaId: "",
+		},
 	},
 
 	// Modules
