@@ -1,8 +1,19 @@
 <script setup lang="ts">
+import { onClickOutside } from "@vueuse/core";
 import { menu } from "~/assets/data/menu";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
+
+// слушаем всю шапку, а не только выпадашку: клик по бургеру должен
+// оставаться «своим», иначе он закроет меню и тут же откроет обратно
+const headerRef = useTemplateRef<HTMLElement>("headerEl");
+
+onClickOutside(headerRef, () => {
+	if (!isMenuOpen.value) return;
+
+	isMenuOpen.value = false;
+});
 
 const $style = useCssModule();
 const router = useRouter();

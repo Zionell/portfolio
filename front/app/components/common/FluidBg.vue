@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { Color, Mesh, Program, Renderer, RenderTarget, Triangle } from "ogl";
-import {
-	onMounted,
-	onUnmounted,
-	useTemplateRef,
-	type CSSProperties,
-} from "vue";
+import { onMounted, onUnmounted, useTemplateRef } from "vue";
 
 interface StrandsProps {
 	colors?: string[];
@@ -238,7 +233,25 @@ const initStrands = () => {
 	const ctn = containerRef.value;
 	if (!ctn) return;
 
+	// Create the context ourselves: shaders require WebGL2, and failIfMajorPerformanceCaveat
+	// rejects software rendering when hardware acceleration is off. ogl's own getContext call
+	// then returns this same context instead of throwing on null.
+	const canvas = document.createElement("canvas");
+	let context: WebGL2RenderingContext | null = null;
+	try {
+		context = canvas.getContext("webgl2", {
+			alpha: true,
+			premultipliedAlpha: true,
+			antialias: true,
+			failIfMajorPerformanceCaveat: true,
+		});
+	} catch {
+		context = null;
+	}
+	if (!context) return;
+
 	renderer = new Renderer({
+		canvas,
 		alpha: true,
 		premultipliedAlpha: true,
 		antialias: true,
