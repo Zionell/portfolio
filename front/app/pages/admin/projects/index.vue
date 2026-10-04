@@ -7,6 +7,7 @@ definePageMeta({
 });
 
 const { data, refresh } = await useFetch<IProject[]>(api.admin.projects);
+const { notifyError } = useAdminToast();
 
 const handleDelete = async (id: string) => {
 	try {
@@ -16,7 +17,7 @@ const handleDelete = async (id: string) => {
 
 		await refresh();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось удалить проект");
 	}
 };
 
@@ -36,38 +37,61 @@ const handleAddNew = () => {
 		</AdminHeader>
 
 		<div :class="$style.list" v-if="data?.length">
-			<PrimeCard
-				v-for="project in data"
-				:key="project.id"
-				:class="$style.card"
-			>
-				<template #header>
-					<NuxtImg
-						:class="$style.image"
-						:alt="project.name"
-						:src="project.image || '/images/default.png'"
-					/>
-				</template>
-
-				<template #title>{{ project.name }}</template>
-
-				<template #footer>
-					<div :class="$style.actions">
-						<PrimeButton
-							label="Delete"
-							severity="secondary"
-							variant="outlined"
-							class="w-full"
-							@click="handleDelete(project.id)"
-						/>
-						<PrimeButton
-							label="Edit"
-							@click="handleRedirect(project.id)"
-						/>
-					</div>
-				</template>
-			</PrimeCard>
+			<PrimeDataTable :value="data" tableStyle="min-width: 50rem">
+				<PrimeColumn header="Name">
+					<template #body="{ data }">
+						<div :class="$style.tableColumn">
+							<img
+								:alt="data.name"
+								:src="data.image || '/images/default.png'"
+								:class="$style.tableImg"
+							/>
+							<div :class="$style.tableTitle">
+								{{ data.name }}
+							</div>
+						</div>
+					</template>
+				</PrimeColumn>
+				<PrimeColumn header="Status">
+					<template #body="{ data }">
+						<div :class="$style.tableColumn">
+							<PrimeTag
+								v-if="data.mainPage"
+								severity="success"
+								value="Main page"
+							/>
+							<PrimeTag
+								v-if="data.isDeveloping"
+								severity="warn"
+								value="Developing"
+							/>
+							<PrimeTag
+								v-if="data.isArchived"
+								severity="secondary"
+								value="Archived"
+							/>
+						</div>
+					</template>
+				</PrimeColumn>
+				<PrimeColumn header="Actions">
+					<template #body="{ data }">
+						<div :class="$style.actions">
+							<PrimeButton
+								label="Edit"
+								@click="handleRedirect(data.id)"
+							/>
+							<PrimeButton
+								label="Delete"
+								severity="secondary"
+								variant="outlined"
+								@click="handleDelete(data.id)"
+							/>
+						</div>
+					</template>
+				</PrimeColumn>
+			</PrimeDataTable>
 		</div>
+		<div v-else :class="$style.empty">Is Empty</div>
 	</section>
 </template>
 
@@ -81,24 +105,40 @@ const handleAddNew = () => {
 
 .list {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 2rem;
+	gap: 1.2rem;
 	padding: 2rem 0;
 }
 
-.card {
-	justify-content: space-between;
+.tableColumn {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
 }
 
-.image {
-	width: 100%;
-	height: 20rem;
+.tableImg {
+	overflow: hidden;
+	border-radius: 1rem;
+	width: 10rem;
+	height: 6rem;
 	object-fit: cover;
 }
 
+.tableTitle {
+	font-size: 1.6rem;
+	font-weight: 600;
+}
+
 .actions {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	display: flex;
 	gap: 1rem;
+	align-items: center;
+}
+
+.empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20vh;
 }
 </style>

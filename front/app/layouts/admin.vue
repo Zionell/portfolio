@@ -1,10 +1,39 @@
 <script setup lang="ts">
+useHead({
+	meta: [
+		{ charset: "utf-8" },
+		{
+			name: "viewport",
+			content: "width=device-width, initial-scale=1, user-scalable=no",
+		},
+		{ name: "robots", content: "noindex, nofollow" },
+	],
+});
+
 const route = useRoute();
+const { user, clear } = useUserSession();
+const { notifyError } = useAdminToast();
+
+const isLoggingOut = ref(false);
+
+const handleLogout = async () => {
+	isLoggingOut.value = true;
+
+	try {
+		await clear();
+		await navigateTo("/login");
+	} catch (error) {
+		notifyError(error, "Не удалось выйти");
+	} finally {
+		isLoggingOut.value = false;
+	}
+};
 
 const menu = [
 	{ label: "Home page", to: "/admin" },
 	{ label: "Projects", to: "/admin/projects" },
 	{ label: "Blog", to: "/admin/blog" },
+	{ label: "Analytics", to: "/admin/analytics" },
 	{ label: "Settings", to: "/admin/settings" },
 ];
 </script>
@@ -29,7 +58,21 @@ const menu = [
 					{{ item.label }}
 				</NuxtLink>
 			</nav>
+
+			<div :class="$style.account">
+				<p v-if="user" :class="$style.email">{{ user.email }}</p>
+				<PrimeButton
+					label="Выйти"
+					severity="secondary"
+					variant="outlined"
+					size="small"
+					:loading="isLoggingOut"
+					@click="handleLogout"
+				/>
+			</div>
 		</aside>
+		<PrimeToast position="top-right" />
+
 		<main :class="$style.main">
 			<slot />
 		</main>
@@ -89,6 +132,20 @@ const menu = [
 	&._active {
 		color: $white;
 	}
+}
+
+.account {
+	display: grid;
+	gap: 1.2rem;
+	justify-items: start;
+	padding-top: 2.4rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.email {
+	font-size: 1.1rem;
+	color: $gray4;
+	word-break: break-all;
 }
 
 .main {

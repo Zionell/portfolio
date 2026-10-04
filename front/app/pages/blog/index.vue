@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { api } from "~/assets/data/api";
-import type { Posts } from "~~/generated/prisma/client";
+import type { IPostWithProject } from "#shared/types/blog.types";
 import type { IPaginatedData } from "#shared/types/common.types";
 
 const activeType = ref<string | null>(null);
 const pageSize = 9;
 const page = ref(1);
 
-const { data: posts, status } = await useFetch<IPaginatedData<Posts>>(
-	api.blog,
-	{
-		query: {
-			type: activeType,
-			limit: pageSize,
-			page: page,
-		},
+const { data: posts, status } = await useFetch<
+	IPaginatedData<IPostWithProject>
+>(api.blog, {
+	query: {
+		type: activeType,
+		limit: pageSize,
+		page: page,
 	},
-);
+});
 
 watch(activeType, () => {
 	page.value = 1;

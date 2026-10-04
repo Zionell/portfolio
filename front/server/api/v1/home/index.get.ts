@@ -35,7 +35,9 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 				orderBy: { order: "asc" },
 			}),
 			prisma.project.findMany({
+				where: { mainPage: true },
 				orderBy: { order: "asc" },
+				take: 3,
 				include: {
 					stack: {
 						select: {
@@ -45,15 +47,21 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 				},
 			}),
 			prisma.posts.findMany({
-				orderBy: { updatedAt: "asc" },
+				orderBy: PUBLIC_POSTS_ORDER,
 				where: {
 					lang: curLang,
 					isPublished: true,
 					mainPage: true,
 				},
+				include: { project: { select: PUBLIC_POST_PROJECT_SELECT } },
 				take: 3,
 			}),
 		]);
+
+	const prepareProjects = projects.map((project) => ({
+		...project,
+		hasDetail: project.showDetail,
+	}));
 
 	const prepareExp = experience?.map((exp) => {
 		return {
@@ -74,10 +82,17 @@ export default defineEventHandler(async (event): Promise<IHomeData> => {
 
 	return {
 		hero: hero || null,
+		availability:
+			hero?.availabilityStatus || hero?.availabilityFacts.length
+				? {
+						status: hero.availabilityStatus,
+						facts: hero.availabilityFacts,
+					}
+				: null,
 		about: about || null,
 		experience: prepareExp.length ? prepareExp : [],
 		skills: skills.length ? skills : [],
-		projects: projects.length ? projects : [],
+		projects: prepareProjects,
 		blog: posts.length ? posts : [],
 	};
 });

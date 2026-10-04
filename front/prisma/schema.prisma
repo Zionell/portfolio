@@ -8,12 +8,22 @@ datasource db {
 }
 
 model PostSkeleton {
-  id        String  @id @default(cuid())
-  repo_name String
-  title     String
-  body      String
-  commits   String
-  isUsed    Boolean @default(false)
+  id     String  @id @default(cuid())
+  title  String
+  // для темы — excerpt будущего поста, для PR — описание PR
+  body   String
+  lang   String  @default("ru")
+  isUsed Boolean @default(false)
+
+  // скелетон из PR: репозиторий, коммиты и проект, о котором пост
+  repo_name String?
+  commits   String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectId String?
+
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
 }
 
 model Posts {
@@ -30,9 +40,15 @@ model Posts {
   lang        String        @default("en")
   type        String
   views       Int           @default(0)
+  viewDays    PostViewDay[]
+
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([projectId])
 }
 
 model PostContent {
@@ -59,21 +75,24 @@ model Project {
   description_ru String?
   description_en String?
   order          Int?
+  mainPage       Boolean  @default(false)
   isDeveloping   Boolean  @default(false)
   isArchived     Boolean  @default(false)
+  showDetail     Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   eyebrow_en String?
   eyebrow_ru String?
-  facts_en   String[]
-  facts_ru   String[]
 
   blocks ProjectBlock[]
   images ProjectImage[]
   links  ProjectLink[]
 
   stack HomeSkill[] @relation("ProjectStack")
+
+  posts     Posts[]
+  skeletons PostSkeleton[]
 }
 
 model ProjectBlock {
@@ -132,17 +151,9 @@ model HomeHero {
   subtitle String
   lang     String @unique @default("en")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+  availabilityStatus String   @default("")
+  availabilityFacts  String[]
 
-model HomeAvailability {
-  id        String   @id @default(cuid())
-  lang      String   @unique @default("en")
-  isVisible Boolean  @default(true)
-  isOpen    Boolean  @default(true)
-  status    String   @default("")
-  facts     String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -251,4 +262,36 @@ model SettingsScripts {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Заходы на сайт за день (по Москве). Повтор с тех же IP и user agent
+// в пределах окна не считается; сами IP и user agent не хранятся
+model SiteVisitDay {
+  date  DateTime @id @db.Date
+  count Int      @default(0)
+  // загрузки страниц ботами: куки они не хранят, поэтому без окна
+  bots  Int      @default(0)
+}
+
+// Заходы в статью за день, правило окна то же
+model PostViewDay {
+  date  DateTime @db.Date
+  count Int      @default(0)
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  @@id([postId, date])
+  @@index([date])
+}
+
+// Сбой генерации автопоста (крон или ручной запуск из админки)
+model PostGenerationError {
+  id      String @id @default(cuid())
+  source  String
+  message String
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }

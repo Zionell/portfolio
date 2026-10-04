@@ -19,10 +19,25 @@ const seo = ref<TSettingResponse | null>(null);
 
 const { data } = await useFetch<ISettings>(api.settings);
 
-if (data.value?.seo?.content?.length) {
+const seoContent = data.value?.seo?.content?.[0];
+
+// без JS Метрика считает заход пикселем; сам счётчик грузит плагин.
+// В dev, как и плагин, не подключаем
+const metrikaId = Number(useRuntimeConfig().public.yandexMetrikaId);
+const metrikaNoScript =
+	metrikaId && !import.meta.dev
+		? [
+				{
+					innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute;left:-9999px" alt="" /></div>`,
+					tagPosition: "bodyClose" as const,
+				},
+			]
+		: [];
+
+if (data.value?.seo && seoContent) {
 	seo.value = {
 		...data.value.seo,
-		...data.value.seo.content[0],
+		...seoContent,
 	};
 }
 
@@ -43,10 +58,10 @@ useHead({
 	],
 	link: [
 		// Favicons
-		...(Array.isArray(faviconsLinks) ? faviconsLinks : []),
+		...faviconsLinks,
 	],
 	script: data.value?.scripts || [],
-	noscript: data.value?.noScripts || [],
+	noscript: [...(data.value?.noScripts || []), ...metrikaNoScript],
 });
 
 useSeoMeta({

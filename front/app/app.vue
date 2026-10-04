@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import ThePreloader from "~/components/common/ThePreloader.vue";
+
+const layout = useLayout();
 </script>
 
 <template>
-	<ThePreloader />
+	<ThePreloader v-if="layout === 'default'" />
 
 	<NuxtLayout>
 		<NuxtPage />

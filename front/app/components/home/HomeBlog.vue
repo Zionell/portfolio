@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Posts } from "~~/generated/prisma/client";
+import type { IPostWithProject } from "#shared/types/blog.types";
 
 const props = defineProps<{
-	content: Posts[];
+	content: IPostWithProject[];
 }>();
 </script>
 

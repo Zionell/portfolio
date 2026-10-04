@@ -18,6 +18,7 @@ const isLoading = ref<boolean>(false);
 const isUploading = ref(false);
 const uploadError = ref("");
 const { uploadFile } = useAdminUpload();
+const { notifySaved, notifyError, messageOf } = useAdminToast();
 
 locales.value.forEach((l) => {
 	text.value.push({
@@ -53,8 +54,10 @@ const handleSave = async () => {
 				text: sanitizedText,
 			},
 		});
+
+		notifySaved();
 	} catch (error) {
-		console.error(error);
+		notifyError(error, "Не удалось сохранить блок About");
 	} finally {
 		isLoading.value = false;
 	}
@@ -68,9 +71,12 @@ const onAboutImageChange = async (event: any) => {
 	uploadError.value = "";
 
 	try {
-		imageSrc.value = await uploadFile(file, "about");
+		imageSrc.value = await uploadFile(file);
 	} catch (error) {
-		uploadError.value = "Не удалось загрузить изображение.";
+		// здесь под ошибку есть место прямо под полем — тост не нужен,
+		// но причину сервер называет ту же самую
+		console.error("onAboutImageChange", error);
+		uploadError.value = messageOf(error, "Не удалось загрузить изображение.");
 	} finally {
 		isUploading.value = false;
 	}
@@ -105,14 +111,14 @@ const onAboutImageChange = async (event: any) => {
 			</div>
 		</PrimePanel>
 		<PrimePanel
-			v-for="(text, ind) in text"
+			v-for="(item, ind) in text"
 			:key="`Paragraph_${ind}`"
-			:header="`Paragraph ${text.lang}`"
+			:header="`Paragraph ${item.lang}`"
 			toggleable
 		>
 			<div :class="$style.form">
 				<PrimeEditor
-					v-model="text.text"
+					v-model="item.text"
 					:class="$style.editor"
 					editorStyle="height: 460px"
 				/>

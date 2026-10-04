@@ -1,11 +1,14 @@
+import { api } from "~/assets/data/api.ts";
+
 export const useAdminUpload = () => {
-	const uploadFile = async (file: File, section: string): Promise<string> => {
-		const formData = new FormData();
-		formData.append("file", file);
-		formData.append("section", section);
-		const response = await $fetch<{ url: string }>("/api/v1/upload", {
+	const { files, handleFileInput } = useFileStorage();
+
+	const uploadFile = async (file: File): Promise<string> => {
+		await handleFileInput({ target: { files: [file] } });
+
+		const response = await $fetch<{ url: string }>(api.admin.upload, {
 			method: "POST",
-			body: formData,
+			body: { file: files.value[0] },
 		});
 		return response.url;
 	};

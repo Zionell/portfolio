@@ -2,6 +2,11 @@ export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
 
 	if (body?.id) {
+		const current = await prisma.settingsSeo.findUnique({
+			where: { id: body.id },
+			select: { image: true },
+		});
+
 		for (const item of body.content) {
 			const formatItem = {
 				lang: item.lang,
@@ -27,6 +32,8 @@ export default defineEventHandler(async (event) => {
 				image: body.image,
 			},
 		});
+
+		await deleteReplacedUploads([current?.image], [body.image]);
 	} else {
 		await prisma.settingsSeo.create({
 			data: {

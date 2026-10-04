@@ -11,6 +11,8 @@ const emit = defineEmits<{
 	update: [];
 }>();
 
+const { notifySaved, notifyError } = useAdminToast();
+
 const isOpened = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
 const formData = reactive<Partial<HomeSkill>>({
@@ -27,11 +29,18 @@ const handleSave = async () => {
 			method: "POST",
 			body: formData,
 		});
-	} catch (error) {
-		console.error("handleSave", error);
-	} finally {
+
+		notifySaved("Навык добавлен");
+
+		// закрываем и обновляем список только когда сохранение прошло:
+		// иначе форма схлопывалась вместе с введённым, а тост сообщал
+		// об ошибке уже поверх пустого экрана
 		isOpened.value = false;
 		emit("update");
+	} catch (error) {
+		notifyError(error, "Не удалось добавить навык");
+	} finally {
+		isLoading.value = false;
 	}
 };
 
@@ -42,7 +51,7 @@ const onSkillIconChange = async (event: any) => {
 
 		formData.icon = await file.text();
 	} catch (error) {
-		console.error("onSkillIconChange", error);
+		notifyError(error, "Не удалось прочитать файл иконки");
 	}
 };
 </script>

@@ -4,6 +4,7 @@ export const api = {
 	contactsForm: "/api/v1/contacts/form",
 	home: "/api/v1/home",
 	blog: "/api/v1/blog",
+	projects: "/api/v1/projects",
 	blogSpecs: "/api/v1/blog/specs",
 	admin: {
 		hero: "/api/v1/admin/hero",
@@ -12,7 +13,13 @@ export const api = {
 		projects: "/api/v1/admin/projects",
 		skills: "/api/v1/admin/skills",
 		blog: "/api/v1/admin/blog",
+		blogDraft: "/api/v1/admin/blog/generate-draft",
 		skeleton: "/api/v1/admin/skeleton",
+		upload: "/api/v1/upload",
+		analytics: {
+			overview: "/api/v1/admin/analytics",
+			errors: "/api/v1/admin/analytics/errors",
+		},
 		settings: {
 			contacts: "/api/v1/admin/settings/contacts",
 			seo: "/api/v1/admin/settings/seo",

@@ -29,6 +29,9 @@ export default defineEventHandler(async (event) => {
 			where: {
 				id: body.id,
 			},
+			include: {
+				content: { select: { image: true } },
+			},
 		}),
 		prisma.posts.findUnique({
 			where: {
@@ -50,6 +53,9 @@ export default defineEventHandler(async (event) => {
 			statusMessage: "Post with this slug already exists",
 		});
 	}
+
+	// проверяем до транзакции: несуществующий проект — 400, а не 500
+	const projectId = await resolveProjectId(body.projectId);
 
 	// Дата это дата публикации: проставляем в момент первой публикации
 	const isFirstPublish = Boolean(body.isPublished) && !current.isPublished;
@@ -77,12 +83,21 @@ export default defineEventHandler(async (event) => {
 				mainPage: body.mainPage || false,
 				isPublished: body.isPublished || false,
 				type: body.type,
+				projectId,
 				content: {
 					create: normalizePostContent(body.content),
 				},
 			},
 		}),
 	]);
+
+	await deleteReplacedUploads(
+		[current.cover, ...current.content.map((block) => block.image)],
+		[
+			post.cover,
+			...(body.content || []).map((block) => block.image?.trim()),
+		],
+	);
 
 	return post;
 });

@@ -9,6 +9,7 @@ export default defineEventHandler(async (event): Promise<Posts> => {
 		},
 		include: {
 			content: true,
+			project: { select: PUBLIC_POST_PROJECT_SELECT },
 		},
 	});
 

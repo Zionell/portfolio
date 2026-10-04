@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Posts } from "~~/generated/prisma/client";
+import type { IPostWithProject } from "#shared/types/blog.types";
 
 const props = defineProps<{
-	post: Posts;
+	post: IPostWithProject;
 }>();
 
 const { locale } = useI18n();
@@ -26,6 +26,16 @@ const formattedDate = computed(() => {
 	<div :class="$style.BlogMetaInfo">
 		<span v-if="post.type" :class="$style.tag">
 			{{ post.type }}
+		</span>
+		<NuxtLink
+			v-if="post.project?.showDetail"
+			:to="`/projects/${post.project.slug}`"
+			:class="[$style.tag, $style.projectTag]"
+		>
+			{{ post.project.name }}
+		</NuxtLink>
+		<span v-else-if="post.project" :class="$style.tag">
+			{{ post.project.name }}
 		</span>
 
 		<span v-if="post.type" :class="$style.dot" />
@@ -62,6 +72,17 @@ const formattedDate = computed(() => {
 	border-radius: 0.8rem;
 	padding: 0.4rem 1.2rem;
 	color: $gray5;
+}
+
+.projectTag {
+	transition:
+		color 0.2s,
+		border-color 0.2s;
+
+	&:hover {
+		border-color: $gray5;
+		color: $gray6;
+	}
 }
 
 .dot {

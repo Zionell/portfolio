@@ -15,7 +15,7 @@ export const menu: IMenuItem[] = [
 	},
 	{
 		key: "projects",
-		value: "#projects",
+		value: "/projects",
 	},
 	{
 		key: "blog",

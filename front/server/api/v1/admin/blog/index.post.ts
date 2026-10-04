@@ -30,34 +30,45 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	const post = await prisma.posts.create({
-		data: {
-			slug: body.slug,
-			title: body.title,
-			excerpt: body.excerpt || "",
-			date: todayDateString(),
-			readTime: body.readTime || 1,
-			cover: body.cover || "",
-			lang: body.lang || "en",
-			mainPage: body.mainPage || false,
-			isPublished: body.isPublished || false,
-			type: body.type,
-			content: {
-				create: normalizePostContent(body.content),
-			},
-		},
-	});
+	const projectId = await resolveProjectId(body.projectId);
 
-	if (body.skeletonId) {
-		await prisma.postSkeleton.update({
-			where: {
-				id: body.skeletonId,
-			},
+	// пост и отметка скелетона — вместе: иначе при битом skeletonId пост
+	// создавался, а клиент получал 500 и сохранял повторно
+	const post = await prisma.$transaction(async (tx) => {
+		const created = await tx.posts.create({
 			data: {
-				isUsed: true,
+				slug: body.slug,
+				title: body.title,
+				excerpt: body.excerpt || "",
+				date: todayDateString(),
+				readTime: body.readTime || 1,
+				cover: body.cover || "",
+				lang: body.lang || "en",
+				mainPage: body.mainPage || false,
+				isPublished: body.isPublished || false,
+				type: body.type,
+				projectId,
+				content: {
+					create: normalizePostContent(body.content),
+				},
 			},
 		});
-	}
+
+		if (body.skeletonId) {
+			await notFoundIfMissing(
+				tx.postSkeleton.update({
+					where: {
+						id: body.skeletonId,
+					},
+					data: {
+						isUsed: true,
+					},
+				}),
+			);
+		}
+
+		return created;
+	});
 
 	return post;
 });

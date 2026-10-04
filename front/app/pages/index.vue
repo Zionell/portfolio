@@ -7,7 +7,11 @@ const { data } = await useFetch<IHomeData>(api.home);
 
 <template>
 	<main :class="$style.page">
-		<HomeHero v-if="data?.hero" :content="data.hero" />
+		<HomeHero
+			v-if="data?.hero"
+			:content="data.hero"
+			:availability="data.availability"
+		/>
 		<HomeAbout v-if="data?.about" :content="data.about" id="about" />
 		<HomeExperience
 			v-if="data?.experience.length"

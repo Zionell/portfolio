@@ -12,9 +12,19 @@ interface IBody {
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody<IBody>(event);
+	// текст выводится через v-html
+	const texts = (body?.text || []).map((item) => ({
+		...item,
+		text: sanitizePostHtml(item.text),
+	}));
 
 	if (body?.id) {
-		for (const item of body.text) {
+		const current = await prisma.homeAbout.findUnique({
+			where: { id: body.id },
+			select: { image: true },
+		});
+
+		for (const item of texts) {
 			if (item?.id) {
 				await prisma.homeAboutText.update({
 					where: {
@@ -42,13 +52,15 @@ export default defineEventHandler(async (event) => {
 				image: body.image
 			},
 		});
+
+		await deleteReplacedUploads([current?.image], [body.image]);
 	} else {
 		await prisma.homeAbout.create({
 			data: {
 				image: body.image,
 				text: {
 					createMany: {
-						data: body.text,
+						data: texts.map(({ lang, text }) => ({ lang, text })),
 					},
 				},
 			},

@@ -23,7 +23,16 @@
 	},
 	"project": {
 		"developing": "Developing",
-		"archived": "Archived"
+		"archived": "Archived",
+		"details": "View project",
+		"back": "Back to projects",
+		"stack": "Stack",
+		"resources": "Resources",
+		"status": "Status",
+		"screens": "Screens",
+		"pageTitle": "My projects",
+		"pageSubtitle": "Commercial and personal projects — from landing pages to dashboards and internal tools.",
+		"empty": "No projects yet — check back soon."
 	},
 	"blog": {
 		"titleStart": "Posts",

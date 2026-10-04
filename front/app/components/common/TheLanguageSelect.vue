@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onClickOutside } from "@vueuse/core";
-import type { Locale } from "#i18n-kit/types";
 
 const { locale, locales, setLocale } = useI18n();
 
@@ -10,8 +9,8 @@ const toggle = () => {
 	isOpen.value = !isOpen.value;
 };
 
-const handleChange = async (code: Locale) => {
-	await setLocale(code);
+const handleChange = async (code: string) => {
+	await setLocale(code as typeof locale.value);
 	window?.location?.reload();
 };
 

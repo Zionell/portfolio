@@ -1,23 +1,6 @@
-interface faviconItem {
-	rel?: string;
-	href?: string;
-	sizes?: string;
-	type?: string;
-	crossorigin?: string;
-	color?: string;
-}
+import type { Link, Meta } from "unhead/types";
 
-interface metaItem {
-	name?: string;
-	content?: string;
-	charset?: string;
-	[key: `data-${string}`]: string;
-}
-
-type favIcons = faviconItem[];
-type headMetas = metaItem[];
-
-const faviconsLinks: favIcons = [
+const faviconsLinks: Link[] = [
 	{
 		rel: "icon",
 		href: "/favicons/favicon.ico",
@@ -40,7 +23,7 @@ const faviconsLinks: favIcons = [
 	},
 ];
 
-const faviconsMeta: headMetas = [
+const faviconsMeta: Meta[] = [
 	{
 		name: "msapplication-TileColor",
 		content: "#111",
