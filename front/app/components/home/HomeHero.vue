@@ -15,28 +15,20 @@ const availabilityRef = useTemplateRef("availabilityRef");
 
 const animate = () => {
 	$splitText.create(titleRef.value, {
-		type: "chars",
+		type: "lines",
 		onSplit: (self) => {
-			$gsap.from(self.chars, {
-				rotateX: 360,
+			$gsap.from(self.lines, {
+				x: -100,
 				autoAlpha: 0,
-				stagger: {
-					from: "random",
-					amount: 0.5,
-				},
 			});
 		},
 	});
 	$splitText.create(textRef.value, {
-		type: "chars",
+		type: "lines",
 		onSplit: (self) => {
-			$gsap.from(self.chars, {
-				y: 100,
+			$gsap.from(self.lines, {
+				x: -100,
 				autoAlpha: 0,
-				stagger: {
-					from: "random",
-					amount: 0.5,
-				},
 			});
 		},
 	});
@@ -76,7 +68,7 @@ onMounted(() => {
 				:intensity="0.2"
 				:saturation="1.7"
 				:opacity="1"
-				:scale="2"
+				:scale="1.5"
 				:glass="false"
 				:refraction="1"
 				:dispersion="0.85"

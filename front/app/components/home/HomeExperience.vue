@@ -116,9 +116,6 @@ onMounted(() => {
 		);
 	}
 
-	// маятник по разделителю: блик ходит влево-вправо и не вылезает за края.
-	// Сегмент занимает 24% строки, значит правым краем он упрётся в конец
-	// строки, сдвинувшись на (100 - 24) / 24 ≈ 316% собственной ширины
 	&:after {
 		content: "";
 		position: absolute;
@@ -207,7 +204,7 @@ onMounted(() => {
 	li {
 		display: flex;
 		gap: 0.4rem;
-		align-items: center;
+		align-items: baseline;
 
 		&:before {
 			content: "-";
